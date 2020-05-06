@@ -1,0 +1,212 @@
+
+<div class="auth">
+	<header class="auth-links">
+		<div class="login active">Login</div>
+		<div class="register">Register</div>
+	</header>
+	<div class="auth-content">
+		<div id="login">
+			<h2>Login</h2>
+			<form method="post" action="">
+				<div>
+					<label>Email</label>
+					<input type="email" name="email" placeholder="Email" class="input-line">
+				</div>
+				<div>
+					<small><a href="lpwd" class="lpwd">Forgot password?</a></small><label>Password</label>
+					<input type="password" name="password" placeholder="Password" class="input-line">
+				</div>
+				<div id="captcha"></div>
+				<?php echo Validate::csrf(); ?>
+				<input type="hidden" name="type" value="login">
+				<div>
+					<div class="info"></div>
+					<button class="button">Login</button>
+				</div>
+				<div class="opt"><a href="register" class="register">Register</a></div>
+			</form>
+		</div>
+		<div id="register">
+			<h2>Register</h2>
+			<form method="post" action="">
+				<div>
+					<label>Email</label>
+					<input type="email" name="email" placeholder="Email" class="input-line">
+				</div>
+				<div>
+					<label>Password</label>
+					<input type="password" name="password" placeholder="Password" class="input-line">
+				</div>
+				<div id="captcha"></div>
+				<?php echo Validate::csrf(); ?>
+				<input type="hidden" name="type" value="register">
+				<div>
+					<div class="info"></div>
+					<button class="button">Register</button>
+				</div>
+				<div class="opt"><a href="login" class="login">Login</a></div>
+			</form>
+		</div>
+		<div id="lpwd">
+			<h2>Lost password</h2>
+			<form method="post" action="">
+				<div>
+					<label>Email</label>
+					<input type="email" name="email" placeholder="Email" class="input-line">
+				</div>
+				<div id="captcha"></div>
+				<?php echo Validate::csrf(); ?>
+				<input type="hidden" name="type" value="lpwd">
+				<div>
+					<div class="info"></div>
+					<button class="button-block">Reset</button>
+				</div>
+				<div class="opt"><a href="login" class="login">Login</a> | <a href="register" class="register">Register</a></div>
+			</form>
+		</div>
+		<div id="chpwd">
+			<h2>Change password</h2>
+			<div class="days"></div>
+			<form method="post" action="">
+				<div>
+					<label>New password</label>
+					<input type="password" name="verify" placeholder="New password" class="input-line">
+				</div>
+				<div>
+					<label>Verify password</label>
+					<input type="password" name="password" placeholder="Verify password" class="input-line">
+				</div>
+				<div id="captcha"></div>
+				<?php echo Validate::csrf(); ?>
+				<input type="hidden" name="type" value="chpwd">
+				<div>
+					<div class="info"></div>
+					<button class="button-block">Reset</button>
+				</div>
+				<div class="opt">
+					<a href="skip" class="skip">Skip</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<style type="text/css">
+	.auth {
+		display: grid;
+		grid-gap: 1rem;
+	}
+
+	.auth-links {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		background: #f1f9ef;
+	}
+
+	.auth-links div {
+		text-align: center;
+		color: #999;
+		cursor: pointer;
+		-moz-user-select: none;
+	}
+
+	.auth-links .active {
+		border-bottom: 5px solid #4aaf36;
+		color: #000;
+	}
+
+	.auth-links div {
+		padding: 10px;
+		font-size: 1.2rem;
+		font-weight: bold;
+	}
+
+	.auth-content >  div:nth-child(n + 2) {
+		display: none;
+	}
+
+	.auth form div {
+		padding: 10px;
+	}
+
+
+	.auth form h2 {
+		padding: 1rem;
+	}
+
+
+	.auth-content label {
+		display: none;
+		font-size: 12px;
+		font-style: oblique;
+	}
+
+	.input-line, .input-round {
+		display: block;
+		width: 100%;
+		background: transparent;
+		padding: 10px;
+		transition: 2s;
+		font-size: inherit;
+		color: #ecf7ea;
+		margin: 10px 0;
+		border-style: groove;
+		color: inherit;
+	}
+
+	.input-round {
+		border-radius: 1rem;
+	}
+
+	.input-line {
+		border-left: none;
+		border-top: none;
+		border-right: none;
+		border-bottom: 2px groove #ecf7ea;
+	}
+
+	.auth input:hover {
+		border-color: #60f24f;
+	}
+
+	.auth div small {
+		float: right;
+	}
+
+	.auth .button, .button-block {
+		padding: 1rem;
+		background: #2da016;
+		font-weight: bold;
+		color: #fff;
+		border: none;
+		border-radius: 5px;
+	}
+
+	.auth .button-block {
+		width: 100%;
+	}
+
+	.button:hover, .button-block:hover {
+		background: #4aaf36;
+	}
+
+	.auth .opt {
+		display: grid;
+		grid-auto-flow: column;
+		justify-content: space-around;
+		font-weight: bold;
+		border-top: 1px solid #fff;
+		width: 100%;
+		margin: 1rem 0;
+	}
+
+	.auth .captcha {
+		background: #eee;
+		display: inline-block;
+		font-size: 2rem;
+		font-style: oblique;
+		word-spacing: 10px;
+	}
+
+</style>
+<script type="text/javascript" src="<?php echo js, "Validate.js"?>"></script>
+<script type="text/javascript" src="<?php echo js, "app.js"?>"></script>

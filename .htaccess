@@ -1,0 +1,5 @@
+RewriteEngine on
+
+RewriteRule ^/login$ auth/login.php [L]
+RewriteRule ^([a-zA-Z]+)$ $1.php
+RewriteRule ^/request$ auth/request.php
