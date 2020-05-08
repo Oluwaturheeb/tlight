@@ -1,9 +1,9 @@
 <?php 
 require_once "Autoload.php"; 
-require_once "inc/header.php"; 
-
+require_once "inc/header.php";
 ?>
-	<div class="app">
+
+	<div class="container">
 		<header>
 			<h1>Tlight</h1>
 			<div><small>Already made and Swift</small></div>
@@ -19,10 +19,9 @@ require_once "inc/header.php";
 			background: #000;
 			color: #fff;
 			font-size: 1.3rem !important;
-			;
 		}
 
-		.app {
+		.container {
 			display: grid;
 			justify-content: center;
 			text-align: center;

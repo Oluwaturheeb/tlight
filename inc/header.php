@@ -9,24 +9,3 @@
 	<script src="<?php echo js, "Validate.js" ?>"></script>
 </head>
 <body>
-	<nav class="">
-		<div class="logo">
-			<a href="/" class="logo">
-				tlight
-			</a>
-		</div>
-		<div class="links">
-			<a href="#">Home</a>
-			<a href="#">About</a>
-			<a href="#">Contact</a>
-			<div class="dp-menu">
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
-			<div class="dp-link">
-				<a href="#">Login</a>
-				<a href="#">Register</a>
-			</div>
-		</div>
-	</nav>

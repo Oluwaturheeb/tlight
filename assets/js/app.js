@@ -58,10 +58,11 @@ $(document).ready(function () {
 				data: $(this).serialize(),
 				beforeSend: () => {
 					info.html("Connecting to the server...");
-					info.empty();
 				},
 				success: e => {
+					info.empty();
 					if (e == 'ok') {
+						info.html('You are logged!').css({"color": "#36a509"});
 						$(this).children('#captcha').empty();
 						v.redirect();
 					} else {
@@ -87,9 +88,5 @@ $(document).ready(function () {
 		e.preventDefault();
 
 		v.redirect('/index');
-	});
-
-	$('.dp-menu').click(() => {
-	  $('.dp-link').slideToggle(500);
 	});
 });

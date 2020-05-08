@@ -7,7 +7,7 @@ $GLOBALS['config'] = [
     ],
     "db" => [
         "host" => "localhost",
-        "database" => "mobile",
+        "database" => "test",
         "usr" => "root",
         "pwd" => ""
     ],

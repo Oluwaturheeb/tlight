@@ -58,6 +58,10 @@ class Auth extends Validate {
 		$d = $this->_e;
 		$this->_log = $this->result = $d->create()->with("remove", ["type"])->exec(1);
 
+		if (!$this->_log) {
+			$this->adderror("There is an account with that email address!");
+		}
+
 		return $this;
 	}
 	
@@ -65,7 +69,7 @@ class Auth extends Validate {
 		if ($this->error()) {
 			return $this->error();
 		} else {
-			if($this->_log)
+			if($this->_log) 
 			//register
 				if (is_numeric($this->_log)) {
 					Session::set($ses, $this->_log);

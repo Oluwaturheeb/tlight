@@ -213,7 +213,7 @@ class Validate {
 			]);
 
 			// removing csrf key and captcha
-			if($key != "csrf" || $key != "captcha") {
+			if($key != "csrf" && $key != "captcha") {
 				array_push($keys, $key);
 				array_push($val, $value);
 			} 

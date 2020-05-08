@@ -1,13 +1,14 @@
 <?php
 
 class Easy extends Validate {
-	private $_db, $_sql, $_method, $_col = [], $_inp = [];
+	private $_tab, $_db, $_sql, $_method, $_col = [], $_inp = [], $_fcol;
 	
 	public function __construct () {
 		$this->_db = Db::instance();
 	}
 	
 	public function table ($name) {
+		$this->_tab = $name;
 		$this->_db->table($name);
 	}
 
@@ -15,15 +16,18 @@ class Easy extends Validate {
 	all the methods in this class works the request object and all user input is already validated!
 	*/
 
-	public function create ($cols = "") {
+	/*
+
+	this method argument can be with the class "with()" method!
+
+	*/
+
+	public function create () {
 		$d = $this->_db;
 		$forked = $this->val_req();
 
 		if (!$this->error()) {
-			if ($cols)
-				$this->_col = $cols;
-			else
-				list($this->_col, $this->_inp) = $forked;
+			list($this->_col, $this->_inp) = $forked;
 		
 			$this->_db->add($this->_col, $this->_inp);
 			$this->_method = "create";
@@ -58,35 +62,43 @@ class Easy extends Validate {
 
 	*/
 
-	public function fetch ($cols = ["*"], $where = [], $where1 = [], $con = "") {
+	public function fetch ($cols = ["*"], ...$where) {
 		$d = $this->_db;
 		$d->get($cols);
+		$this->_fcol = $cols;
+		$this->_method = "fetch";
 
 		if ($this->req())
 			list($this->_col, $this->_inp) = $this->val_req();
+			//checking to remove more as its reserved for pagination, so that it wont use it for where clause;
+			
 			$key = array_search("more", $this->_col);
 
 			if ($key !== false){
 				array_splice($this->_col, $key);
 				array_splice($this->_inp, $key);
 			}
-
-			if (count($where)) {
-				if($con) {
-					$d->concat($con);
-				}
-
-				$where = $this->filter_array($where);
-				$where1 = $this->filter_array($where1);
-				$d->where($where, $where1);
-			} elseif (count($this->_col)) {
-				if (count($this->req()) == 1) {
-					$d->where([$this->_col[0], $this->_inp[0]]);
-				} else {
-					$d->where([$this->_col[0], $this->_inp[0]], [$this->_col[1], $this->_inp[1]]);
+			
+			// ends here
+			
+			if (!empty($where[0])) {
+				// this over write whats coming in;
+				$this->_col = $where[0];
+				$this->_sql = $where;
+				
+				if(!is_array(end($where)) && !is_numeric($where)) {
+					$d->concat(end($where));
+					array_pop($where);
 				}
 			}
-
+			
+			if (count($this->_col) == 1) {
+				$d->where([$this->_col[0], $this->_inp[0]]);
+			} elseif (count($this->_col) > 1) {
+				$d->where([$this->_col[0], $this->_inp[0]], [$this->_col[1], $this->_inp[1]]);
+			}
+		$this->_fcol = $cols;
+		$this->_method = "fetch";
 		return $this;
 	}
 	
@@ -108,9 +120,11 @@ class Easy extends Validate {
 					$this->_col = $cols;
 
 				$d->set($this->_col, $this->_inp);
-
-				if ($where) {
-					$d->where($where, true);
+				
+				// in case of using the mwthod with in this to remove or append
+				
+				if ($where[0]) {
+					$d->where($where[0], true);
 					$this->_sql = $where;
 				}
 
@@ -154,20 +168,42 @@ class Easy extends Validate {
 				}
 				if (!empty($where))
 					$this->_db->where($where, true);
-			break;
+				break;
+			case "change":
+				$this->_col = $var[0];
+				break;
 		}
-
+		
+		# resetting the db class here!
+		
+		$db = new Db();
+		$db->table($this->_tab);
+		
 		switch ($this->_method) {
 			case 'create':
-				$this->_db->add($this->_col, $this->_inp);
-			break;
+				$db->add($this->_col, $this->_inp);
+				break;
 			case "update":
-				$this->_db->set($this->_col, $this->_inp);
+				$db->set($this->_col, $this->_inp);
 
 				if ($this->_sql) {
-					$this->_db->where($this->_sql, true);
+					$db->where($this->_sql, true);
 				}
-			break;
+				break;
+			case 'fetch': 
+				if ($this->_sql)
+					if(!is_array(end($this->_sql)) && !is_numeric($this->_sql)) {
+						$c = $db->concat(end($this->_sql));
+					}
+					
+				$db->get($this->_fcol);
+				
+				if (count($this->_col) == 1) {
+					$db->where([$this->_col[0], $this->_inp[0]]);
+				} elseif (count($this->_col) > 1) {
+					$db->where([$this->_col[0], $this->_inp[0]], [$this->_col[1], $this->_inp[1]]);
+				}
+				break;
 		}
 		return $this;
 	}

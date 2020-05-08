@@ -1,5 +1,6 @@
-RewriteEngine on
+RewriteEngine On
 
-RewriteRule ^/login$ auth/login.php [L]
-RewriteRule ^([a-zA-Z]+)$ $1.php
-RewriteRule ^/request$ auth/request.php
+#RewriteRule ^/login$ auth/login.php [L]
+RewriteRule ^([a-zA-Z_]+)$ $1.php
+RewriteRule ^([a-zA-Z_]+)/([a-zA-Z0-9_\?\-]+)$ $1.php?uri=$2
+#RewriteRule ^/request$ auth/request.php
