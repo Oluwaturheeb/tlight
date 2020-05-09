@@ -1,4 +1,4 @@
-<nav class="">
+	<nav class="">
 		<div class="logo">
 			<div class="dp-menu">
 				<span></span>
@@ -61,7 +61,7 @@
 			padding: 5px;
 			display: inline-block;
 			cursor: pointer;
-			left: 16rem;
+			left: 12rem;
 			bottom: 3rem;
 			border-radius: 100%;
 			opacity: .7;
@@ -70,7 +70,8 @@
 			transition-duration: 1s;
 		}
 
-		.logo .dp-menu:hover, .logo .dp-menu:focus {
+		.logo .dp-menu:hover,
+		.logo .dp-menu:focus {
 			opacity: 1
 		}
 
@@ -115,14 +116,17 @@
 			grid-gap: 1rem;
 		}
 
-		nav .links a, nav .logo .dp-link a {
+		nav .links a,
+		nav .logo .dp-link a {
 			color: var(--sec);
 			display: block;
 			padding: 1rem
 		}
 
-		.links a:hover, .links a:focus,
-		.dp-link a:hover, .dp-link a:focus {
+		.links a:hover,
+		.links a:focus,
+		.dp-link a:hover,
+		.dp-link a:focus {
 			border-bottom: 2px solid var(--sec);
 			margin-bottom: -2px;
 			font-weight: bold;
@@ -139,6 +143,23 @@
 			top: 0;
 			cursor: pointer;
 		}
+
+		.dp-link a:hover,
+		.dp-link a:focus {
+			background: var(--sec);
+			color: var(--pry) !important;
+		}
+
+		.links a:nth-last-of-type(n + 2) {
+			display: none;
+		}
+
+		@media (min-width: 576px) {
+			.links a {
+				display: block !important;
+			}
+		}
+
 	</style>
 	<script type="text/javascript">
 		$('.search, span.close').click(function(e) {
@@ -148,15 +169,24 @@
 		});
 
 		$('.dp-menu').click(() => {
-		    
-		    if ($('.dp-menu').hasClass('active')) {
-		        $('.dp-link').css({'margin-left': '-50rem'})
-		        $('.dp-menu').removeClass('active');
-		        $('.container').css({'margin-left': 0});
-		    } else {
-		        $('.dp-link').css({'margin-left': 0})
-		        $('.dp-menu').addClass('active')
-		        $('.container').css({'margin-left': '11rem'});
-		    }
+
+			if ($('.dp-menu').hasClass('active')) {
+				$('.dp-link').css({
+					'margin-left': '-50rem'
+				})
+				$('.dp-menu').removeClass('active');
+				$('.container').css({
+					'margin-left': 0
+				});
+			} else {
+				$('.dp-link').css({
+					'margin-left': 0
+				})
+				$('.dp-menu').addClass('active')
+				$('.container').css({
+					'margin-left': '11rem'
+				});
+			}
 		});
+
 	</script>

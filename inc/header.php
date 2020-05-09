@@ -9,3 +9,4 @@
 	<script src="<?php echo js, "Validate.js" ?>"></script>
 </head>
 <body>
+	<?php require_once "headers/header7.php";

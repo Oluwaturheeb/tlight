@@ -14,23 +14,11 @@
 				<a href="#">Home</a>
 				<a href="#">About</a>
 				<a href="#">Contact</a>
-				<a href="#" class="search">Search</a>
 			</div>
 			<div class="dp-link">
 				<a href="#">Login</a>
 				<a href="#">Register</a>
 			</div>
-		</div>
-		<div id="search">
-			<form method="post">
-				<div class="input-group">
-					<span>
-						<input type="search" name="keyword" class="form-control">
-						<button>Search</button>
-					</span>
-				</div>
-			</form>
-			<span class="close">&times;</span>
 		</div>
 	</nav>
 	<style type="text/css">
@@ -88,41 +76,18 @@
 
 		.links a:hover,
 		.links a:focus {
-			margin-bottom: -1px;
+			display: none !important;
 			border-bottom: 1px solid var(--sec);
 		}
 
-		#search {
-			display: none;
-		}
-
-		#search span.close {
-			padding: 5px;
-			position: absolute;
-			right: 0;
-			top: 0;
-			cursor: pointer;
-		}
 
 		@media (min-width: 576px) {
-			nav {
-				justify-content: stretch;
-			}
-
-			.logo {}
-
 			.dp-menu {
-				grid-column: 3;
-				justify-self: end;
+				grid-column: 3/3;
+				justify-self: start;
 			}
 
-			.dp-link {
-				display: none;
-			}
-
-			.links,
-			#search {
-				justify-self: end;
+			.links {
 				position: static !important;
 			}
 
@@ -137,23 +102,18 @@
 				top: 5.6rem;
 				background: var(--pry);
 				width: 150px;
+				display: none;
 			}
 		}
 
 	</style>
 	<script type="text/javascript">
 		$('.dp-menu').click(() => {
-			if ($(window).innerWidth() < 576) {
-				$('.links').slideToggle(500);
+			if ($(window).innerWidth() >= 576) {
+				$('.dp-link').slideToggle(500);
 			} else {
-				$('.dp-link').toggle();
+				$('.links').slideToggle(500);
 			}
-		});
-
-		$('.search, span.close').click(function(e) {
-			e.preventDefault();
-
-			$('#search, .dp-menu, .links').toggle();
 		});
 
 	</script>

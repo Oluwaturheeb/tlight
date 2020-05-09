@@ -22,7 +22,7 @@ $(document).ready(function () {
 	});
 
 	$.ajaxSetup({
-		url: 'auth/request.php',
+		url: 'auth',
 		type: 'post',
 	});
 

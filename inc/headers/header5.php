@@ -1,4 +1,4 @@
-<nav class="">
+	<nav class="">
 		<div class="logo">
 			<div class="dp-menu">
 				<span></span>
@@ -32,8 +32,7 @@
 		</div>
 	</nav>
 	<style type="text/css">
-		
-		.app {
+		.container {
 			padding-top: 3rem;
 		}
 
@@ -87,7 +86,7 @@
 		.logo .dp-link a {
 			display: block;
 			padding: 1rem;
-			border-bottom: 2px solid var(--sec);
+			border-bottom: 1px solid var(--sec);
 		}
 
 		nav .logo a[href='/'] {
@@ -102,22 +101,32 @@
 			grid-gap: 1rem;
 		}
 
-		nav .links a, nav .logo .dp-link a {
+		nav .links a,
+		nav .logo .dp-link a {
 			color: var(--sec);
 			display: block;
 			padding: 1rem
 		}
 
-		.links a:hover, .links a:focus,
-		.dp-link a:hover, .dp-link a:focus {
+		.links a:hover,
+		.links a:focus {
 			border-bottom: 2px solid var(--sec);
 			margin-bottom: -2px;
-			font-weight: bold;
+		}
+
+		.dp-link a:hover,
+		.dp-link a:focus {
+			background: var(--sec);
+			color: var(--pry) !important;
+		}
+
+		.links a:nth-last-of-type(n + 2) {
+			display: none;
 		}
 
 		#search {
 			display: none;
-			
+
 		}
 
 		#search span.close {
@@ -127,6 +136,13 @@
 			top: 0;
 			cursor: pointer;
 		}
+
+		@media (min-width: 576px) {
+			.links a {
+				display: block !important;
+			}
+		}
+
 	</style>
 	<script type="text/javascript">
 		$('.search, span.close').click(function(e) {
@@ -136,6 +152,7 @@
 		});
 
 		$('.dp-menu').click(() => {
-		  $('.dp-link').slideToggle(500);
+			$('.dp-link').slideToggle(500);
 		});
+
 	</script>
