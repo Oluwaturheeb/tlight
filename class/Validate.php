@@ -1,11 +1,7 @@
 <?php
 
 class Validate {
-	private $_pass = false, $_errors = array(), $_db;
-	
-	public function __construct(){
-		$this->_db = Db::instance();
-	}
+	protected $_pass = false, $_errors = array(), $_db;
 	
 	public function validator($src, $fields = array()){
 		foreach($fields as $field => $options){
@@ -25,11 +21,11 @@ class Validate {
 				}else{
 					switch($rule){
 						case 'csrf':
-							$this->validate_csrf($input);
+							self::validate_csrf($input);
 							break;
 						case 'captcha':
 							if($input !== Session::get("cap")) {
-								$this->addError("Captcha Error!");
+								self::addError("Captcha Error!");
 							} else {
 								Session::del("count");
 								Session::del("cap");
@@ -61,7 +57,8 @@ class Validate {
 							}
 							break;
 						case "unique":
-							$this->_db->colSelect($value, array($field_name), array(
+							/*$d = Db::instance();
+							$d->get()($value, array($field_name), array(
 								array($field_name, "=", $input)
 							));
 							if($this->_db->error()){
@@ -70,7 +67,7 @@ class Validate {
 								if($this->_db->count() != 0){
 									$this->addError($field_name . " exists, try another!");
 								}
-							}
+							}*/
 							break;
 						case "wordcount":
 							$cal = $value - str_word_count($input);
@@ -90,6 +87,62 @@ class Validate {
 		if(empty($this->_errors)){
 			$this->_pass = true;
 		}
+	}
+
+	/* http request handler */
+	
+	public function req () {
+		if (!empty($_POST)) {
+			$req = $_POST;
+		} elseif (!empty($_GET)) {
+			$req = $_GET;
+		} else {
+			return false;
+		}
+
+		return $req;
+	}
+	
+	/* validating http request */
+
+	public function val_req (...$rules) {
+		if (!empty($this->req())) {
+			$keys = $val = [];
+			$i = 0;
+			foreach ($this->req() as $key => $value) {
+				if ($key == "csrf") {
+					$rule = ["csrf" => true];
+				} elseif ($key == "captcha") {
+					$rule = ["captcha" => true, "error" => "Captcha error!"];
+				} else {
+					$rule = ["required" => true];
+				}
+
+				if (!empty($rules[$i])) {
+					$rule = $rules[$i];
+				}
+				$this->validator($this->req(), [
+					$key => $rule
+				]);
+				// removing csrf key and captcha
+				if($key != "csrf" && $key != "captcha") {
+					array_push($keys, $key);
+					array_push($val, $value);
+				}
+				$i++;
+			}
+
+			$this->filter_array($keys);
+			$this->filter_array($val);
+			$forked = [$keys, $val];
+			
+			if ($_SERVER["SERVER_NAME"] != Config::get("session/domain")) {
+				$this->addError("Error understanding this URI");
+			}
+
+			return $forked;
+		}
+		return false;
 	}
 	
 	public function uploader($data){
@@ -162,7 +215,7 @@ class Validate {
 		}
 	}
 	
-	public function hash($hash){
+	public static function hash($hash){
 		$hash = str_split($hash, 2);
 		$hash = "$hash[2] $hash[0] $hash[1]";
 		return hash("sha256", $hash);
@@ -181,55 +234,7 @@ class Validate {
 	public function pass(){
 		return $this->_pass;
 	}
-	
-	public function req () {
-		if (!empty($_POST)) {
-			$req = $_POST;
-		} elseif (!empty($_GET)) {
-			$req = $_GET;
-		} else {
-			return false;
-		}
 
-		return $req;
-	}
-	
-	public function val_req () {
-		$keys = $val = [];
-		
-		foreach ($this->req() as $key => $value) {
-
-			if ($key == "csrf") {
-				$rule = ["csrf" => true];
-			} elseif ($key == "captcha") {
-				$rule = ["captcha" => true, "error" => "Captcha error!"];
-			} else {
-				$rule = ["required" => true];
-			}
-
-			$this
-			->validator($this->req(), [
-				$key => $rule
-			]);
-
-			// removing csrf key and captcha
-			if($key != "csrf" && $key != "captcha") {
-				array_push($keys, $key);
-				array_push($val, $value);
-			} 
-		}
-
-		$this->filter_array($keys);
-		$this->filter_array($val);
-		$forked = [$keys, $val];
-		
-		if ($_SERVER["SERVER_NAME"] != Config::get("session/domain")) {
-			$this->addError("Error understanding this URI");
-		}
-
-		return $forked;
-	}
-	
 	public function fetch($data){
 		if(!empty($_POST)){
 			if(is_array($_POST[$data])){
@@ -259,7 +264,7 @@ class Validate {
 		return @htmlentities(trim((@ucfirst($str))), ENT_QUOTES, "utf-8", false);
 	}
 
-	public function csrf($c = true) {
+	public static function csrf($c = true) {
 		if (!Session::check("csrf")) {
 			$ses = Session::set("csrf", substr(self::hash(Utils::gen(true)), 0, 21));
 			if ($c) {
@@ -276,11 +281,11 @@ __here;
 		return $html;
 	}
 
-	public function validate_csrf ($str) {
+	public static function validate_csrf ($str) {
 		if (Session::check("csrf")) {
 			if (Session::check("expires")) {
 				if (time() > Session::get("expires")) {
-					$this->addError("Form has expired, try again!");
+					self::addError("Form has expired, try again!");
 					Session::del("expires");
 				} else {
 					if ($str === Session::get("csrf")) {
@@ -293,11 +298,11 @@ __here;
 				if ($str === Session::get("csrf")) {
 					return true;
 				} else {
-					$this->addError("Request error!");
+					self::addError("Request error!");
 				}
 			}
 		} else {
-			$this->addError("Request denied!");
+			self::addError("Request denied!");
 		}
 	}
 }

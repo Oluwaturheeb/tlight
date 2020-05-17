@@ -137,7 +137,7 @@ class Easy extends Validate {
 	public function with ($type, ...$var) {
 		switch ($type) {
 			case 'pages':
-				$this->_db->sort()->pages($var[0], $var[1]);
+				$this->_db->sort()->pages($var[0], "more");
 				break;
 			case "append":
 				list($col, $val) = $var;

@@ -58,15 +58,15 @@
 		nav .dp-menu span:nth-child(even) {
 			margin: 5px 0px 5px 5px;
 		}
-
+		
 		nav .links {
 			position: absolute;
 			right: 0;
 			top: 5rem;
 			background: var(--pry);
-			width: 150px;
-		}
-
+			width: 150px; 
+			display: none;
+    	}
 
 		nav .links a {
 			display: block;
@@ -80,15 +80,20 @@
 			border-bottom: 1px solid var(--sec);
 		}
 
-
 		@media (min-width: 576px) {
+			nav {
+				grid-template-columns: auto 2fr auto
+			}
 			.dp-menu {
-				grid-column: 3/3;
+				grid-column: 3;
 				justify-self: start;
 			}
 
 			.links {
+				display: grid !important;
 				position: static !important;
+				width: auto !important;
+				justify-self: end !important;
 			}
 
 			.links .menu-link {
@@ -105,7 +110,6 @@
 				display: none;
 			}
 		}
-
 	</style>
 	<script type="text/javascript">
 		$('.dp-menu').click(() => {

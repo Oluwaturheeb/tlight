@@ -32,10 +32,6 @@
 		</div>
 	</nav>
 	<style type="text/css">
-		.container {
-			padding-top: 3rem;
-		}
-
 		nav {
 			background: var(--pry);
 			display: grid;
@@ -92,7 +88,7 @@
 		nav .logo a[href='/'] {
 			color: var(--sec);
 			font-style: italic;
-			font-size: 2.5rem;
+			font-size: 2rem;
 		}
 
 		nav .links {
@@ -105,7 +101,7 @@
 		nav .logo .dp-link a {
 			color: var(--sec);
 			display: block;
-			padding: 1rem
+			padding: 10px;
 		}
 
 		.links a:hover,
@@ -140,6 +136,10 @@
 		@media (min-width: 576px) {
 			.links a {
 				display: block !important;
+			}
+			
+			.logo .dp-link a, .links a {
+				padding: 1rem;
 			}
 		}
 

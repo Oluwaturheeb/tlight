@@ -7,7 +7,7 @@ $GLOBALS['config'] = [
     ],
     "db" => [
         "host" => "localhost",
-        "database" => "test",
+        "database" => "mobile",
         "usr" => "root",
         "pwd" => ""
     ],
@@ -18,5 +18,14 @@ $GLOBALS['config'] = [
     "auth" => [
         "single" => true,
         "login_attempts" => 3
-    ]
+    ],
+    "state" => [
+    	"development" => true
+    ],
+    "blog" => [
+		"personal" => true,
+		"guest_post" => false,
+		"comment" => false,
+		"rating" => false,
+	]
 ];

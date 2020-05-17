@@ -77,6 +77,7 @@
 			top: 5rem;
 			background: var(--pry);
 			width: 150px;
+			display: none;
 		}
 
 

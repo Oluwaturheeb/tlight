@@ -1,4 +1,6 @@
 RewriteEngine On
 
-RewriteRule ^/auth$ auth/request.php [L]
-RewriteRule ^([a-zA-Z_]+)$ $1.php
+RewriteCond %{REQUEST_URI} !pages/
+RewriteRule (.*) /pages/$1
+RewriteRule ^req$ auth/request.php
+RewriteRule ^([a-zA-Z_]+)$ /pages/$1.php?%{QUERY_STRING} [L]

@@ -1,7 +1,7 @@
 <?php
 
 class Db {
-	private $_pdo, $_error = false, $_instance, $_table, $_sql, $_query_value = [], $_con, $_misc,  $_sort, $_result = null, $_count, $_lastid;
+	protected $_pdo, $_error = false, $_instance, $_table, $_sql, $_query_value = [], $_con, $_misc,  $_sort, $_result = null, $_count, $_lastid;
 
 	public $paging = false, $next = 0, $prev;
 
@@ -29,7 +29,7 @@ class Db {
 		$this->_error = false;
 
 		if ($this->_query = $this->_pdo->prepare($sql)) {
-			if (count($clauses)) {
+			if (@count($clauses)) {
 				$i = 1;
 				foreach ($clauses as $clause) {
 					$this->_query->bindValue($i, $clause);
@@ -50,10 +50,12 @@ class Db {
 
 	public function customQuery ($sql, $ops = []) {
 		if (is_array($ops)) {
-			$this->query($sql, $ops);
+			$this->_sql = $sql;
+			$this->_query_value = $ops;
 		} else {
 			$this->_error = "This method expect an array for second parameter";
 		}
+		return $this;
 	}
 
 	public function add ($col, $val) {
@@ -91,7 +93,7 @@ class Db {
 
 	public function match ($arg) {
 		$args = func_get_args();
-		$this->_sql = $this->join($this->_table, $this->_misc, $args, $this->_sort);
+		$this->_sql = $this->join($this->_table, $this->_misc, $args, $this->_sort, $this->_con);
 		$this->_misc = null;
 		return $this;
 	}
@@ -101,13 +103,12 @@ class Db {
 		$col = implode(", ", $cols);
 		
 		for ($i = 0, $j = 1; $i < count($table); $i++, $j++) {
-			if($j <= count($match)) {
+			if($j < count($table)) {
 				if($type) {
 					$join = " {$type[$i]} join ";
 				} else {
-					$join = " join ";
+					$join = " left join ";
 				}
-				
 				$on = $this->predicate($match, $concat)[$i];
 			}
 			$tab = "{$table[$i]}";
@@ -205,7 +206,7 @@ class Db {
 		} else {
 			$args = $id;
 		}
-
+		
 		if($this->_query_value !== true) {
 			// the this is normal query 
 			if (count($args) > 1 && !$this->_con) {
@@ -373,11 +374,11 @@ class Db {
 		$this->query("explain " . $this->_sql, $this->_query_value);
 	}
 
-	// private methods
+	// protected methods
 
 	// this method takes a multi-dimention array as arg.
 
-	private function form ($args) {
+	protected function form ($args) {
 		if (count($args) == 1) {
 			$arg = $args[0];
 
@@ -389,6 +390,7 @@ class Db {
 				} else {
 					$where = $arg;
 					$where[1] = str_ireplace(["&lt;", "&gt;"], ["<", ">"], $where[1]);
+					$where = [$where];
 				}
 			} else {
 				$where = $args;
@@ -410,54 +412,61 @@ class Db {
 				}
 			}
 		}
-		
 		return $where;
 	}
 
-	private function gen ($where = [], $concat = "and") {
-		$op = $value = "";
-		$where = @array_filter($where);
-		for ($i = 0, $j = 1;$i < @count($where); $i++, $j++) {
-			$v1 = $where[$i][0];
-			$v2 = $where[$i][1];
-			$v3 = $where[$i][2];
-
-			if (is_array($v1)) {
-				if (is_array($v2)) {
-					$v2_con = $v2[0];
-					$v2_sign = $v2[1];
+	protected function gen ($where = [], $concat = "and") {
+		if (is_array($where[0])){
+			$op = $value = "";
+			$where = @array_filter($where);
+			for ($i = 0, $j = 1;$i < @count($where); $i++, $j++) {
+				$v1 = $where[$i][0];
+				$v2 = $where[$i][1];
+				$v3 = $where[$i][2];
+	
+				if (is_array($v1)) {
+					if (is_array($v2)) {
+						$v2_con = $v2[0];
+						$v2_sign = $v2[1];
+					} else {
+						$v2_con = "or";
+						$v2_sign = $v2;
+					}
+					$op .= "({$v1[0]} {$v2_sign} ?  {$v2_con} $v1[1] {$v2_sign} ?)";
+					$value .= "{$v3}, {$v3}";
 				} else {
-					$v2_con = "or";
-					$v2_sign = $v2;
+					$op .= "{$v1} {$v2} ?";
+					$value .= "{$v3}";
 				}
-				$op .= "({$v1[0]} {$v2_sign} ?  {$v2_con} $v1[1] {$v2_sign} ?)";
-				$value .= "{$v3}, {$v3}";
-			} else {
-				$op .= "{$v1} {$v2} ?";
-				$value .= "{$v3}";
-			}
-			
-			if($j < count($where)){
-				$value .= ", ";
-				if(is_array($concat)) {
-					$cc = $concat[$i];
-				} else {
-					$cc = $concat;
+				
+				if($j < count($where)){
+					$value .= ", ";
+					if(is_array($concat)) {
+						$cc = $concat[$i];
+					} else {
+						$cc = $concat;
+					}
+	
+				    $op .= " {$cc} ";
 				}
-
-			    $op .= " {$cc} ";
 			}
+	
+			$value = explode(", ", $value);
+			$op = "where {$op}";
+			return [$op, $value];
+		} else {
+			$this->_error = "**Arg Error: This method expects a multi-dimentional array as parameter 1 -> @gen";
+			return false;
 		}
-
-		$value = explode(", ", $value);
-		$op = "where {$op}";
-		return [$op, $value];
 	}
 
 	// this method works for join
 
-	private function predicate ($match, $concat) {
+	protected function predicate ($match, $concat) {
 		$pref = []; $pre = "";
+
+		if (end($match) === true)
+			$end = array_pop($match);
 
 		foreach ($match as $key => $val) {
 			if (is_array($val[0])) {
@@ -478,9 +487,12 @@ class Db {
 						$pre .= " $on {$m[0]} {$m[1]} {$m[2]} ";
 					}
 				}
-				array_push($pref, $pre);
+				$pref[] = $pre;
 			} else {
-				array_push($pref,  " using({$val[0]}) ");
+				if ($end)
+					$pref[] = " on {$val[0]}";
+				else
+					$pref[] = " using({$val[0]}) ";
 			}
 		}
 

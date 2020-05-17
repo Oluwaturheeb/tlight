@@ -234,4 +234,22 @@ __here;
         
         return $age;
     }
+    
+	    public static function copy_r($src,$dst) { 
+	    $dir = opendir($src); 
+	    // suppress error if dst is already created
+	    @mkdir($dst);
+	    
+	    while (false !== ($file = readdir($dir))) {
+	        if (($file != '.') && ($file != '..')) { 
+	            if (is_dir($src . '/' . $file)) {
+	                self::copy_r($src . '/' . $file, $dst . '/' . $file); 
+	            } 
+	            else { 
+	                copy($src . '/' . $file,$dst . '/' . $file); 
+	            } 
+	        } 
+	    } 
+	    closedir($dir); 
+	} 
 }
