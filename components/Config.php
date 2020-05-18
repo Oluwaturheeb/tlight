@@ -17,12 +17,16 @@ $GLOBALS['config'] = [
     ],
     "auth" => [
         "single" => true,
-        "login_attempts" => 3
+        "login_attempts" => 3,
+        "last_pc" => 30
     ],
     "state" => [
     	"development" => true
     ],
-    "file-upload" => [
-        "max-file-upload" => 5
-    ]
+    "blog" => [
+		"personal" => true,
+		"guest_post" => false,
+		"comment" => false,
+		"rating" => false,
+	]
 ];

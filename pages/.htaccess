@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^([a-zA-Z_]+)$	$1.php?%{QUERY_STRING} [L]

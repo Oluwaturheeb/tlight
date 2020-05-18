@@ -206,7 +206,7 @@ class Db {
 		} else {
 			$args = $id;
 		}
-		
+
 		if($this->_query_value !== true) {
 			// the this is normal query 
 			if (count($args) > 1 && !$this->_con) {

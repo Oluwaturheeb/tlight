@@ -42,4 +42,4 @@ class Config {
 	}
 }
 
-require_once "class/setting.php";
+require_once "components/setting.php";
