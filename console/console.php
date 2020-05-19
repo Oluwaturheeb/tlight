@@ -21,10 +21,10 @@ if (count($argv) > 1)
 				}
 				// setting template
 			} elseif ($argv[1] == "template") {
-				$c = Utils::copy_r("class/template/", "./pages");
+				$c = Utils::copy_r("components/template/", "./pages");
 				$res = "**Success: Template created successfully!";
 			}
-			echo $res, "\n\n";
+			echo $res, "\n";
 		} else {
 			// this for initialition, version and help via cli
 			$arg = getopt("ivh");
@@ -34,7 +34,7 @@ if (count($argv) > 1)
 				switch ($key) {
 					case "i":
 						if (!$c->init())
-							$res = "**Error: Are you sure mysql is running?!";
+							$res = "**Error: Are you sure mysql is running and that you have made changes to the config.php file?!";
 						else
 							$res = "**Success: Setup completed!";
 						break;
@@ -49,7 +49,7 @@ if (count($argv) > 1)
 						break;
 				}
 			}
-			echo $res, "\n\n";
+			echo $res, "\n";
 		}
 	else
 	 echo $GLOBALS["logo"] . $def;

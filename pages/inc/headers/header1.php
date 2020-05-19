@@ -76,13 +76,13 @@
 
 		.links a:hover,
 		.links a:focus {
-			display: none !important;
-			border-bottom: 1px solid var(--sec);
+			border-bottom: 2px solid var(--sec);
+			margin-bottom: -2px;
 		}
 
 		@media (min-width: 576px) {
 			nav {
-				grid-template-columns: auto 2fr auto
+				grid-template-columns: auto 2fr auto;
 			}
 			.dp-menu {
 				grid-column: 3;

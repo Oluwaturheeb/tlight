@@ -89,8 +89,8 @@
 
 		.links a:hover,
 		.links a:focus {
-			margin-bottom: -1px;
-			border-bottom: 1px solid var(--sec);
+			margin-bottom: -2px;
+			border-bottom: 2px solid var(--sec);
 		}
 
 		#search {
@@ -108,9 +108,8 @@
 		@media (min-width: 576px) {
 			nav {
 				justify-content: stretch;
+				grid-template-columns: auto 1fr auto !important;;
 			}
-
-			.logo {}
 
 			.dp-menu {
 				grid-column: 3;
@@ -123,12 +122,13 @@
 
 			.links,
 			#search {
+				width: auto !important;
 				justify-self: end;
 				position: static !important;
 			}
 
-			.links .menu-link {
-				display: grid;
+			.links, .links .menu-link {
+				display: grid !important;
 				grid-auto-flow: column !important;
 			}
 
@@ -140,7 +140,6 @@
 				width: 150px;
 			}
 		}
-
 	</style>
 	<script type="text/javascript">
 		$('.dp-menu').click(() => {

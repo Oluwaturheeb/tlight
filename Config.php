@@ -13,6 +13,7 @@ $GLOBALS['config'] = [
     ],
     "session" => [
         "name" => "Tlight_sessions", 
+        // as for me i use apache virtual host you change this to localhost
         "domain" => "tlight.com"
     ],
     "auth" => [

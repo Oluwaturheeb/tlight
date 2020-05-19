@@ -72,7 +72,7 @@
 			display: none;
 			position: fixed;
 			left: 0;
-			top: 4.6rem;
+			top: 4rem;
 			background: var(--pry);
 			box-shadow: 2px 0px 5px var(--pry);
 			width: 150px;
