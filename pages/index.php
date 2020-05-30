@@ -12,11 +12,9 @@ require_once "inc/headers/header1.php";
 			<h1>Tlight</h1>
 			<div><small>Already made and Swift</small></div>
 		</header>
-		Setup your application using the config file at <i>Config.php</i> and run:
-		<br>
-		<div>If (php in path):</div>
-		<code>$ php setup.php -i</code>
-		<div>else:<br>Click <a href="/setup">here</a> to setup.<br>endif</div>
+		<p>Setup your application using the <i>config.php</i> file at the root of this project and run:
+		</p>
+		<code>$ php tlight -i</code>
 	</div>
 	<style type="text/css">
 		body {
@@ -29,6 +27,7 @@ require_once "inc/headers/header1.php";
 			display: grid;
 			justify-content: center;
 			text-align: center;
+			padding: 0 !important;
 		}
 
 		a {

@@ -27,7 +27,6 @@
 			display: grid;
 			grid-auto-flow: column;
 			justify-content: space-between;
-			grid-gap: 1rem;
 			align-items: center;
 			padding: 1rem;
 			position: relative;
