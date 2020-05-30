@@ -24,8 +24,10 @@ class Rel extends Db {
 		$t = $this->_table;
 		$q = $this->customQuery("select rel from relation where tab = ? or tab = ?", [$t[0] . '_' . $t[1], $t[1] . '_' . $t[0]])
 		->res(1);
-		$this->get($col)->use("join", ["left"])->match([$q->rel], true);
-		$this->_rcol = $col;
+		if ($this->count()) {
+			$this->get($col)->use("join", ["left"])->match([$q->rel], true);
+			$this->_rcol = $col;
+		}
 		return $this;
 	}
 

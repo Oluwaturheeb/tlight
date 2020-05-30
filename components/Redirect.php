@@ -3,12 +3,11 @@
 class Redirect{
 	public static function to($loc = "/"){
 		if(is_numeric($loc)){
-			header("Http/2.0 404 Not found!");
-			require_once "error/404.php";
+			header("404 Not found!");
+			echo "<h1>404</h1>
+			The request url not found on this server!
+			";
 			exit();
-		}else if($loc == "login") {
-		    require_once "error/login.php";
-		    exit();
 		}
 		header("location: ". $loc);
 	}

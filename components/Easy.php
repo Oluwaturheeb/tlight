@@ -24,15 +24,12 @@ class Easy extends Validate {
 
 	public function create () {
 		$d = $this->_db;
-		$forked = $this->val_req();
-
-		if (!$this->error()) {
-			list($this->_col, $this->_inp) = $forked;
-		
+		list($this->_col, $this->_inp) = $this->val_req();
+	  if (!$this->error()){
 			$this->_db->add($this->_col, $this->_inp);
 			$this->_method = "create";
-			return $this;
 		}
+		return $this;
 	}
 
 	/*	FETCH	*/
@@ -63,43 +60,55 @@ class Easy extends Validate {
 	*/
 
 	public function fetch ($cols = ["*"], ...$where) {
-		$d = $this->_db;
-		$d->get($cols);
-		$this->_fcol = $cols;
-		$this->_method = "fetch";
-
 		if ($this->req())
 			list($this->_col, $this->_inp) = $this->val_req();
-			//checking to remove more as its reserved for pagination, so that it wont use it for where clause;
+			if (!$this->error()) {
+				$d = $this->_db;
+				$d->get($cols);
+				$this->_fcol = $cols;
+				$this->_method = "fetch";
+				//checking to remove more as its reserved for pagination, so that it wont use it for where clause;
+				if ($this->_col){
+					$key = array_search("more", $this->_col);
 			
-			$key = array_search("more", $this->_col);
-
-			if ($key !== false){
-				array_splice($this->_col, $key);
-				array_splice($this->_inp, $key);
-			}
-			
-			// ends here
-			
-			if (!empty($where[0])) {
-				// this over write whats coming in;
-				$this->_col = $where[0];
-				$this->_sql = $where;
-				
-				if(!is_array(end($where)) && !is_numeric($where)) {
-					$d->concat(end($where));
-					array_pop($where);
+					if ($key !== false){
+						array_splice($this->_col, $key);
+						array_splice($this->_inp, $key);
+					}
 				}
+				// ends here
+				
+				if (count($where)) {
+					$this->_col = $this->_inp = [];
+					foreach ($where as $k => $v) {
+						$this->_col[] = $v[0];
+						if (count($v) == 2) {
+							$this->_inp[] = $v[1];
+						} elseif (count($v) > 2) {
+							$this->_inp[] = $v[2];
+						}
+					}
+					if(!is_array(end($where)) && !is_numeric($where)) {
+						$d->concat(end($where));
+						array_pop($where);
+					}
+					$d->where($where, true);
+					$this->_sql = $where;
+				}
+				$this->_fcol = $cols;
+				$this->_method = "fetch";
 			}
-			
-			if (count($this->_col) == 1) {
-				$d->where([$this->_col[0], $this->_inp[0]]);
-			} elseif (count($this->_col) > 1) {
-				$d->where([$this->_col[0], $this->_inp[0]], [$this->_col[1], $this->_inp[1]]);
-			}
-		$this->_fcol = $cols;
-		$this->_method = "fetch";
+
 		return $this;
+	}
+
+	public function with_supp ($col, $val) {
+		$f = [];
+
+		for ($i = 0; $i < count($col); $i++) {
+			$f[] = [$col[$i], $val[$i]];
+		}
+		return $f;
 	}
 	
 	/*	UPDATE	*/
@@ -109,109 +118,118 @@ class Easy extends Validate {
 	this method collect the data to be updated in the request method with an optional column names only if the form/url names/keys doesnt match what is in the db this can be good for security
 	
 	*/
-	public function update ($cols = [], ...$where) {
+	public function update (...$where) {
 		$d = $this->_db;
-		if ($this->error()) {
-			return $this->error();
-		} else {
-			if ($this->req() && !empty($_POST)) {
-				list($this->_col, $this->_inp) = $this->val_req();
-				if($cols) 
-					$this->_col = $cols;
-
+		if ($this->req() && !empty($_POST)) {
+			list($this->_col, $this->_inp) = $this->val_req();
+			if (!$this->error()) {
 				$d->set($this->_col, $this->_inp);
 				
-				// in case of using the mwthod with in this to remove or append
-				
-				if ($where[0]) {
-					$d->where($where[0], true);
+				if ($where) {
+
+					if (is_numeric($where[0])){
+						$d->where($where[0]);
+					} else {
+						$d->where($where, true);
+					}
+
 					$this->_sql = $where;
 				}
 
 				$this->_method = "update";
+
 			}
 			return $this;
 		}
 	}
 
 	public function with ($type, ...$var) {
-		switch ($type) {
-			case 'pages':
-				$this->_db->sort()->pages($var[0], "more");
-				break;
-			case "append":
-				list($col, $val) = $var;
-
-				if (is_numeric($val))
-					$val = [$val];
-
-				$this->_col = array_merge($this->_col, $col);
-				$this->_inp = array_merge($this->_inp, $val);
-				break;
-			case "remove":
-				foreach($var[0] as $k) {
-					$key = array_search($k, $this->_col, true);
-						unset($this->_col[$key]);
-						unset($this->_inp[$key]);
-				}
-				break;
-			case "use":
-				$use = $var[0];
-				$where = [];
-
-				foreach ($use as $key) {
-					$k = array_search($key, $this->_col);
-
-					if ($k !== false) {
-						$where[] = [$this->_col[$k], $this->_inp[$k]];
-					}
-				}
-				if (!empty($where))
-					$this->_db->where($where, true);
-				break;
-			case "change":
-				$this->_col = $var[0];
-				break;
-		}
-		
-		# resetting the db class here!
-		
-		$db = new Db();
-		$db->table($this->_tab);
-		
-		switch ($this->_method) {
-			case 'create':
-				$db->add($this->_col, $this->_inp);
-				break;
-			case "update":
-				$db->set($this->_col, $this->_inp);
-
-				if ($this->_sql) {
-					$db->where($this->_sql, true);
-				}
-				break;
-			case 'fetch': 
-				if ($this->_sql)
-					if(!is_array(end($this->_sql)) && !is_numeric($this->_sql)) {
-						$c = $db->concat(end($this->_sql));
+		if (!$this->error()) {
+			switch ($type) {
+				case 'pages':
+					$this->_db->sort()->pages($var[0], "more");
+					break;
+				case "append":
+					list($col, $val) = $var;
+	
+					if (is_numeric($val))
+						$val = [$val];
+	
+					$this->_col = array_merge($this->_col, $col);
+					$this->_inp = array_merge($this->_inp, $val);
+					break;
+				case "remove":
+					if (empty($var[0])) {
+						$this->_col = $this->_inp = [];
+					} else {
+						foreach($var[0] as $k) {
+							$key = array_search($k, $this->_col, true);
+							unset($this->_col[$key]);
+							unset($this->_inp[$key]);
+						}
 					}
 					
-				$db->get($this->_fcol);
-				
-				if (count($this->_col) == 1) {
-					$db->where([$this->_col[0], $this->_inp[0]]);
-				} elseif (count($this->_col) > 1) {
-					$db->where([$this->_col[0], $this->_inp[0]], [$this->_col[1], $this->_inp[1]]);
-				}
-				break;
+					break;
+				case "use":
+					$use = $var[0];
+					$where = [];
+	
+					foreach ($use as $key) {
+						$k = array_search($key, $this->_col);
+	
+						if ($k !== false) {
+							$where[] = [$this->_col[$k], $this->_inp[$k]];
+						}
+					}
+					$this->_sql = $where;
+
+					if (!empty($where))
+						$this->_db->where($where, true);
+					break;
+				case "change":
+					$this->_col = $var[0];
+					break;
+			}
+			
+			# resetting the db class here!
+			
+			$db = $this->_db = new Db();
+			$db->table($this->_tab);
+			
+			switch ($this->_method) {
+				case 'create':
+					$db->add($this->_col, $this->_inp);
+					break;
+				case "update":
+					$db->set($this->_col, $this->_inp);
+	
+					if ($this->_sql) {
+						$db->where($this->_sql, true);
+					}
+					break;
+				case 'fetch': 
+					if ($this->_sql)
+						if(!is_array(end($this->_sql)) && !is_numeric($this->_sql)) {
+							$c = $db->concat(end($this->_sql));
+						}
+						
+					$db->get($this->_fcol);
+					
+					if (count($this->_col) == 1) {
+						$db->where([$this->_col[0], $this->_inp[0]]);
+					} elseif (count($this->_col) > 1) {
+						$db->where([$this->_col[0], $this->_inp[0]], [$this->_col[1], $this->_inp[1]]);
+					}
+					break;
+			}
 		}
 		return $this;
 	}
 
 	public function del ($con = "", $cols = [], $ops = []) {
 		$d = $this->_db;
-			list($col, $val) = $this->val_req();
-			
+		list($col, $val) = $this->val_req();
+		if(!$this->error()) {
 			$d->rm();
 			if ($con) {
 				$d->concat($con);
@@ -237,13 +255,18 @@ class Easy extends Validate {
 					$col2 = [$col[1], $val[1]];
 				}
 			}
+		}
 		return $this;
 	}
 
 	public function exec($check = false) {
-		$res = $this->_db->res($check);
-		$this->_sql = $this->_col = $this->_inp = $this->_method = null;
-		$this->addError($this->_db->error());
-		return $res;
+		if ($this->error()) {
+			return $this->error();
+		} else {
+			$res = $this->_db->res($check);
+			$this->_sql = $this->_col = $this->_inp = $this->_method = null;
+			$this->addError($this->_db->error());
+			return $res;
+		}
 	}
 }

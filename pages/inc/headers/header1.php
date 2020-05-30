@@ -11,13 +11,13 @@
 		</div>
 		<div class="links">
 			<div class="menu-link">
-				<a href="#">Home</a>
-				<a href="#">About</a>
-				<a href="#">Contact</a>
+				<a href="/">Home</a>
+				<a href="/about">About</a>
+				<a href="/contact">Contact</a>
 			</div>
 			<div class="dp-link">
-				<a href="#">Login</a>
-				<a href="#">Register</a>
+				<a href="/login">Login</a>
+				<a href="/register">Register</a>
 			</div>
 		</div>
 	</nav>

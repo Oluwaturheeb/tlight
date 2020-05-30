@@ -6,17 +6,17 @@
 				<span></span>
 			</div>
 			<div class="dp-link">
-				<a href="#">Login</a>
-				<a href="#">Register</a>
+				<a href="/login">Login</a>
+				<a href="/register">Register</a>
 			</div>
 			<a href="/" class="logo">
 				tlight
 			</a>
 		</div>
 		<div class="links">
-			<a href="#">Home</a>
-			<a href="#">About</a>
-			<a href="#">Contact</a>
+			<a href="/">Home</a>
+				<a href="/about">About</a>
+				<a href="/contact">Contact</a>
 			<a href="search" class="search">Search</a>
 		</div>
 		<div id="search">

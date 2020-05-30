@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	/* default js */
 	$('.auth-content input').on({
         'mouseover': function(){
             $(this).prev('label').slideDown(500);
@@ -8,77 +9,59 @@ $(document).ready(function () {
         }
     });
 
-	$(".auth-links div, .auth a").click(function(e) {
+	$(".auth a, .auth-links div").click(function(e) {
 		e.preventDefault();
 		var id = $(this).attr("class");
 
 		$('.info').empty();
-		$(".auth-content #" + id).show().siblings().hide();
-		
-		if ($(this).hasClass('active'))
-			$(this).removeClass('active')
-		else
-			$(this).addClass('active').siblings().removeClass('active');
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+		$(".auth-content #" + id).show().siblings("div").hide();
 	});
-
+	
+	// logins
+	
 	$.ajaxSetup({
-		url: 'req',
-		type: 'post',
-	});
+		url: 'request',
+		dataType: 'json',
+		type: 'post'
+	})
 
 	$(".auth form").submit(function (e) {
 		e.preventDefault();
-		
-
-		var rule = [
-			{
-				require: true,
-				email: true,
-				min: 10,
-				error: "Email is required!"
-			},
-			{
-				require: true,
-				min: 8,
-			},
-			{
-				require: true,
-				error: "Enter the captcha code"
-			}, {}, {}
-		]
 
 		var info = $('.info');
-		
-		v.form(this, rule);
+		v.autoForm(this);
 
-		if (!v.check()) {
+		if (v.check()) {
 			info.html(v.thrower()).css({'color': '#b28200', 'font-style': 'oblique'});
 		} else {
 			$.ajax({
-				data: $(this).serialize(),
+				data: v.auto,
 				beforeSend: () => {
 					info.html("Connecting to the server...");
 				},
 				success: e => {
+					v.dError(e, true)
 					info.empty();
-					if (e == 'ok') {
-						info.html('You are logged!').css({"color": "#36a509"});
+					
+					if (e.msg == 'ok') {
 						$(this).children('#captcha').empty();
-						v.redirect();
+						info.html('You are logged!').css({"color": "#36a509"});
+						// change the redirect location url to any location of your choosing
+						v.redirect(e.type);
+					} else if (e.msg == 'captcha') {
+						$(this).children('#captcha').html(e.captcha);
+					} else if (e.msg == "change") {
+						$('.auth .info').empty();
+						$(".auth-content #chpwd").show().siblings().hide();
+						$('#chpwd .days').html("Its been <b>" + e.days + "days</b> since you last change your password!");
 					} else {
-						var se = e.split(" ");
-						if (se[0] == 'change') {
-							$('.auth .info').empty();
-							$(".auth-content #chpwd").show().siblings().hide();
-							$('#chpwd .days').html("Its been <b>" + se[1] + "days</b> since you last change your password!");
-						} else if (se[0] == 'cap') {
-							$(this).children('#captcha').html(v.captcha(se[1]));
-						} else {
-							if (e != "Captcha Error!")
-								$(this).children('#captcha').empty();
-							info.html(e).css({'color': '#d80808', 'font-style': 'oblique'});
-						}
+						info.html(e.msg).css({'color': '#d80808', 'font-style': 'oblique'});
 					}
+				},
+				error: (e) => {
+					v.dError(e, true);
 				}
 			});
 		}
@@ -89,4 +72,6 @@ $(document).ready(function () {
 
 		v.redirect('/index');
 	});
+	
+	/* ends here */
 });

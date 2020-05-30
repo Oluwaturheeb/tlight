@@ -95,7 +95,6 @@
 	
 	.auth {
 		display: grid;
-		justify-content: center;
 		grid-gap: 1rem;
 	}
 

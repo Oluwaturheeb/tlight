@@ -2,7 +2,7 @@
 
 class Utils{
 	public static function time () {
-		return date("D, j M, Y");
+		return date("D, jS \of M, Y");
 	}
 	
     public static function time_to_ago ($time, $check = false){
@@ -118,7 +118,7 @@ class Utils{
 		if(!$bool) {
 			return random_int(1, 999999999);
 		} else {
-			return uniqid(mt_rand());
+			return random_bytes(64);
 		}
 	}
 	

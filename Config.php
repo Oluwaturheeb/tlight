@@ -7,7 +7,7 @@ $GLOBALS['config'] = [
     ],
     "db" => [
         "host" => "localhost",
-        "database" => "mobile",
+        "database" => "dvs",
         "usr" => "root",
         "pwd" => ""
     ],
@@ -17,7 +17,7 @@ $GLOBALS['config'] = [
         "domain" => "tlight.com"
     ],
     "auth" => [
-        "single" => true,
+        "single" => false,
         "login_attempts" => 3
     ],
     "state" => [
