@@ -10,7 +10,7 @@
 				<a href="/register">Register</a>
 			</div>
 			<a href="/" class="logo">
-				tlight
+				<?php echo PNAME ?>
 			</a>
 		</div>
 		<div class="links">

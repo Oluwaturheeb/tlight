@@ -7,7 +7,7 @@ $GLOBALS['config'] = [
     ],
     "db" => [
         "host" => "localhost",
-        "database" => "dvs",
+        "database" => "tlight",
         "usr" => "root",
         "pwd" => ""
     ],
@@ -18,7 +18,9 @@ $GLOBALS['config'] = [
     ],
     "auth" => [
         "single" => false,
-        "login_attempts" => 3
+        "login_attempts" => 3,
+        // use 0 to disable last password change
+        "last_pc" => 30
     ],
     "state" => [
     	"development" => true

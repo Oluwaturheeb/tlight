@@ -1,7 +1,7 @@
 	<nav class="">
 		<div class="logo">
 			<a href="/" class="logo">
-				tlight
+				<?php echo PNAME ?>
 			</a>
 		</div>
 		<div class="dp-menu">
