@@ -20,7 +20,7 @@ class Rel extends Db {
 		return $this;
 	}
 
-	public function fetch ($col) {
+	public function fetch ($col = ["*"]) {
 		$t = $this->_table;
 		$q = $this->customQuery("select rel from relation where tab = ? or tab = ?", [$t[0] . '_' . $t[1], $t[1] . '_' . $t[0]])
 		->res(1);
@@ -53,6 +53,10 @@ class Rel extends Db {
 
 	public function with ($type, ...$var) {
 		switch ($type) {
+			case 'pages':
+				$this->sort()->pages($var[0], "page");
+				$this->_pages = $var[0];
+				break;
 			case "append":
 				list($col, $val) = $var;
 
@@ -63,10 +67,14 @@ class Rel extends Db {
 				$this->_inp = array_merge($this->_inp, $val);
 				break;
 			case "remove":
-				foreach($var[0] as $k) {
-					$key = array_search($k, $this->_col, true);
+				if (empty($var[0])) {
+					$this->_col = $this->_inp = [];
+				} else {
+					foreach($var[0] as $k) {
+						$key = array_search($k, $this->_col, true);
 						unset($this->_col[$key]);
 						unset($this->_inp[$key]);
+					}
 				}
 				break;
 			case "change":

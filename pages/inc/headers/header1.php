@@ -17,7 +17,7 @@
 			</div>
 			<div class="dp-link">
 				<a href="/login">Login</a>
-				<a href="/register">Register</a>
+				<a href="/login">Register</a>
 			</div>
 		</div>
 	</nav>
@@ -27,6 +27,7 @@
 			display: grid;
 			grid-auto-flow: column;
 			justify-content: space-between;
+			grid-gap: 1rem;
 			align-items: center;
 			padding: 1rem;
 			position: relative;
@@ -39,7 +40,8 @@
 		}
 
 		nav .logo {
-			font-size: 2.5rem;
+			font-size: 1.8rem;
+			font-weight: bold;
 		}
 
 		nav .logo a {
@@ -118,5 +120,4 @@
 				$('.links').slideToggle(500);
 			}
 		});
-
 	</script>

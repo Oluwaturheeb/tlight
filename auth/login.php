@@ -30,7 +30,7 @@
 			<h2>Register</h2>
 			<form method="post" action="">
 				<div>
-					<label>Email</label>
+					<label for="">Email</label>
 					<input type="email" name="email" placeholder="Email" class="input-line">
 				</div>
 				<div>
@@ -91,12 +91,14 @@
 	</div>
 </div>
 <style type="text/css">
+	
 	/*when starting a project this can be included in your css files*/
 	
 	.auth {
-		display: grid;
+/* 		display: grid;
 		justify-content: center;
-		grid-gap: 1rem;
+		grid-gap: 10px; */
+		
 	}
 
 	.auth-links {
@@ -119,8 +121,6 @@
 	}
 
 	.auth-links div {
-		padding: 10px;
-		font-size: 1.2rem;
 		font-weight: bold;
 	}
 
@@ -129,18 +129,16 @@
 	}
 
 	.auth form div {
-		padding: 10px;
+		padding: 10px 0;
 	}
-
-
-	.auth form h2 {
-		padding: 1rem;
-	}
-
 
 	.auth-content label {
 		display: none;
 		font-size: 12px;
+		font-style: oblique;
+	}
+
+	::placeholder {
 		font-style: oblique;
 	}
 

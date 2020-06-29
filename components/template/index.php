@@ -6,19 +6,16 @@ require_once "Autoload.php";
 $title = "Welcome";
 require_once "inc/header.php";
 
-// choose from 1 to 7 headers and edit it to ur taste
-require_once "inc/headers/header1.php";
-
 // as the name suggest this relationship to safe time typing
 
-$r = new Rel();
+$e = new Easy();
 
 // give the tables
-$r->table(["post", "profile"]);
+$e->table(["post", "profile"]);
 
 // this takes the column to fetch for both tables and of cause relationship must have been established between this tables else the program will throw an error!
-$data = $r->fetch(/* for post table */["title", "url", "views", "time"], /* for profile */ ["name"]);
-// calling the exec method see the query to be executed, and it takes 1 optinal args to get the first result e.g ->exec(1).
+$data = $r->fetch(["title", "url", "views", "time"], ["name"]);
+// calling the exec method see the query to be executed, and it takes 1 optinal args to get the first result e.g ->exec().
 
 //->exec();
 
@@ -34,9 +31,11 @@ $data = $r->fetch(/* for post table */["title", "url", "views", "time"], /* for 
 			<h1>Tlight</h1>
 			<div><small>Already made and Swift</small></div>
 		</header>
-		<p>Setup your application using the <i>config.php</i> file at the root of this project and run:
-		</p>
-		<code>$ php tlight -i</code>
+		Setup your application using the config file at <i>Config.php</i> and run:
+		<br>
+		<div>If (php in path):</div>
+		<code>$ php setup.php -i</code>
+		<div>else:<br>Click <a href="/setup">here</a> to setup.<br>endif</div>
 	</div>
 	<style type="text/css">
 		body {
@@ -49,7 +48,6 @@ $data = $r->fetch(/* for post table */["title", "url", "views", "time"], /* for 
 			display: grid;
 			justify-content: center;
 			text-align: center;
-			padding: 0 !important;
 		}
 
 		a {

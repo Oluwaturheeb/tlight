@@ -25,13 +25,12 @@ class Db {
 		return $this;
 	}
 
-	public function query ($sql, $clauses = []) {
+	public function query ($sql, $opt = []) {
 		$this->_error = false;
-
 		if ($this->_query = $this->_pdo->prepare($sql)) {
-			if (@count($clauses)) {
+			if (@count($opt)) {
 				$i = 1;
-				foreach ($clauses as $clause) {
+				foreach ($opt as $clause) {
 					$this->_query->bindValue($i, $clause);
 					$i++;
 				}
@@ -59,11 +58,7 @@ class Db {
 	}
 
 	public function add ($col, $val) {
-		$i = 0;	$p = [];
-		
-		for ($i = 0; $i < count($col); $i++) { 
-			array_push($p, "?");
-		}
+		$p = array_fill(0, count($val), "?");
 
 		$this->_sql = "insert into {$this->_table}(" . implode(",", $col). ") values(" . implode(",", $p) . ")";
 		$this->_query_value = $val;
@@ -93,8 +88,10 @@ class Db {
 
 	public function match ($arg) {
 		$args = func_get_args();
+		
 		$this->_sql = $this->join($this->_table, $this->_misc, $args, $this->_sort, $this->_con);
-		$this->_misc = null;
+		$this->_sql .= $this->_lastid;
+		$this->_misc = $this->_lastid = null;
 		return $this;
 	}
 	
@@ -105,7 +102,7 @@ class Db {
 		for ($i = 0, $j = 1; $i < count($table); $i++, $j++) {
 			if($j < count($table)) {
 				if($type) {
-					$join = " {$type[$i]} join ";
+					$join = " {$type[$j]} join ";
 				} else {
 					$join = " left join ";
 				}
@@ -129,12 +126,7 @@ class Db {
 		return $query;
 	}
 
-	public function unite ($table = []) {
-		$this->_query_value = true;
-		return $this;
-	}
-
-	public function use ($use, $type = ["inner"]) {
+	public function use ($use, $type = ["left"]) {
 		switch ($use) {
 			case 'join':
 				$this->_sort = $type;
@@ -146,6 +138,11 @@ class Db {
 		return $this;
 	}
 
+	public function unite ($table = []) {
+		$this->_query_value = true;
+		return $this;
+	}
+	
 	public function set ($cols = [], $vals) {
 		$col = $value = ""; $i = 1;
 
@@ -168,31 +165,21 @@ class Db {
 		return $this;
 	}
 
-	public function search ($cols, $to = array()) {
-		if (is_array($to)) {
-			/* Where clause */
+	public function find (...$where) {
+		if (!empty($where)) {
+			$form = $this->gen($this->form($where, true));
+			$w = str_replace("=", "like", $form[0]);
 
-			$field = $val = $col = "";
-
-			for ($i = 0, $j = 1; $i < count($to); $i++, $j++) {
-				$field .= "{$to[$i][0]} {$to[$i][1]} ?";
-				$val .= "%{$to[$i][2]}%";
-				if ($j <= count($cols)) {
-					$col .= $cols[$i];
-					if($j < count($cols)){
-						$col .= ", ";
-					}
-				}
-				if ($j < count($to)) {
-					$field .= " or ";
-					$val .= ",,,,, ";
-				}
+			function ff ($a) {
+				return "%{$a}%";
 			}
-			$sel = $col;
-			$this->_query_value = explode(",,,,, ", $val);
-			$this->_sql = "select {$sel} from {$this->_table} where {$field} {$limit}";
-			return $this;
+
+			$this->_query_value = array_map("ff", $form[1]);
+
+			$this->_sql .= " $w";
 		}
+
+		return $this;
 	}
 
 	public function concat ($join) {
@@ -220,8 +207,12 @@ class Db {
 				$this->_query_value = $gen[1];
 			}
 
+			//  this is meant for joins
 			if ($this->_misc !== true) {
-				$this->_sql .= " " . $gen[0];
+				$this->_lastid = $gen[0];
+				if (!is_array($this->_sql))
+					$this->_sql .= " " . $this->_lastid;
+
 			} else {
 				$this->_sql = substr($this->_sql, 0, -1);
 				$this->_sql .= " " . $gen[0] . ")";
@@ -442,7 +433,7 @@ class Db {
 				if($j < count($where)){
 					$value .= ", ";
 					if(is_array($concat)) {
-						$cc = $concat[$i];
+						$cc = @$concat[$i];
 					} else {
 						$cc = $concat;
 					}
@@ -472,7 +463,7 @@ class Db {
 			if (is_array($val[0])) {
 				foreach ($val as $n => $m) {
 					if ($n > 0) {
-						$pre .= $concat[$n - 1];
+						$pre .= $concat[0];
 					}
 					if(empty($pre)) {
 						$on = "on";
@@ -489,7 +480,7 @@ class Db {
 				}
 				$pref[] = $pre;
 			} else {
-				if ($end)
+				if (@$end)
 					$pref[] = " on {$val[0]}";
 				else
 					$pref[] = " using({$val[0]}) ";

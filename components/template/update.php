@@ -6,17 +6,16 @@ require_once "Autoload.php";
 $title = "Update post";
 require_once "inc/header.php";
 
-// choose from 1 to 7 headers and edit it to ur taste
-require_once "inc/headers/header5.php";
-
-// the easy class that makes everything easy
 $e = new Easy();
 
 // the table
 $e->table("post");
 
 // this method takes an array of columns to select default to ["*"]
-$data = $e->fetch();
+$e->fetch();
+
+// execute query and get the first result
+// $data = $e->exec(1);
 
 // $data now holds the result of the query!
 

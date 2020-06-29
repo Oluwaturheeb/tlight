@@ -15,8 +15,8 @@
 		</div>
 		<div class="links">
 			<a href="/">Home</a>
-				<a href="/about">About</a>
-				<a href="/contact">Contact</a>
+			<a href="/about">About</a>
+			<a href="/contact">Contact</a>
 			<a href="search" class="search">Search</a>
 		</div>
 		<div id="search">
@@ -74,6 +74,7 @@
 			top: 5rem;
 			background: var(--pry);
 			box-shadow: 2px 0px 5px var(--pry);
+			z-index: 100;
 		}
 
 		.logo .dp-link a {

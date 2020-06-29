@@ -52,7 +52,8 @@
 		}
 
 		nav .logo {
-			font-size: 2.5rem;
+			font-size: 1.8rem;
+			font-weight: bold;
 		}
 
 		nav .logo a {
@@ -74,10 +75,11 @@
 		nav .links {
 			position: absolute;
 			right: 0;
-			top: 5rem;
+			top: 4.3rem;
 			background: var(--pry);
 			width: 150px;
 			display: none;
+			z-index: 100;
 		}
 
 

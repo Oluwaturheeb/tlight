@@ -1,7 +1,7 @@
 <?php 
 $GLOBALS['config'] = [
     "project" => [
-        "name" => "Tlight",
+        "name" => "tlight",
         "lang" => "en",
         "region" => "Africa/Lagos"
     ],
@@ -17,15 +17,14 @@ $GLOBALS['config'] = [
         "domain" => "tlight.com"
     ],
     "auth" => [
-        "single" => false,
-        "login_attempts" => 3,
-        // use 0 to disable last password change
-        "last_pc" => 30
+        "single" => true,
+        "login_attempts" => 3
     ],
     "state" => [
     	"development" => true
     ],
     "file-upload" => [
-        "max-file-upload" => 5
+        "max-file-upload" => 5,
+        "rename-file" => false
     ]
 ];

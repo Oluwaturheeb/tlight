@@ -24,3 +24,16 @@ a {
 	color: var(--link);
 	text-decoration: none;
 }
+
+.container {
+	display: grid;
+	justify-content: center;
+	padding: 3rem 0;
+}
+
+footer {
+	background: var(--bg);
+	padding: 1rem;
+  text-align: center;
+	box-shadow: -2px 1px 5px var(--sec);
+}

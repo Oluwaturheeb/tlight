@@ -32,6 +32,7 @@
 		</div>
 	</nav>
 	<style type="text/css">
+		
 		nav {
 			background: var(--pry);
 			display: grid;
@@ -39,7 +40,7 @@
 			justify-content: space-between;
 			grid-gap: 1rem;
 			align-items: center;
-			padding: .5rem;
+			padding: 1rem;
 			position: fixed;
 			width: calc(100% - .5rem);
 		}
@@ -72,11 +73,12 @@
 			display: none;
 			position: fixed;
 			left: 0;
-			top: 4rem;
+			top: 4.8rem;
 			background: var(--pry);
 			box-shadow: 2px 0px 5px var(--pry);
 			width: 150px;
 			height: 100%;
+			z-index: 100;
 		}
 
 		.logo .dp-link a {
@@ -89,6 +91,7 @@
 			color: var(--sec);
 			font-style: italic;
 			font-size: 2rem;
+			font-weight: bold;
 		}
 
 		nav .links {
@@ -142,7 +145,6 @@
 				padding: 1rem;
 			}
 		}
-
 	</style>
 	<script type="text/javascript">
 		$('.search, span.close').click(function(e) {

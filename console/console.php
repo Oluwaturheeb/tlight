@@ -23,6 +23,22 @@ if (count($argv) > 1)
 			} elseif ($argv[1] == "template") {
 				$c = Utils::copy_r("components/template/", "./pages");
 				$res = "**Success: Template created successfully!";
+			} elseif ($argv[1] == "backup") {
+				$u = $c->get('db/usr');$p = $c->get('db/pwd');$db = $c->get('db/database');
+				
+				if ($p)
+					exec("mysqldump -u $u -p '$p $db' > $db.sql");
+				else
+					exec("mysqldump -u $u $db > $db.sql");
+				$res = "**Success: Backup completed!";
+			} elseif ($argv[1] == "import") {
+				$u = $c->get('db/usr');$p = $c->get('db/pwd');$db = $c->get('db/database');
+				
+				if ($p)
+					exec("mysql -u $u -p '$p $db' < $db.sql");
+				else
+					exec("mysql -u $u $db < $db.sql");
+				$res = "**Success: Backup completed!";
 			}
 			echo $res, "\n";
 		} else {

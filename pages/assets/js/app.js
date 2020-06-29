@@ -30,10 +30,10 @@ $(document).ready(function () {
 	$(".auth form").submit(function (e) {
 		e.preventDefault();
 
-		var info = $('.info');
+		var info = $(this).children('div').children('.info');
 		v.autoForm(this);
 
-		if (v.check()) {
+		if (!v.check()) {
 			info.html(v.thrower()).css({'color': '#b28200', 'font-style': 'oblique'});
 		} else {
 			$.ajax({
@@ -42,9 +42,6 @@ $(document).ready(function () {
 					info.html("Connecting to the server...");
 				},
 				success: e => {
-					v.dError(e, true)
-					info.empty();
-					
 					if (e.msg == 'ok') {
 						$(this).children('#captcha').empty();
 						info.html('You are logged!').css({"color": "#36a509"});
@@ -61,7 +58,7 @@ $(document).ready(function () {
 					}
 				},
 				error: (e) => {
-					v.dError(e, true);
+					info.html(e);
 				}
 			});
 		}

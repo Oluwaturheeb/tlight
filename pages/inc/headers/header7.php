@@ -96,6 +96,7 @@
 			width: 10rem;
 			height: 100%;
 			transition-duration: 1s;
+			z-index: 100;
 		}
 
 		.logo .dp-link a {

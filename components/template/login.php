@@ -3,13 +3,12 @@
 require_once "Autoload.php";
 
 // the header file needs a $title for title of the page
-$title = "Create";
+$title = "Login";
 require_once "inc/header.php";
 
+// choose from 1 to 7 headers and edit it to ur taste
+require_once "inc/headers/header1.php"
 ?>
 	<div class="container">
-		<!-- Your html form code goes here -->
+		<?php require_once "auth/login.php"; ?>
 	</div>
-<?php 
-// this include the app js files
-require_once "inc/footer.php";

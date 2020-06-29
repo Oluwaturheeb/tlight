@@ -3,7 +3,6 @@ require_once "Autoload.php";
 
 $title = "Docs";
 require_once "inc/header.php";
-require_once "inc/headers/header1.php";
 ?>
 	<article class="container">
 		<?php

@@ -1,7 +1,7 @@
 <?php
 
 class Validate {
-	protected $_pass = false, $_errors = [];
+	protected $_pass = false, $_file = "", $_errors = [];
 	
 	public function validator($src, $fields = array()){
 		foreach($fields as $field => $options){
@@ -77,7 +77,7 @@ class Validate {
 							break;
 						case "multiple":
 							if(!count(array_filter($src[$field]))){
-								$this->addError($field_name . $field_error);
+								$this->addError("{$field_name} is required!");
 							}
 					}
 				}
@@ -91,13 +91,21 @@ class Validate {
 
 	/* http request handler */
 	
-	public static function req () {
+	public static function req ($r = "") {
 		if (!empty($_POST)) {
 			$req = $_POST;
 		} elseif (!empty($_GET)) {
 			$req = $_GET;
 		} else {
 			return false;
+		}
+
+		if ($r) {
+			if (@$req[$r]) {
+				$req = $req[$r];
+			} else {
+				$req = false;
+			}
 		}
 
 		return $req;
@@ -112,10 +120,12 @@ class Validate {
 			foreach ($this->req() as $key => $value) {
 				if ($key == "csrf") {
 					$rule = ["csrf" => true];
-				}/*  elseif ($key == "captcha") {
+				}  elseif ($key == "captcha") {
 					$rule = ["captcha" => true, "error" => "Captcha error!"];
-				}  */else {
+				}  else {
 					$rule = ["required" => true];
+					if (is_array($value))
+						$rule = ["multiple" => true];
 				}
 
 				if (!empty($rules[$i])) {
@@ -143,14 +153,31 @@ class Validate {
 		}
 		return false;
 	}
+
+	private function img_comp ($file, $dest) {
+		$mm = getimagesize($file)["mime"];
+
+		if ($mm == "image/jpeg") {
+			$img = imagecreatefromjpeg($file);
+		} elseif ($mm == "image/bmp") {
+			$img = imagecreatefromwbmp($file);
+		} elseif ($mm == "image/gif") {
+			$img = imagecreatefromgif($file);
+		} elseif ($mm == "image/png") {
+			$img = imagecreatefrompng($file);
+		}
+
+		if (imagejpeg($img, $dest, 30))
+			return $dest;
+		else
+			return false;
+	}
 	
 	public function uploader($data){
 		$src = $_FILES;
 		$folder = "assets/tmp/";
 		if (!is_dir($folder)) 
 			mkdir($folder);
-
-		$types = ['image/pjpeg', 'image/jpeg', 'image/gif', 'image/bmp', 'image/png', 'video/mpeg', 'video/mp4', 'video/quicktime', 'video/mpg', 'video/x-msvideo', 'video/x-ms-wmv', 'video/3ggp', 'audio/mid', 'audio/mp4', 'audio/mp3', 'audio/ogg', 'audio/wav', 'audio/3gpp', 'audio/mpeg'];
 
 		$file = $src[$data];
 		$tmp = $file['tmp_name'];
@@ -162,67 +189,70 @@ class Validate {
 		if (empty($name[0])) {
 			$this->addError("Kindly select a file!");
 		} else {
-			if($count > Config::get("file-upload/max-file-uplad")){
-				$count = Config::get("file-upload/max-file-uplad");
+			if ($count > config::get("file-upload/max-file-upload")) {
+				$count = config::get("file-upload/max-file-upload");
 			}
-			
-			for($i = 0;$i < $count;$i++){
-				if(!empty($name[$i])){
-					if(!array_search($type[$i], $types)){
+			for ($i = 0; $i < $count; $i++) {
+				if (!empty($name[$i])) {
+					if (!Utils::get_type($tmp[$i])){
 						$this->addError("$name[$i] type not supported!");
-					}else{
-						if(!move_uploaded_file($tmp[$i], $folder.$name[$i])){
-							$this->addError("$name[$i] could not be uploaded!");
-						}else{
-							$file_name[] = $name[$i];
-							$file_data[] = $folder.$name[$i];
+					} else {
+						if (config::get("file-upload/rename-file")) {
+							$name = config::get("project/name") . "_" . Utils::gen() . "_" . time();
+						} else {
+							$name = $name[$i];
+						}
+						if (Utils::get_type($tmp[$i]) == "image") {
+							// image compresson
+							$img = $this->img_comp($tmp[$i], $folder.$name);
+						} elseif (Utils::get_type($tmp[$i]) == "video" || Utils::get_type($tmp[$i]) == "audio") {
+							move_uploaded_file($tmp[$i], $folder.$name);
+							$img = $folder.$name;
+						} else {
+							$this->addError("$name[$i] type not supported!");
+						}
 
-							Session::set(
-								"file", array(
-									"name" => $file_name,
-									"tmp" => $file_data
-								)
-							);
-							$this->_pass = true;
+						if ($count == 1) {
+							$this->_file = [$img, $name];
+						} else {
+							$this->_file[] = [$img, $name];
 						}
 					}
 				}
 			}
 		}
+		return $this;
+	}
+
+	public function preview () {
+		return $this->_file[0];
 	}
 	
-	public function complete_upload($dest){
-		if(empty($dest)){
-			$this->_pass = false;
-		}else{
+	public function complete_upload($dest = "assets/img/"){
+		if ($this->_errors) {
+			return $this->error();
+		} else {
 			if (!is_dir($dest))
 				mkdir($dest);
 
-			$files = '';
-			if(Session::check("file")){
-				$file = Session::get("file");
-				foreach($file as $key => $value){
-					if($key == "name"){
-						foreach($value as $name){
-							move_uploaded_file("assets/tmp/".$name, $dest.$name);
-							$files .= $dest.$name. "_str_";
-						}
-					}
-					$file = array_filter(explode("_str_", $files));
-					Session::del("file");
-					
-					if(count($file) == 1){
-						return $file[0];
-					}else{
-						return $file;
-					}
+			$files = $this->_file;
+			
+			if (!is_array($files[0])) {
+				if (rename($files[0], $dest.$files[1]))
+					return $dest.$files[1];
+			} else {
+				$file = [];
+				for ($i = 0, $count = count($this->_file); $i < $count; $i++) {
+					if (rename($files[0], $dest.$files[1]))
+						$file[] = $dest.$files[1];
 				}
+
+				return $file;
 			}
-			return false;
 		}
 	}
 	
-	public static function hash($hash){
+	public static function hash ($hash) {
 		$hash = str_split($hash, 2);
 		$hash = "$hash[2] $hash[0] $hash[1]";
 		return hash("sha256", $hash);

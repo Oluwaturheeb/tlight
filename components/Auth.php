@@ -51,6 +51,7 @@ class Auth extends Validate {
 			$id[] = "type";
 			
 		$this->_log = $this->result = $d->fetch($id)->with("remove", ["type", "password"])->with("append", ["password"], [$this->hash(lcfirst($this->fetch("password")))])->exec(1);
+
 		if ($d->error()) {
 			$this->addError($d->error());
 		} else {
@@ -122,7 +123,7 @@ class Auth extends Validate {
 			if ($this->error()) {
 				return ["msg" => $this->error()];
 			} else {
-				$d->update([], Session::get("user"))->with("remove", ["type", "verify"])->with("append", ["last_pc"], ["now()"])->exec();
+				$d->update(Session::get("user"))->with("remove")->with("append", ["last_pc", "password"], ["now()", $this->hash($this->req("password"))])->exec();
 				if ($d->error()) 
 					return ["msg" => $d->error()];
 				else 

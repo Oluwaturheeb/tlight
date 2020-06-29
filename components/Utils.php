@@ -2,7 +2,7 @@
 
 class Utils{
 	public static function time () {
-		return date("D, jS \of M, Y");
+		return date("D, jS \of F Y");
 	}
 	
     public static function time_to_ago ($time, $check = false){
@@ -129,21 +129,21 @@ class Utils{
 		return false;
 	}
 	
-	public static function get_type($file){
+	public static function get_type($file) {
 		$file = mime_content_type($file);
 		$img = array('image/pjpeg', 'image/jpeg', 'image/gif', 'image/bmp', 'image/png');
 		$video = array('video/mpeg', 'video/mp4', 'video/quicktime', 'video/mpg', 'video/x-msvideo', 'video/x-ms-wmv', 'video/3ggp');
 		$audio = array('audio/mid', 'audio/mp4', 'audio/mp3', 'audio/ogg', 'audio/wav', 'audio/3gpp', 'audio/mpeg');
 
-		if(array_search($file, $img)){
+		if (array_search($file, $img)) {
 			return "image";
-		}elseif(array_search($file, $video)){
+		} elseif (array_search($file, $video)) {
 			return "video";
-		}elseif(array_search($file, $audio)){
+		} elseif (array_search($file, $audio)) {
 			return "audio";
-		}else{
-		    return $file;
 		}
+		  
+		return false;
 	}
 
 	public static function content_html($text, $file){
