@@ -17,7 +17,7 @@
 			</div>
 			<div class="dp-link">
 				<a href="/login">Login</a>
-				<a href="/login">Register</a>
+				<a href="/register">Register</a>
 			</div>
 		</div>
 	</nav>
@@ -40,8 +40,7 @@
 		}
 
 		nav .logo {
-			font-size: 1.8rem;
-			font-weight: bold;
+			font-size: 2.5rem;
 		}
 
 		nav .logo a {
@@ -120,4 +119,5 @@
 				$('.links').slideToggle(500);
 			}
 		});
+
 	</script>

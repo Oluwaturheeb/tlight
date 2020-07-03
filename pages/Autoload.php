@@ -1,6 +1,6 @@
 <?php
 ini_set("include_path", "../");
-require_once "Config.php";
+require_once "config.php";
 
 class Config {
     public static function get($path){

@@ -2,7 +2,7 @@
 #namespace Easy;
 
 class Easy extends Db {
-	protected $_method, $_col = [], $_inp = [], $_v, $_val, $_pages;
+	protected $_method, $_col = [], $_inp = [], $_v, $_val, $_pages, $_op;
 	
 	public function __construct () {
 		parent::__construct();
@@ -126,7 +126,7 @@ class Easy extends Db {
 	
 	/*
 	
-	this method collect the data to be updated in the request method with an optional column names only if the form/url names/keys doesnt match what is in the db this can be good for security
+	this method collect the data to be updated in the request method
 	
 	*/
 	public function update (...$where) {
@@ -179,10 +179,25 @@ class Easy extends Db {
 				$this->_pages = $var[0];
 				break;
 			case "append":
+			if (count($var) == 2)
 				list($col, $val) = $var;
+			else
+				list($col, $eq, $val) = $var;
 
 				if (is_numeric($val))
 					$val = [$val];
+
+				if (count($this->_col) && isset($eq)) {
+					if (count($eq) == 1) {
+						$eq = [1 => $eq[0]];
+					}  elseif (count($eq) > 1) {
+						$e = []; $i = -1;
+						foreach ($eq as $key) {
+							$e[] = ["i" => count($col) + $i, "aa" => $key];$i++;
+						}
+						$eq = array_column($e, "aa", "i");
+					}
+				}
 
 				$this->_col = array_merge($this->_col, $col);
 				$this->_inp = array_merge($this->_inp, $val);
@@ -223,11 +238,12 @@ class Easy extends Db {
 		}
 
 		// resetting here 
-		
 		if ($this->_col) {
 			$this->_sql = @strstr($this->_sql, "where", true);
+			$this->_query_value = [];
+			$this->_lastid = null;
 		}
-		$this->_query_value = [];
+
 
 		switch ($this->_method) {
 			case 'create':
@@ -246,23 +262,33 @@ class Easy extends Db {
 
 
 				if (count($this->_col)) {
-					$this->where($this->with_supp($this->_col, $this->_inp), true);
+					$this->where($this->with_supp($this->_col, $this->_inp, @$eq), true);
 					if ($this->_pages)
 						$this->pages($this->_pages, "page");
 				}
 				break;
 			case "delete":
 				if ($this->_col)
-					$this->where($this->with_supp($this->_col, $this->_inp), true);
+					$this->where($this->with_supp($this->_col, $this->_inp, @$eq), true);
 		}
 
 		return $this;
 	}
 
-	public function with_supp ($col, $val) {
+	public function with_supp ($col, $val, $op = "") {
 		$f = [];
-		foreach ($col as $key => $v) {
-			$f[] = [$col[$key], $val[$key]];
+
+		foreach ($col as $k => $v) {
+			if ($op) {
+				if (@$op[$k]) {
+					$w = [$v, $op[$k], $val[$k]];
+				} else {
+					$w = [$v, $val[$k]];
+				}
+				$f[] = $w;
+			} else {
+				$f[] = [$col[$k], $val[$k]];
+			}
 		}
 		return $f;
 	}

@@ -31,7 +31,7 @@ $data = $r->fetch(["title", "url", "views", "time"], ["name"]);
 			<h1>Tlight</h1>
 			<div><small>Already made and Swift</small></div>
 		</header>
-		Setup your application using the config file at <i>Config.php</i> and run:
+		Setup your application using the config file at <i>config.php</i> and run:
 		<br>
 		<div>If (php in path):</div>
 		<code>$ php setup.php -i</code>

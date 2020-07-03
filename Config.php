@@ -7,7 +7,7 @@ $GLOBALS['config'] = [
     ],
     "db" => [
         "host" => "localhost",
-        "database" => "tlight",
+        "database" => "tlight_app",
         "usr" => "root",
         "pwd" => ""
     ],

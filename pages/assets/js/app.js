@@ -39,16 +39,21 @@ $(document).ready(function () {
 			$.ajax({
 				data: v.auto,
 				beforeSend: () => {
+					$('.id').remove();
+					$('#captcha').empty();
 					info.html("Connecting to the server...");
 				},
 				success: e => {
+					info.empty();
 					if (e.msg == 'ok') {
 						$(this).children('#captcha').empty();
 						info.html('You are logged!').css({"color": "#36a509"});
 						// change the redirect location url to any location of your choosing
-						v.redirect(e.type);
+						v.redirect(e.redirect);
 					} else if (e.msg == 'captcha') {
+						info.html(e.error);
 						$(this).children('#captcha').html(e.captcha);
+						$(this).children('#captcha').after("<div class='id'><label style='display: none !important'>captcha</label><input type='text' name='captcha' placeholder='Enter captcha' class='input-line'></div>")
 					} else if (e.msg == "change") {
 						$('.auth .info').empty();
 						$(".auth-content #chpwd").show().siblings().hide();

@@ -1,7 +1,7 @@
 <?php
 
 class Db {
-	protected $_pdo, $_error = false, $_instance, $_table, $_sql, $_query_value = [], $_con, $_misc,  $_sort, $_result = null, $_count, $_lastid;
+	protected $_pdo, $_error = false, $_instance, $_table, $_sql, $_query_value = [], $_con, $_misc,  $_sort, $_count, $_lastid, $_result = null;
 
 	public $paging = false, $next = 0, $prev;
 

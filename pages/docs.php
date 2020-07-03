@@ -14,18 +14,17 @@ require_once "inc/header.php";
 				<b>components</b> (folder)
 				<b>pages</b> (folder)
 				<i>.htaccess</i> (file)
-				<i>setup.php</i> (file);
+				<i>tlight</i> (file);
 				<i>config.php</i> (file)
 				<h3>Auth folder</h3>
 				The auth folder contains the default login system bundled with <b>Tlight</b>. It contains:
 				<i>login.php</i> (file)
-				<i>request.php</i> (file)
-				The login.php file can be included anywhere including a div tag and the <i>request.php</i> files handles the login requests.
+				The login.php file can be included anywhere including a div tag or an entire page.
 				<h3>Components folder</h3>
 				The components folder contains all the classes that makes Tlight, <b>Tlight</b>.
 				<h3>The files</h3>
-				The <i>.htaccess</i> file and <i>setup.php</i> file are not to be edited as it contains sensitive information that can destabilize the application.
-				The config file should be reviewed as it holds important configuration file for the application.
+				The <i>.htaccess</i> file and <i>tlight</i> file are not to be edited as it contains sensitive information that can destabilize the application.
+				The config file should be reviewed as it holds important settings for the application.
 				<h3>Pages folder</h3>
 					This folder holds all the pages of the project to be created!
 			</section>
@@ -35,18 +34,18 @@ require_once "inc/header.php";
 
 				<i>Important constanst</i>
 				const PNAME -> holds the application given name
-				const jq -> lead directly to the jquery file in assets folder(in case you want to use jQuery lib)
-				const js -> the path to the js file folder but needed a file appended to it aas its only a path to the js folder
+				const jq -> lead directly to the jquery file in assets/js/jquery folder(in case you want to use jQuery lib)
+				const js -> the path to the js file folder but needed a file appended to it as its only a path to the js folder
 				const style -> this also leads to the css folder
 				
-				You don't need to create a database yourself just open the <i>Config.php</i> file and make changes the run.
-				<code>$ php setup.php -i</code>
+				You don't need to create a database yourself just open the <i>config.php</i> file and make changes to the file and run.
+				<code>$ php tlight -i</code>
 				If successful you get a "setup completed" message.
 				What does this means!
 				Tlight comes with its own login system so it creates a table named <i>auth and relation</i> that helps in managing inter table relationship.
 				After has been created you can start coding, and you might want to use the default template to relieve you of creating files.
 				I have created a project skeleton just for you, just run:
-				<code>$ php setup.php template</code>
+				<code>$ php tlight template</code>
 				This will create some files in the <b>pages</b> folder. The files include <i>index.php, create.php, post.php, logout.php, admin.php, delete.php, update.php</i> and this files contains functionality to help you get familiar with <b>Tlight</b>.
 				And any other files to be created should always start with requiring the <i>Autoload.php file</i> 
 				</p>
@@ -248,7 +247,8 @@ require_once "inc/header.php";
 				</code>
 				We need to set the table to work with!
 				<code>
-					$e->table("profile") <i>// string</i>
+					$e->table("profile"); <i>// string< if only 1 table </i>
+					$e->table(["profile", "post"]); <i>// for multiple tables</i>
 				</code>
 				<h3>Create</h3>
 				This method doesn't take any arguments.
@@ -328,7 +328,7 @@ require_once "inc/header.php";
 				<section>
 					<h1>The Auth class</h1>
 					<i>"I have build many login system but this, i am kinda proud of it!"</i>
-					As part of the Auth class, there is an html file attached for login, register, lost password and change password all this forms are all in the auth/login.php file. And the <i>Config.php</i> file has the the settings for login, it should be reviewed. The <i>login.php</i> can be included in a div tag or in a whole webpage the choice is yours. Ajax handles the submission and auth/request.php handles the request. assets/css/app.css for styles and assets/js/app.js for javascript.
+					As part of the Auth class, there is an html file attached for login, register, lost password and change password all this forms are all in the auth/login.php file. And the <i>config.php</i> file has the the settings for login, it should be reviewed. The <i>login.php</i> can be included in a div tag or in a whole webpage the choice is yours. Ajax handles the submission and auth/request.php handles the request. assets/css/app.css for styles and assets/js/app.js for javascript.
 					<code>
 					<i>// lets initialize our class</i>
 					$a = new Auth();
@@ -490,7 +490,7 @@ require_once "inc/header.php";
 				<code>
 					['image/pjpeg', 'image/jpeg', 'image/gif', 'image/bmp', 'image/png', 'video/mpeg', 'video/mp4', 'video/quicktime', 'video/mpg', 'video/x-msvideo', 'video/x-ms-wmv', 'video/3ggp', 'audio/mid', 'audio/mp4', 'audio/mp3', 'audio/ogg', 'audio/wav', 'audio/3gpp', 'audio/mpeg']
 				</code>
-				And it accepts by default the max of 5 files, this can be changes in the <i>Config.php</i> file.
+				And it accepts by default the max of 5 files, this can be changes in the <i>config.php</i> file.
 				You can check if there is any error in the upload process with the class pass() method. And if successful the file path is save in session name file and can be access by calling the session class Session::get("file");
 				Alternatively, one can call the validate class complete_upload method to save the file, this method takes where to save the file as argument. And returns the full path to the file in case you want to save it in mysql database.
 				<h3>Other useful methods</h3>

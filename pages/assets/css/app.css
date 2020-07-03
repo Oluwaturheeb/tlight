@@ -10,10 +10,10 @@
 
 body {
 	margin: 0;
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 	background: var(--bg);
 	color: var(--text);
-	font-family: serif;
+	font-family: serif !important;
 }
 
 h1, h2, h3 {

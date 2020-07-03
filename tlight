@@ -15,7 +15,7 @@ Tlight V1.1.0
 __here;
 
 $def = <<<__here
-To start a project kindly review the settings for this project in Config.php in the root directory
+To start a project kindly review the settings for this project in config.php in the root directory
 Available commands:
 
 rel \t->\t setup relations between 2 table syntax `rel parent-table/child-table parent-column/child-column delete-[restrict, null, cascade]/update-[restrict, null, cascade] `e.g rel blogs/comment id/blog_id delete-null/update-restrict´\n

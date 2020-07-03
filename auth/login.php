@@ -13,15 +13,16 @@
 					<input type="email" name="email" placeholder="Email" class="input-line">
 				</div>
 				<div>
-					<small><a href="lpwd" class="lpwd">Forgot password?</a></small><label>Password</label>
+					<label>Password</label>
 					<input type="password" name="password" placeholder="Password" class="input-line">
 				</div>
 				<div id="captcha"></div>
-				<?php echo Validate::csrf(); ?>
+				<?php Session::del(); echo Validate::csrf(); ?>
 				<input type="hidden" name="type" value="login">
 				<div>
 					<div class="info"></div>
 					<button class="button">Login</button>
+					<small><a href="lpwd" class="lpwd">Forgot password?</a></small>
 				</div>
 				<div class="opt"><a href="register" class="register">Register</a></div>
 			</form>

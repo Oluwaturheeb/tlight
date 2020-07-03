@@ -22,10 +22,7 @@ class Validate {
 					switch($rule){
 						case 'csrf':
 							$this->validate_csrf($input);
-							break;/* 
-						case 'captcha':
-							$this->capt($input);
-							break; */
+							break; 
 						case "email":
 							if(!strpos($input, ".") || !strpos($input, "@")){
 								$this->addError("Invalid email address!");
@@ -117,12 +114,11 @@ class Validate {
 		if ($this->req()) {
 			$keys = $val = [];
 			$i = 0;
+
 			foreach ($this->req() as $key => $value) {
 				if ($key == "csrf") {
 					$rule = ["csrf" => true];
-				}  elseif ($key == "captcha") {
-					$rule = ["captcha" => true, "error" => "Captcha error!"];
-				}  else {
+				} else {
 					$rule = ["required" => true];
 					if (is_array($value))
 						$rule = ["multiple" => true];
@@ -148,11 +144,14 @@ class Validate {
 			if ($_SERVER["SERVER_NAME"] != Config::get("session/domain")) {
 				$this->addError("Error understanding this URI");
 			}
-
 			return $forked;
 		}
 		return false;
 	}
+
+	// user validation ends here
+
+	// file upload validation begins here
 
 	private function img_comp ($file, $dest) {
 		$mm = getimagesize($file)["mime"];
@@ -341,14 +340,25 @@ __here;
 		}
 	}
 
-	public function capt () {
-		if ($this->req()["captcha"]) {
-			if($this->req()["captcha"] !== Session::get("cap")) {
-				return "Captcha Error!";
-			} else {
-				Session::del("count");
-				Session::del("cap");
-				return false;
+	// this method initialize and setup the captcha process
+
+	public function captcha () {
+		if (Session::check("security_check")) {
+			return Session::get("security_check");
+		} else {
+			$cap = substr($this->hash(Utils::gen()), 0, 5);
+			Session::set("security_check", $cap);
+			return $cap;
+		}
+	}
+
+	public function v_captcha ($req = "captcha") {
+		if (Session::check("security_check")) {
+			if ($this->req($req)) {
+				if($this->req($req) === Session::get("security_check")) {
+					Session::del("security_check");
+					return true;
+				}
 			}
 		}
 		return false;
