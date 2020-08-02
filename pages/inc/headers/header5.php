@@ -32,13 +32,10 @@
 		</div>
 	</nav>
 	<style type="text/css">
-		
 		nav {
 			background: var(--pry);
-			display: grid;
-			grid-auto-flow: column;
+			display: flex;
 			justify-content: space-between;
-			grid-gap: 1rem;
 			align-items: center;
 			padding: 1rem;
 			position: fixed;
@@ -46,9 +43,7 @@
 		}
 
 		nav .logo {
-			display: grid;
-			grid-auto-flow: column;
-			grid-gap: 1rem;
+			display: flex;
 			align-items: center;
 		}
 
@@ -56,6 +51,7 @@
 			padding: 5px;
 			display: inline-block;
 			cursor: pointer;
+			margin-right: 10px
 		}
 
 		.logo .dp-menu span {
@@ -95,9 +91,7 @@
 		}
 
 		nav .links {
-			display: grid;
-			grid-auto-flow: column;
-			grid-gap: 1rem;
+			display: flex;
 		}
 
 		nav .links a,

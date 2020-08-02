@@ -244,8 +244,8 @@ class Validate {
 		return str.replace(str, str[0].toUpperCase());
 	}
 
-	captcha(str) {
-		var inp = "<div><div class='captcha'> " + str + "</div><input name='captcha' placeholder='Robot?' type='text' class='input-line'></div>";
+	captcha () {
+		var inp = "<div class='id'><label style='display: none !important'>captcha</label><input type='text' name='captcha' placeholder='Enter captcha' class='input-line'></div>";
 		return inp;
 	}
 
@@ -335,14 +335,9 @@ class Validate {
 	}
 
 	fileCheck(field) {
-		try{
 		var f = $(field).get(0).files.length;
-}catch(e){
-	this.dError(e, true);
-}
-		if (f) {
+		if (f)
 			return f;
-		}
 		return false;
 	}
 
@@ -364,35 +359,6 @@ class Validate {
 				this.dError(e, true);
 			}
 		}
-	}
-
-	connect(form, info, msg = {}, load = '', r = '') {
-		// stop();
-		var info = $(info);
-		var ppt = {
-			data: $(form).serialize(),
-			beforeSend: () => {
-				info.html(load + 'Connecting to the server...');
-			},
-			success: e => {
-				alert(e);
-				if (e == 'ok') {
-					info.html(msg.ok);
-					this.redirect(r);
-				} else {
-					if (msg.error) {
-						info.html(msg.error);
-					} else {
-						if (msg.error) {
-							info.html(msg.error);
-						} else {
-							info.html(e)
-						}
-					}
-				}
-			}
-		}
-		$.ajax(ppt);
 	}
 }
 var v = new Validate();

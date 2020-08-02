@@ -17,7 +17,7 @@
 					<input type="password" name="password" placeholder="Password" class="input-line">
 				</div>
 				<div id="captcha"></div>
-				<?php Session::del(); echo Validate::csrf(); ?>
+				<?php echo Validate::csrf(); ?>
 				<input type="hidden" name="type" value="login">
 				<div>
 					<div class="info"></div>
@@ -89,6 +89,10 @@
 				</div>
 			</form>
 		</div>
+	</div>
+	<div class="captcha">
+		<h2>Test</h2>
+		<b>email</b> &raquo; user@mail.com<br><br><b>Password</b> &raquo; password
 	</div>
 </div>
 <style type="text/css">
@@ -206,7 +210,7 @@
 		margin: 1rem 0;
 	}
 
-	.auth .captcha {
+	.auth #captcha {
 		background: #eee;
 		display: inline-block;
 		font-size: 2rem;

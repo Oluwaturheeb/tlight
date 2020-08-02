@@ -22,9 +22,9 @@ class Easy extends Db {
 	public function unique ($col) {
 		$this->_error = null;
 		if (is_array($col)) {
-			$this->get(["id"])->where([$col[0], $this->_v->req($col[0])], [$col[1], $this->_v->req($col[1])])->res();
+			$this->get(["id"])->where([$col[0], Http::req($col[0])], [$col[1], Http::req($col[1])])->res();
 		} else {
-			$this->get(["id"])->where([$col, $this->_v->req($col)])->res();
+			$this->get(["id"])->where([$col, Http::req($col)])->res();
 		}
 
 		if ($this->count()) 
@@ -75,7 +75,7 @@ class Easy extends Db {
 	public function fetch ($cols = ["*"], ...$where) {
 		$val = $this->_v;
 
-		if ($val->req()) {
+		if (Http::req()) {
 			list($this->_col, $this->_inp) = $val->val_req();
 			if ($val->pass()) {
 				$this->_error = $val->error();
@@ -131,7 +131,7 @@ class Easy extends Db {
 	*/
 	public function update (...$where) {
 		$v = $this->_v;
-		if ($v->req() && !empty($_POST)) {
+		if (Http::req() && !empty($_POST)) {
 			list($this->_col, $this->_inp) = $v->val_req();
 			if (!$v->pass()) {
 				$this->error = $v->error();
@@ -151,7 +151,7 @@ class Easy extends Db {
 
 	public function del ($con = [], $ops = []) {
 		$v = $this->_v;
-		if ($v->req()) {
+		if (Http::req()) {
 			list($this->_col, $this->_inp) = $v->val_req();
 			if ($v->pass()) {
 				$this->_error = $v->error();
@@ -312,7 +312,7 @@ class Easy extends Db {
 	public function rfetch ($col = ["*"], $pre = [], ...$where) {
 		$val = $this->_v;
 
-		if ($val->req()) {
+		if (Http::req()) {
 			list($this->_col, $this->_inp) = $val->val_req();
 			if ($val->pass()) {
 				$this->_error = $val->error();

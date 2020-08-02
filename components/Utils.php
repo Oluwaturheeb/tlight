@@ -4,6 +4,53 @@ class Utils{
 	public static function time () {
 		return date("D, jS \of F Y");
 	}
+
+	/*
+
+	this method generates meta keyword for seo
+	and it accepts either string or array as args
+
+	*/
+
+	public static function tags ($str, $class = 'tag', $tag = true) {
+		if ($str) {
+			if (!is_array($str))
+				$str = explode(', ', $str);
+
+			$ss = '';
+			foreach ($str as $s) {
+				$uc = ucfirst($s);;
+				if ($tag)
+					$ss .= "<div class='{$class}'>{$uc}</div>";
+				else
+					$ss .= "<span class='{$class}'>{$uc}</span>";
+			}
+
+			return $ss;
+		}
+		return false;
+	}
+
+	public static function meta (...$keys) {
+		$meta = "";
+		if (empty($keys)) {
+			$keys = [["author" => "Muhammad-Turheeb"], 'Tlight', 'Tlight php module', 'Tlight OOP & PDO', 'Tlight - Created by Muhammad-Turheeb'];
+		}
+
+		foreach ($keys as $key) {
+			if (is_array($key)) {
+				foreach ($key as $k => $v) {
+					$k = ucfirst($k);
+					$v = ucfirst($v);
+					$meta .= "<meta name='$k' content='$v'>\n";
+				}
+			} else {
+				$key = ucfirst($key);
+				$meta .= "<meta name='keyword' content='$key'>\n";
+			}
+		}
+		return $meta;
+	}
 	
     public static function time_to_ago ($time, $check = false){
 		if ($check)
@@ -51,16 +98,23 @@ class Utils{
 		}
 	}
 	
-	public static function arr2str($arr, $sep = ", "){
+	public static function arr2str($arr, $sep = ', '){
 		return @implode($sep, $arr);
 	}
 	
-	public static function m_array_search ($str, $arr) {
+	public static function m_array_search ($str, $arr, $where = true) {
 		if(is_array($arr[0])) {
 			for($i = 0; $i < count($arr); $i++) {
-				if(array_key_exists($str, $arr[$i])) {
-					return $arr[$i];
+				if ($where) {
+					if(array_key_exists($str, $arr[$i])) {
+						return $arr[$i];
+					}
+				} else {
+					if(array_key_exists($str, $arr[$i])) {
+						return $arr[$i];
+					}
 				}
+				
 			}
 		}
 	}
@@ -122,13 +176,6 @@ class Utils{
 		}
 	}
 	
-	public static function is_ajax(){
-		if($_SERVER['HTTP_X_REQUESTED_WITH']){
-			return true;
-		}
-		return false;
-	}
-	
 	public static function get_type($file) {
 		$file = mime_content_type($file);
 		$img = array('image/pjpeg', 'image/jpeg', 'image/gif', 'image/bmp', 'image/png');
@@ -146,7 +193,7 @@ class Utils{
 		return false;
 	}
 
-	public static function content_html($text, $file){
+	/*public static function content_html($text, $file){
 		$check = stristr($text, "upload_");
 
 		if($check){
@@ -170,7 +217,7 @@ class Utils{
 			}
 		}
 		return $text;
-	}
+	}*/
     
     public static function media_html ($src) {
         if(self::get_type($src) == "video"){

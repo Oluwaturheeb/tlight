@@ -12,13 +12,13 @@
 	</nav>
 	<style type="text/css">
 		nav {
-			display: grid;
-			grid-gap: 1rem;
-			align-items: center;
+			display: flex;
+			flex-flow: column;
 		}
 
 		nav .logo {
 			text-align: center;
+			margin: 10px 0;
 		}
 
 		nav .logo a {
@@ -34,8 +34,7 @@
 
 		nav .links {
 			background: var(--pry);
-			display: grid;
-			grid-auto-flow: column;
+			display: flex;
 			justify-content: center;
 			grid-gap: 1rem;
 			padding-bottom: 10px !important;
@@ -51,5 +50,4 @@
 			border-bottom: 2px solid var(--sec);
 			margin-bottom: -2px;
 		}
-
 	</style>

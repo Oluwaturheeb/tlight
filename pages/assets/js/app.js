@@ -53,7 +53,7 @@ $(document).ready(function () {
 					} else if (e.msg == 'captcha') {
 						info.html(e.error);
 						$(this).children('#captcha').html(e.captcha);
-						$(this).children('#captcha').after("<div class='id'><label style='display: none !important'>captcha</label><input type='text' name='captcha' placeholder='Enter captcha' class='input-line'></div>")
+						$(this).children('#captcha').after(v.captcha());
 					} else if (e.msg == "change") {
 						$('.auth .info').empty();
 						$(".auth-content #chpwd").show().siblings().hide();

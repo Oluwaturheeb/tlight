@@ -39,10 +39,8 @@
 
 		nav {
 			background: var(--pry);
-			display: grid;
-			grid-auto-flow: column;
+			display: flex;
 			justify-content: space-between;
-			grid-gap: 1rem;
 			align-items: center;
 			padding: .5rem;
 			position: fixed;
@@ -50,9 +48,7 @@
 		}
 
 		nav .logo {
-			display: grid;
-			grid-auto-flow: column;
-			grid-gap: 1rem;
+			display: flex;
 			align-items: center;
 		}
 
@@ -68,6 +64,7 @@
 			background: var(--pry);
 			padding: 1rem 10px;
 			transition-duration: 1s;
+			margin-right: 10px;
 		}
 
 		.logo .dp-menu:hover,
@@ -112,9 +109,7 @@
 		}
 
 		nav .links {
-			display: grid;
-			grid-auto-flow: column;
-			grid-gap: 1rem;
+			display: flex;
 		}
 
 		nav .links a,

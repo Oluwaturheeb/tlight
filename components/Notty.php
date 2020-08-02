@@ -1,82 +1,94 @@
 <?php
 
 class Notty {
-	private $_db;
+	private $_db, $_msg, $_table, $_error;
 
-	public function __construct () {
+	public function __construct ($t = 'notty') {
 		$this->_db = new Db();
-		$this->_db->table("notty");
+		$this->_db->table('notty');
+		$this->_table = $t;
+	}
+
+	public function notty () {
+		$this->_db->table($t);
+		return $this;
 	}
 
 	public function init() {
-		$sql = "create table if not exists notty(id int auto_increment, sender int, rec int, time datetime default now(), content text not null, flag int, primary key(id))";
-		$this->_db->customQuery($sql);
+		$sql = "create table if not exists notty(id int auto_increment, sender int, rec int, time datetime default now(), msg text not null, flag int dfault 0, primary key(id))";
+		$this->_db->customQuery($sql)->res();
 	}
 
-	public function get_user ($tab, $name, $user = "user") {
-		$this->_db->table($tab);
-
-		if (is_array($name)) 
-			$name = implode(", ", $name);
-		
-		if ($user == "user")
-			$user = Session::get("user");
-
-		$d = $this->_db->get($name)->where($user);
-		return $d[0][$name];
+	public function msg ($msg) {
+		$this->_msg = $msg;
 	}
 
-	public function send ($rec, $text) {
-		$d = $this->_db;
-		$d->add(["rec", "content"], func_get_args());
-
-		if (!$d->error())
-			return true;
-
-		return $d->error();
-	}
-
-	public function get ($user = "", $def = 5) {
-		if ($user == "")
-			$u = Session::get("user");
-		else 
-			SESSION::get($user);
-
+	public function to ($to, $user = '') {
 		$d = $this->_db;
 
+		if (!$user)
+			$user = Session::get('user');
 
-		$d->get(["*"])
-		->where(["rec", $u], ["flag", 0]);
-
-		if(is_numeric($def)) {
-			$d->pages(5);
-		}
-
-		$d->res();
+		$d->add(['msg', 'rec', 'sender'], [$this->_msg, $to, $user]);
 	}
 
-	public function set_flag ($check , $user = "user") {
+	public function get ($user = '') {
+		if (!$user)
+			$user = Session::get('user');
+
+		$d = $this->_db;
+		$d->get(['sender', 'msg', 'flag', 'time', 'id'])->where(['rec', $user]);
+		return $this;
+	}
+
+	public function flag ($check = 0, $user = '') {
 		$d = $this->_db;
 		$d->set(["flag"], [1]);
 
-		if($check) 
+		if ($check) {
 			$d->where($check);
-		else 
-			$d->where(["rec", Session::get($user)]);
+		} else {
+			if (!$user)
+				$user = Session::get('user');
+			$d->where(['rec', $user]);
+		}
 
-		return $d->res();
+		return $this;
 	}
 
-	public function delete($to, $user = "user") {
-		$u = Session::get("user");
+	public function delete($to, $user = '') {
 		$d = $this->_db;
+		
+		if (!$user)
+			$u = Session::get("user");
 
 		$d->del();
 
-		if (is_numeric($to)) 
+		if (is_numeric($to))
 			$d->where($to);
 		else 
 			$d->where(["rec", $u]);
 
+		return $this;
+
+	}
+
+	public function send () {
+		if ($this->_error) {
+			Redirect::to(500, $this->_error);
+		} else {
+			$this->_db->res();
+
+			if ($this->_db->error()) {
+				$this->_error = $this->_db->error();
+			} else {
+				$this->_msg = $_error = null;
+				return true;
+			}
+		}
+	}
+
+	public function error() {
+		return $this->_error;
 	}
 }

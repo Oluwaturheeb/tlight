@@ -24,10 +24,8 @@
 	<style type="text/css">
 		nav {
 			background: var(--pry);
-			display: grid;
-			grid-auto-flow: column;
+			display: flex;
 			justify-content: space-between;
-			grid-gap: 1rem;
 			align-items: center;
 			padding: 1rem;
 			position: relative;
@@ -80,25 +78,28 @@
 			margin-bottom: -2px;
 		}
 
-		@media (min-width: 576px) {
-			nav {
-				grid-template-columns: auto 2fr auto;
+		@media (min-width: 576px) {			
+			.dp-menu, .logo {
+				flex: 0;
 			}
+			
 			.dp-menu {
-				grid-column: 3;
+				order: 3;
 				justify-self: start;
 			}
 
 			.links {
-				display: grid !important;
+				flex-grow: 5;
+				justify-content: end;
+				display: flex !important;
 				position: static !important;
 				width: auto !important;
 				justify-self: end !important;
 			}
 
 			.links .menu-link {
-				display: grid;
-				grid-auto-flow: column !important;
+				display: flex;
+				flex-flow: row;
 			}
 
 			.dp-link {

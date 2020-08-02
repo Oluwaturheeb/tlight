@@ -1,7 +1,7 @@
 <?php
 
 class Validate {
-	protected $_pass = false, $_file = "", $_errors = [];
+	protected $_pass = false, $_file = [], $tmp = [], $_errors = [];
 	
 	public function validator($src, $fields = array()){
 		foreach($fields as $field => $options){
@@ -86,36 +86,14 @@ class Validate {
 		}
 	}
 
-	/* http request handler */
-	
-	public static function req ($r = "") {
-		if (!empty($_POST)) {
-			$req = $_POST;
-		} elseif (!empty($_GET)) {
-			$req = $_GET;
-		} else {
-			return false;
-		}
-
-		if ($r) {
-			if (@$req[$r]) {
-				$req = $req[$r];
-			} else {
-				$req = false;
-			}
-		}
-
-		return $req;
-	}
-	
 	/* validating http request */
 
 	public function val_req (...$rules) {
-		if ($this->req()) {
+		if (Http::req()) {
 			$keys = $val = [];
 			$i = 0;
 
-			foreach ($this->req() as $key => $value) {
+			foreach (Http::req() as $key => $value) {
 				if ($key == "csrf") {
 					$rule = ["csrf" => true];
 				} else {
@@ -127,7 +105,7 @@ class Validate {
 				if (!empty($rules[$i])) {
 					$rule = $rules[$i];
 				}
-				$this->validator($this->req(), [
+				$this->validator(Http::req(), [
 					$key => $rule
 				]);
 				// removing csrf key and captcha
@@ -141,9 +119,6 @@ class Validate {
 			$this->filter_array($keys);
 			$this->filter_array($val);
 			$forked = [$keys, $val];
-			if ($_SERVER["SERVER_NAME"] != Config::get("session/domain")) {
-				$this->addError("Error understanding this URI");
-			}
 			return $forked;
 		}
 		return false;
@@ -180,41 +155,52 @@ class Validate {
 
 		$file = $src[$data];
 		$tmp = $file['tmp_name'];
-		$name = $file['name'];
+		$file_name = $file['name'];
 		$type = $file['type'];
 		$size = $file['size'];
-		$count = count($name);
-		
-		if (empty($name[0])) {
+		$count = count($file_name);
+		$this->_pass = true;
+
+		if (empty($file_name[0])) {
 			$this->addError("Kindly select a file!");
 		} else {
 			if ($count > config::get("file-upload/max-file-upload")) {
 				$count = config::get("file-upload/max-file-upload");
 			}
 			for ($i = 0; $i < $count; $i++) {
-				if (!empty($name[$i])) {
-					if (!Utils::get_type($tmp[$i])){
-						$this->addError("$name[$i] type not supported!");
+				if (!empty($file_name[$i])) {
+					// file renaming
+
+					if (config::get("file-upload/rename-file")) {
+						$name = config::get("project/name") . "_" . Utils::gen() . "_" . time();
 					} else {
-						if (config::get("file-upload/rename-file")) {
-							$name = config::get("project/name") . "_" . Utils::gen() . "_" . time();
-						} else {
-							$name = $name[$i];
-						}
-						if (Utils::get_type($tmp[$i]) == "image") {
-							// image compresson
-							$img = $this->img_comp($tmp[$i], $folder.$name);
-						} elseif (Utils::get_type($tmp[$i]) == "video" || Utils::get_type($tmp[$i]) == "audio") {
+						$name = $file_name[$i];
+					}
+
+					// getting file type
+
+					if (Utils::get_type($tmp[$i]) == "image") {
+						// image compresson
+						$img = $this->img_comp($tmp[$i], $folder.$name);
+					} elseif (Utils::get_type($tmp[$i]) == "video" || Utils::get_type($tmp[$i]) == "audio") {
+						move_uploaded_file($tmp[$i], $folder.$name);
+						$img = $folder.$name;
+					} else {
+						if (in_array($type[$i], Config::get('file-upload/mime'))) {
 							move_uploaded_file($tmp[$i], $folder.$name);
 							$img = $folder.$name;
 						} else {
 							$this->addError("$name[$i] type not supported!");
 						}
-
+					}
+					if (!$this->_errors) {
+						$this->_pass = true;
 						if ($count == 1) {
-							$this->_file = [$img, $name];
+							$this->_file = $img;
+							$this->_tmp = $name;
 						} else {
-							$this->_file[] = [$img, $name];
+							$this->_file[] = $img;
+							$this->_tmp[] = $name;
 						}
 					}
 				}
@@ -224,7 +210,7 @@ class Validate {
 	}
 
 	public function preview () {
-		return $this->_file[0];
+		return $this->_file;
 	}
 	
 	public function complete_upload($dest = "assets/img/"){
@@ -290,20 +276,21 @@ class Validate {
 		return array_map([$this, "filter"], $arr);
 	}
 	
-	public function filter($str){
+	public static function filter($str){
 		if (is_array($str)) {
-			return array_map([$this, "filter"], $str);
+			return array_map(['self', 'filter'], $str);
 		}
 		
-		return @htmlentities(trim((@ucfirst($str))), ENT_QUOTES, "utf-8", false);
+		return @htmlentities(trim(($str)), ENT_QUOTES, "utf-8");
 	}
 
 	public static function csrf($c = true) {
 		if (!Session::check("csrf")) {
-			$ses = Session::set("csrf", substr(self::hash(Utils::gen()), 0, 21));
+			Session::set("csrf", substr(self::hash(Utils::gen()), 0, 32));
 			if ($c) {
 				substr(Session::set("expires", time() + 30 * 60), 0, 21);
 			}
+			$ses = Session::get('csrf');
 		} else {
 			$ses = Session::get("csrf");
 		}
@@ -354,8 +341,8 @@ __here;
 
 	public function v_captcha ($req = "captcha") {
 		if (Session::check("security_check")) {
-			if ($this->req($req)) {
-				if($this->req($req) === Session::get("security_check")) {
+			if (Http::req($req)) {
+				if(Http::req($req) === Session::get("security_check")) {
 					Session::del("security_check");
 					return true;
 				}

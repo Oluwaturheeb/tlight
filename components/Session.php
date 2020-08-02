@@ -9,8 +9,16 @@ class Session{
 		}
 	}
 	
-	public static function set($name, $value){
-		return $_SESSION[$name] = $value;
+	public static function set($name, $value, $exp = 0, $c = false){
+		
+		$_SESSION[$name] = $value;
+
+		if ($exp) {
+			session_set_cookie_params($exp);
+		}
+
+		if ($c)
+			session_commit();
 	}
 	
 	public static function get($name = ""){

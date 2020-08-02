@@ -9,6 +9,12 @@ class Auth extends Validate {
 		$this->_e->table("auth");
 	}
 
+	public static function logged () {
+		if (Session::get("user")) {
+			return true;
+		}
+		return false;
+	}
 
 	protected function init_count () {
 		// checking for login attempts if enabled
@@ -17,7 +23,7 @@ class Auth extends Validate {
 				Session::set("count", 1);
 			} else {
 				// this validate the captcha from the request!
-				if ($this->req("captcha")) {
+				if (Http::req("captcha")) {
 					if (!$this->v_captcha()) {
 						$this->addError(["msg" => "captcha", "captcha" => $this->captcha(), "error" => "Captcha error!"]);
 						return true;
@@ -41,7 +47,7 @@ class Auth extends Validate {
 		return false;
 	}
 	
-	public function login ($cols = []) {
+	public function login () {
 		if ($this->init_count()) {
 			return $this;
 		} else {
@@ -55,7 +61,7 @@ class Auth extends Validate {
 				$id[] = "type";
 				
 			$this->_log = $this->result = $d->fetch($id)->with("remove", ["type", "password"])->with("append", ["password"], [$this->hash(lcfirst($this->fetch("password")))])->exec(1);
-
+			
 			if ($d->error()) {
 				$this->addError($d->error());
 			} else {
@@ -68,13 +74,15 @@ class Auth extends Validate {
 	}
 	
 	public function reg ($cols = []) {
-		if ($this->cap()) {
+		if ($this->init_count()) {
 			return $this;
 		} else {
 			$d = $this->_e;
 			$this->_log = $this->result = $d->create()->with("remove", ["type", "password"])
 			->with("append", ["password"], [$this->hash(lcfirst($this->fetch("password")))])
+			->with("change", ['email', 'type', 'password'])
 			->exec(1);
+			
 			if ($d->error()) {
 				$this->addError("There is an account with that email address!");
 			}
@@ -90,6 +98,7 @@ class Auth extends Validate {
 			else
 				return ["msg" => $msg];
 		} else {
+			session_regenerate_id();
 			if (is_numeric($this->_log)) {
 				//register
 				Session::set($ses, $this->_log);
@@ -134,7 +143,7 @@ class Auth extends Validate {
 			if ($this->error()) {
 				return ["msg" => $this->error()];
 			} else {
-				$d->update(Session::get("user"))->with("remove")->with("append", ["last_pc", "password", "captcha"], ["now()", $this->hash($this->req("password"))])->exec();
+				$d->update(Session::get("user"))->with("remove")->with("append", ["last_pc", "password", "captcha"], ["now()", $this->hash(Http::req("password"))])->exec();
 				if ($d->error()) 
 					return ["msg" => $d->error()];
 				else 
@@ -144,23 +153,26 @@ class Auth extends Validate {
 	}
 	
 	public function lpass () {
-		$d = $this->_e;
-		list($col, $val) = $this->val_req();
-		
-		$d->get($col[0])
-		->where([$col[0], $val[0]])
-		->res();
-		
-		if ($d->error() || !$d->count()) 
-			$this->addError("Email does not match any account, try again!");
+		if ($this->init_count()) {
+			return $this->error();
+		} else {
+			$d = $this->_e;
+			list($col, $val) = $this->val_req();
+			
+			$d->unique("email");
 
-		$token = Utils::gen();
-		$dom = Config::get("session/domain");
-		$time_exp = time() + 60 * 60 * 30;
-		$time = time("d-M-y h:m:i", $time_exp);
+			if ($d->error() || !$d->count()) {
+				$this->addError("Email does not match any account, try again!");
+			} else {
+				return $this->fetch("email");
+				/*$token = Utils::gen();
+				$dom = Config::get("session/domain");
+				$time_exp = time() + 60 * 60 * 30;
+				$time = date(Utils::time(), $time_exp);
 
-		mail($d[0]->email, "Password recovery", "click <a href='$dom/fpass/$token'>here</a> this link expires $time");
-		$msg = mail(to, subject, message);
-		echo $msg;
+				$msg = mail($this->fetch("email"), "Password recovery", "click <a href='$dom/fpass/$token'>here</a> this link expires $time");
+				echo $msg;*/
+			}
+		}
 	}
 }

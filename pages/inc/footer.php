@@ -1,6 +1,6 @@
 	</body>
 	<footer>
-		<i>MuhammaTuryeeb Bello &copy; <?php echo date("Y"); ?></i>
+		<i>Muhammad-Turyeeb Bello &copy; <?php echo date("Y"); ?></i>
 	</footer>
 	<script type="text/javascript" src="<?php echo js, "app.js" ?>"></script>
 </html>

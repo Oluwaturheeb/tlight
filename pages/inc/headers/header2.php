@@ -34,18 +34,17 @@
 		</div>
 	</nav>
 	<style type="text/css">
+		
 		nav {
 			background: var(--pry);
-			display: grid;
-			grid-auto-flow: column;
+			display: flex;
 			justify-content: space-between;
-			grid-gap: 1rem;
 			align-items: center;
 			padding: 1rem;
 			position: relative;
 		}
 
-		.nav .dp-menu {
+		nav .dp-menu {
 			padding: 5px;
 			display: inline-block;
 			cursor: pointer;
@@ -108,13 +107,8 @@
 		}
 
 		@media (min-width: 576px) {
-			nav {
-				justify-content: stretch;
-				grid-template-columns: auto 1fr auto !important;;
-			}
-
 			.dp-menu {
-				grid-column: 3;
+				order: 3;
 				justify-self: end;
 			}
 
@@ -124,14 +118,15 @@
 
 			.links,
 			#search {
+				flex-grow: 5;
+				justify-content: end;
 				width: auto !important;
-				justify-self: end;
 				position: static !important;
 			}
 
 			.links, .links .menu-link {
-				display: grid !important;
-				grid-auto-flow: column !important;
+				display: flex !important;
+				flex-flow: row !important;
 			}
 
 			.dp-link {
@@ -142,6 +137,7 @@
 				width: 150px;
 			}
 		}
+	
 	</style>
 	<script type="text/javascript">
 		$('.dp-menu').click(() => {

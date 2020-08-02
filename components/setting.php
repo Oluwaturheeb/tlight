@@ -5,10 +5,11 @@ spl_autoload_register(function($class){
 
 $c = new Config();
 // constants
-const style = "assets/css/";
-const js = "assets/js/";
-const jq = "assets/js/jquery/jquery.js";
-define("PNAME",  $c->get("project/name"));
+const STYLE = 'assets/css/';
+const JS = 'assets/js/';
+const jQuery = 'assets/js/jquery/jquery.js';
+const IMG = 'assets/img/';
+define('PNAME',  $c->get('project/name'));
 
 // configs 
 
@@ -23,6 +24,6 @@ date_default_timezone_set($c->get("project/region"));
 
 // sessions
 
-ini_set("session.cookie_domain", $c->get("." . "session/name"));
-session_name($c->get("session/name"));
-session_start();
+ini_set("session.cookie_domain", $c->get("." . 'session/name'));
+session_name($c->get('session/name'));
+session_start(/*['read_and_close' => true]*/);

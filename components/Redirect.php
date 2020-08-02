@@ -1,13 +1,17 @@
 <?php
 
-class Redirect{
-	public static function to($loc = "/"){
-		if(is_numeric($loc)){
-			header("404 Not found!");
-			echo "<h1>404</h1>
-			The request url not found on this server!
-			";
-			exit();
+class Redirect {
+	public static function to($loc = "/") {
+		if (is_numeric($loc)) {
+			if ($loc == 404) {
+				header("404 Not found!");
+				require_once 'inc/error/404.php';
+				exit();
+			} elseif ($loc == 500) {
+				header("500 Server error!");
+				require_once 'inc/error/500.php';
+				exit();
+			}
 		}
 		header("location: ". $loc);
 	}

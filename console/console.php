@@ -2,6 +2,7 @@
 
 if (count($argv) > 1)
 		if(strpos($argv[1], "-") === false) {
+			$res = $GLOBALS["logo"] . $def;
 			// settin relations
 			if ($argv[1] == "rel") {
 				$argv = array_slice($argv, 2);
@@ -39,6 +40,18 @@ if (count($argv) > 1)
 				else
 					exec("mysql -u $u $db < $db.sql");
 				$res = "**Success: Backup completed!";
+			} elseif ($argv[1] == "header") {
+				$header = @$argv[2];
+
+				if (!$header) {
+					$res = $def;
+				} else {
+					if (@copy("pages/inc/headers/{$header}.php", "pages/inc/defaultHeader.php")) {
+						$res = "**Success: Default header is set!";
+					} else {
+						$res = "**Error: Unknown error!";
+					}
+				}
 			}
 			echo $res, "\n";
 		} else {

@@ -28,11 +28,9 @@ require_once "inc/header.php";
 					</p>
 					<p>
 						<b>Headers</b> &raquo; 7 different type of headers are included to hasten development and leave you to face the logic of the project at hand.<br>
-						<b>Note</b>: All the header are made up of CSS Grid as it may have some funny behavior on some browser that doesn't support CSS Grid.
-
 					</p>
 					<p>
-						<b>Validate class</b> &raquo; The javascript validate class id dependent on jQuery lib. It also helps save time from handling form validation. And if you are a big fan of ajax like me there is also a javascript method to help you after successful validation to help send request in form of REST API.
+						<b>Validate class</b> &raquo; The javascript validate class id dependent on jQuery lib. It also helps save time from handling form validation. And if you are a big fan of ajax like me there is also a jquery ajax method to help you after successful validation to help send request in form of REST API.
 					</p>
 					<p>
 						<b>File upload</b> &raquo; Tlight also help in handling file upload in a very simple and fast way with file validation and image compression level of 70% reduction in file size and the image not loosing its quality.
@@ -43,7 +41,7 @@ require_once "inc/header.php";
 					<p>
 						<b>Components and Utilities</b> &raquo; 
 						Tlight also has some really simple database class that include (simple, join, union and custom query statement execution).
-						And also there is a class helper that helps in mapping incoming requests(GET/POST) into crud(CREATE, READ, UPDATE, DELETE). And some other utilities to be coverec in documentation section.
+						And also there is a class helper that helps in mapping incoming requests(GET/POST) into crud(CREATE, READ, UPDATE, DELETE). And some other utilities to be covered in documentation section.
 					</p>
 					<p>And there is a handy documention file in place for to help in using this module.</p>
 				</p>
@@ -75,12 +73,12 @@ require_once "inc/header.php";
 		p {
 			padding: 10px;
 		}
-
+/*
 		p::before {
 			content: " ";
 			padding: 1rem;
 		}
-
+*/
 		p b, b {
 			color: var(--text)
 		}
