@@ -35,8 +35,9 @@ class Easy extends Db {
 
 	public function create () {
 		$v = $this->_v;
-		list($this->_col, $this->_inp) = $v->val_req();
-		if (!$v->pass()){
+		list($this->_col, $this->_inp) = $v->autoValidate();
+		
+		if ($v->error()){
 			$this->_error = $v->error();
 		} else {
 			$this->add($this->_col, $this->_inp);
@@ -76,7 +77,8 @@ class Easy extends Db {
 		$val = $this->_v;
 
 		if (Http::req()) {
-			list($this->_col, $this->_inp) = $val->val_req();
+			list($this->_col, $this->_inp) = $val->autoValidate();
+			
 			if ($val->pass()) {
 				$this->_error = $val->error();
 			}
@@ -132,7 +134,7 @@ class Easy extends Db {
 	public function update (...$where) {
 		$v = $this->_v;
 		if (Http::req() && !empty($_POST)) {
-			list($this->_col, $this->_inp) = $v->val_req();
+			list($this->_col, $this->_inp) = $v->autoValidate();
 			if (!$v->pass()) {
 				$this->error = $v->error();
 			} else {
@@ -152,7 +154,7 @@ class Easy extends Db {
 	public function del ($con = [], $ops = []) {
 		$v = $this->_v;
 		if (Http::req()) {
-			list($this->_col, $this->_inp) = $v->val_req();
+			list($this->_col, $this->_inp) = $v->autoValidate();
 			if ($v->pass()) {
 				$this->_error = $v->error();
 			}
@@ -208,11 +210,12 @@ class Easy extends Db {
 				} else {
 					foreach($var[0] as $k) {
 						$key = array_search($k, $this->_col, true);
-						unset($this->_col[$key]);
-						unset($this->_inp[$key]);
+						if ($key !== false) {
+							unset($this->_col[$key]);
+							unset($this->_inp[$key]);
+						}
 					}
 				}
-				
 				break;
 			case "use":
 				$use = $var[0];
@@ -313,7 +316,7 @@ class Easy extends Db {
 		$val = $this->_v;
 
 		if (Http::req()) {
-			list($this->_col, $this->_inp) = $val->val_req();
+			list($this->_col, $this->_inp) = $val->autoValidate();
 			if ($val->pass()) {
 				$this->_error = $val->error();
 			}

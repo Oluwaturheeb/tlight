@@ -102,6 +102,10 @@ class Utils{
 		return @implode($sep, $arr);
 	}
 	
+	/* 
+	* this method is for searching in a multi dimensional array
+	*/
+	
 	public static function m_array_search ($str, $arr, $where = true) {
 		if(is_array($arr[0])) {
 			for($i = 0; $i < count($arr); $i++) {
@@ -114,7 +118,6 @@ class Utils{
 						return $arr[$i];
 					}
 				}
-				
 			}
 		}
 	}
@@ -172,7 +175,7 @@ class Utils{
 		if(!$bool) {
 			return random_int(1, 999999999);
 		} else {
-			return random_bytes(64);
+			return bin2hex(openssl_random_pseudo_bytes(4));
 		}
 	}
 	

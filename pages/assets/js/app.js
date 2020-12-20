@@ -1,5 +1,6 @@
 $(document).ready(function () {
 	/* default js */
+	try{
 	$('.auth-content input').on({
         'mouseover': function(){
             $(this).prev('label').slideDown(500);
@@ -45,16 +46,16 @@ $(document).ready(function () {
 				},
 				success: e => {
 					info.empty();
-					if (e.msg == 'ok') {
+					if (e.status == 'ok') {
 						$(this).children('#captcha').empty();
 						info.html('You are logged!').css({"color": "#36a509"});
 						// change the redirect location url to any location of your choosing
 						v.redirect(e.redirect);
-					} else if (e.msg == 'captcha') {
-						info.html(e.error);
+					} else if (e.status == 'captcha') {
+						info.html(e.msg);
 						$(this).children('#captcha').html(e.captcha);
 						$(this).children('#captcha').after(v.captcha());
-					} else if (e.msg == "change") {
+					} else if (e.status == "change") {
 						$('.auth .info').empty();
 						$(".auth-content #chpwd").show().siblings().hide();
 						$('#chpwd .days').html("Its been <b>" + e.days + "days</b> since you last change your password!");
@@ -62,7 +63,7 @@ $(document).ready(function () {
 						info.html(e.msg).css({'color': '#d80808', 'font-style': 'oblique'});
 					}
 				},
-				error: (e) => {
+				error: (e) => {v.dError(e)
 					info.html(e);
 				}
 			});
@@ -74,6 +75,7 @@ $(document).ready(function () {
 
 		v.redirect('/index');
 	});
+	}catch(e){alert(e)}
 	
 	/* ends here */
 });

@@ -29,11 +29,33 @@ class Http extends Validate {
 		}
 	}
 
-	public static function res ($data = "ok") {
-		if (is_array($data))
-			echo Utils::json($data);
-		else
-			echo Utils::json(["msg" => $data]);
+	public static function res ($data = "ok", int $status = 200) {
+		if (is_array($data)) {
+			if (array_key_exists('status', $data)) {
+				$status = $data['status'];
+			} 
+		} else {
+			$data = ['msg' => $status, 'msg' => $data];
+		}
+		
+		switch($status) {
+			case 200:
+				header('HTTP/1.1 200 OK');
+			break;
+			case 404:
+				header('HTTP/1.1 404 Not found');
+			break;
+			case 500:
+				header('HTTP/1.1 500 Internal Server Error');
+			break;
+			case 419:
+				header('HTTP/1.1 419 Invalid form');
+			break;
+			case 422:
+				header('HTTP/1.1 422 Validation error');
+			break;
+		}
+		echo Utils::json($data);
 	}
 
 	public static function server () {

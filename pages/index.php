@@ -1,10 +1,8 @@
 <?php 
 require_once "Autoload.php";
-print_r($_SERVER);
 
 $title = "Welcome";
-require_once "inc/header.php";
-?>
+require_once "inc/header.php"; ?>
 
 	<div class="container">
 		<header>

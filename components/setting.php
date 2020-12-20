@@ -26,4 +26,4 @@ date_default_timezone_set($c->get("project/region"));
 
 ini_set("session.cookie_domain", $c->get("." . 'session/name'));
 session_name($c->get('session/name'));
-session_start(/*['read_and_close' => true]*/);
+session_start();

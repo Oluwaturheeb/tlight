@@ -6,6 +6,7 @@ class Db {
 	public $paging = false, $next = 0, $prev;
 
 	public function __construct () {
+		if ($this->_error) return $this->_error();
 		try{
 			$this->_pdo = new PDO("mysql:host=". config::get("db/host") .";dbname=" . config::get("db/database"), Config::get("db/usr"), Config::get("db/pwd"));
 		} catch (Exception $e) {
@@ -70,7 +71,7 @@ class Db {
 	public function get ($cols = ["*"]) {
 		if (!$this->_error) {
 			if (!is_array($this->_table)) {
-				$this->_sql = "select " . implode(",", $cols) . " from ";
+				$this->_sql = "select " . implode(', ', $cols) . " from ";
 				$this->_sql .= $this->_table;
 			} else {
 				// this little code is use for union   
@@ -82,7 +83,7 @@ class Db {
 					$q = [];
 
 					foreach (func_get_args() as $key => $value) {
-						$q[] = 'select '. implode(", ", $value) ." from {$this->_table[$key]}";
+						$q[] = 'select '. implode(', ', $value) ." from {$this->_table[$key]}";
 					}
 
 					$this->_sql = $q;
@@ -92,61 +93,11 @@ class Db {
 		}
 		return $this;
 	}	
-
-	public function match ($arg) {
-		if (!$this->_error) {
-			$args = func_get_args();
-			
-			$this->_sql = $this->join($this->_table, $this->_misc, $args, $this->_sort, $this->_con);
-			$this->_sql .= $this->_lastid;
-			$this->_misc = $this->_lastid = null;
-		}
-		return $this;
-	}
 	
-	public function join ($table = [], $cols = [], $match = [], $type = [], $concat = ["and"]) {
-		$sub = ""; $once = ""; $on  = ""; $con = ""; $o = "";
-		$col = implode(", ", $cols);
-		
-		for ($i = 0, $j = 1; $i < count($table); $i++, $j++) {
-			if($j < count($table)) {
-				if($type) {
-					$join = " {$type[$i]} join ";
-				} else {
-					$join = " left join ";
-				}
-				$on = $this->predicate($match, $concat)[$i];
-			}
-			$tab = "{$table[$i]}";
-			if($j == 1) {
-				$o .= $on;
-				$once .= $tab . $join;
-			} else {
-				if($o){
-					$once .= $tab . $o;
-					$o = "";
-				} else {
-					$con .= $join . $tab . $on;
-				}
-			}
-		}
-		$sub =  $once . $con;
-		$query = "select {$col} from {$sub}";
-		return $query;
-	}
-
-	public function use ($use, $type = ["left"]) {
-		if (!$this->_error) {
-			switch ($use) {
-				case 'join':
-					$this->_sort = $type;
-					break;
-				case 'union':
-					$this->_sql = implode(" union ", $this->_sql);
-					$this->_misc = true;
-					break;
-			}
-		}
+	public function join ($table, $pre, $type = '') {
+		// error 
+		if (is_array($table)) $this->_error = '**Arg Error: String is require Array given. Method called Join!';return $this;
+		$this->_sql .= " {$type} join {$table}" . $this->predicate($pre);
 		return $this;
 	}
 	
@@ -485,40 +436,33 @@ class Db {
 
 	// this method works for join
 
-	protected function predicate ($match, $concat) {
-		$pref = []; $pre = "";
-
-		if (end($match) === true)
-			$end = array_pop($match);
-
-		foreach ($match as $key => $val) {
-			if (is_array($val[0])) {
-				foreach ($val as $n => $m) {
-					if ($n > 0) {
-						$pre .= $concat[0];
+	protected function predicate ($pre, $concat = 'and') {
+		if (!$pre) {
+			$this->_error = '**Arg Error: No value given. Method called predicate';
+		} else {
+			if (!is_array($pre)) return " using({$pre})";
+			
+			$ret = '';
+			foreach ($pre as $p => $v) {
+				if (is_array($p)) {
+					if ($p > 0) {
+						$ret .= $concat[$p];
 					}
-					if(empty($pre)) {
-						$on = "on";
+					if (count($v) == 3) {
+						$ret .= $v[0]. ' ' . $v[1]. ' ' .$v[2];
 					} else {
-						$on = "";
+						$ret .= $v[0]. ' = ' .$v[1];
 					}
-					if (count($m) == 1) {
-						$pre .= " using({$m[0]}) ";
-					} elseif (count($m) == 2) {
-						$pre .= " $on {$m[0]} = {$m[1]} ";
-					} elseif (count($m) == 3) {
-						$pre .= " $on {$m[0]} {$m[1]} {$m[2]} ";
+				} else {
+					if (count($pre) == 3) {
+						$ret = $pre[0]. ' ' . $pre[1]. ' ' .$pre[2];
+					} else {
+						$ret = $pre[0]. ' = ' .$pre[1];
 					}
 				}
-				$pref[] = $pre;
-			} else {
-				if (@$end)
-					$pref[] = " on {$val[0]}";
-				else
-					$pref[] = " using({$val[0]}) ";
 			}
+			return ' on ' . $ret;
 		}
-
-		return $pref;
+		return false;
 	}
 }

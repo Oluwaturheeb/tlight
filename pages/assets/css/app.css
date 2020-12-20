@@ -4,13 +4,13 @@
 	--link: #1a441a;
 	--header: #444743;
 	--hover: #20231f;
-	--bg: #040504;
+	--bg: #E5E1E1;
 	--text: #999;
 }
 
 body {
 	margin: 0;
-	font-size: 1.3rem;
+	font-size: 1rem;
 	background: var(--bg);
 	color: var(--text);
 	font-family: serif !important;

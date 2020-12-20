@@ -17,7 +17,6 @@
 					<input type="password" name="password" placeholder="Password" class="input-line">
 				</div>
 				<div id="captcha"></div>
-				<?php echo Validate::csrf(); ?>
 				<input type="hidden" name="type" value="login">
 				<div>
 					<div class="info"></div>
