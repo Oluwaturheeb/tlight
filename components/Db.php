@@ -116,6 +116,7 @@ class Db {
 
 			$this->_query_value = $vals;
 			$this->_sql = "update {$this->_table} set {$col} "; 
+			//echo $this->_sql;
 		}
 		return $this;
 	}

@@ -133,19 +133,19 @@ class Easy extends Db {
 	*/
 	public function update (...$where) {
 		$v = $this->_v;
-		if (Http::req() && !empty($_POST)) {
+		if (empty($_POST)) {
+			return $this->_error = 'Update is via POST method only!';
+		} else {
 			list($this->_col, $this->_inp) = $v->autoValidate();
-			if (!$v->pass()) {
-				$this->error = $v->error();
+			
+			if ($v->pass()) {
+				$this->_error = $v->error();
 			} else {
 				$this->set($this->_col, $this->_inp);
-				
 				if ($where) {
 					$this->where($this->_val = $where, true);
 				}
-
 				$this->_method = "update";
-
 			}
 			return $this;
 		}
@@ -239,7 +239,6 @@ class Easy extends Db {
 					$this->_col = $var[0];
 				break;
 		}
-
 		// resetting here 
 		if ($this->_col) {
 			$this->_sql = @strstr($this->_sql, "where", true);
@@ -296,62 +295,8 @@ class Easy extends Db {
 		return $f;
 	}
 
-	/*
-	
-	this method can only works with 2 tables
-	can result in unexpected behaviour if tables is more than 2
-
-	You use the Db c for more than 2 tables;
-
-	$d->table(["table_a", "table_b", "table_c", ....]);
-	$d->get(["columns"])
-	->use("join", ["join type"])
-	->match(arrays of joins predicate)
-	->where()->sort()->pages()
-	->res();
-
-	*/
-
-	public function rfetch ($col = ["*"], $pre = [], ...$where) {
-		$val = $this->_v;
-
-		if (Http::req()) {
-			list($this->_col, $this->_inp) = $val->autoValidate();
-			if ($val->pass()) {
-				$this->_error = $val->error();
-			}
-		}
-		if (!$this->_error) {
-			if (count($where)) { 
-				$this->_col = $this->_inp = [];
-				if(!is_array(end($where)) && !is_numeric($where)) {
-					$this->concat(end($where));
-					array_pop($where);
-				}
-				foreach ($where as $k => $v) {
-					$this->_col[] = $v[0];
-					if (count($v) == 2) {
-						$this->_inp[] = $v[1];
-					} elseif (count($v) > 2) {
-						$this->_inp[] = $v[2];
-					}
-				}
-				$this->where($where, true);
-			} elseif ($this->_col) {
-				$this->where($this->with_supp($this->_col, $this->_inp), true);
-			}
-			
-			if (!is_array($this->_table)) {
-				$this->_error = "**Error: The table method require an array as param!";
-			} else {
-				$this->get($col)->use("join", array_fill(1, count($this->_table) - 1, "left"))->match($pre);
-			}
-			$this->_method = "fetch";
-		}
-		return $this;
-	}
-
 	public function exec($check = false) {
+		
 		if ($this->_error) {
 			return $this->error();
 		} else {

@@ -16,6 +16,7 @@
 					<label>Password</label>
 					<input type="password" name="password" placeholder="Password" class="input-line">
 				</div>
+				<?php echo csrf(); ?>
 				<div id="captcha"></div>
 				<input type="hidden" name="type" value="login">
 				<div>
@@ -38,7 +39,7 @@
 					<input type="password" name="password" placeholder="Password" class="input-line">
 				</div>
 				<div id="captcha"></div>
-				<?php echo Validate::csrf(); ?>
+				<?php echo csrf(); ?>
 				<input type="hidden" name="type" value="register">
 				<div>
 					<div class="info"></div>
@@ -55,7 +56,7 @@
 					<input type="email" name="email" placeholder="Email" class="input-line">
 				</div>
 				<div id="captcha"></div>
-				<?php echo Validate::csrf(); ?>
+				<?php echo csrf(); ?>
 				<input type="hidden" name="type" value="lpwd">
 				<div>
 					<div class="info"></div>
@@ -70,14 +71,14 @@
 			<form method="post" action="">
 				<div>
 					<label>New password</label>
-					<input type="password" name="verify" placeholder="New password" class="input-line">
+					<input type="password" name="password" placeholder="New password" class="input-line">
 				</div>
 				<div>
 					<label>Verify password</label>
-					<input type="password" name="password" placeholder="Verify password" class="input-line">
+					<input type="password" name="verify" placeholder="Verify password" class="input-line">
 				</div>
 				<div id="captcha"></div>
-				<?php echo Validate::csrf(); ?>
+				<?php echo csrf(); ?>
 				<input type="hidden" name="type" value="chpwd">
 				<div>
 					<div class="info"></div>
@@ -88,10 +89,6 @@
 				</div>
 			</form>
 		</div>
-	</div>
-	<div class="captcha">
-		<h2>Test</h2>
-		<b>email</b> &raquo; user@mail.com<br><br><b>Password</b> &raquo; password
 	</div>
 </div>
 <style type="text/css">

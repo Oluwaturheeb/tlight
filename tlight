@@ -1,16 +1,19 @@
 <?php
-require_once "pages/Autoload.php";
 $GLOBALS["logo"] = <<<__here
-___________
 
-   Tlight
-___________
-    | |
-    | |
-    | |___
-    |_____|
+            
+       ` (     ) ´
+     ` (         ) ´
+    ` (           ) ´
+    ` (   _____   ) ´
+     ` (  _____  ) ´
+      ` (  | |  ) ´
+       ` ( | | ) ´
+         \     /
+          |___|
+          |___|
 
-Tlight V1.1.0
+Tlight V 1.8.0
 
 __here;
 
@@ -22,63 +25,9 @@ backup    this command create a backup of the database of the app\n
 header    this set the default header file. Takes file name as argument without the .php extension\n
 import    this import the previously backed up database file into the app db\n
 template    this create useful crud files\n
--i    this setup the database and default tables
+-i    this setup the database and default auth table
 -h    show this help
 -v    show version
 
 __here;
-// Running setup via cli
-require_once "console/console.php";
-//this will be reviewed in the next version
-// rel \t setup relations between 2 table syntax `rel parent-table/child-table parent-column/child-column delete-[restrict, null, cascade]/update-[restrict, null, cascade] `e.g rel blogs/comment id/blog_id delete-null/update-restrict´\n
-
-
-
-
-/*
- * Complete the 'funWithAnagrams' function below.
- *
- * The function is expected to return a STRING_ARRAY.
- * The function accepts STRING_ARRAY text as parameter.
- */
-/*
-function strComp ($base, $toCheck) {
-    $base = str_split($base);
-    $check = str_split($toCheck);
-    
-    $res = array_unique(array_merge($base, $check));
-
-    return count($res);
-}
-
-function funWithAnagrams($text) {
-    // Write your code here
-    
-    // initializing container array and the return value;
-
-    $con = [];
-
-    $abc = range("a", "z");
-
-    foreach ($text as $key) {
-	   str_split($key);
-       array_com
-    }
-
-    foreach ($con as $in => $value) {
-        $len = $value[0];
-        $str = $value[1];
-        if ($len === strlen($text[$in])) {
-
-            // if count of $val and $str is the same, check it
-            if (strComp( $str, $text[$in]) !== $len) {
-                $retVal[] = $str;
-            }
-        }
-    }
-    // print_r($retVal);
-    return $retVal;
-}
-
-print_r(funWithAnagrams(["dice", "doce", "code"]));
-print_r(strComp("oced", "code"));*/
+require_once 'console/console.php';

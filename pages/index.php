@@ -5,6 +5,8 @@ $title = "Welcome";
 require_once "inc/header.php"; ?>
 
 	<div class="container">
+	<?php
+	?>
 		<header>
 			<h1>Tlight</h1>
 			<div><small>Already made and Swift</small></div>

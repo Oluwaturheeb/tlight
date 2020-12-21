@@ -18,74 +18,76 @@ class Validate {
 				} else {
 					// other validations may now follow!
 					foreach($fields as $field => $options){
-					$input = @trim($src[$field]);
-					foreach($options as $rule => $value){
-						if(empty($option["field"])  && empty($option["error"])){
-							$field_name = ucfirst($field);
-							$field_error = "";
-						} else {
-							$field_name = ucfirst($options['field']);
-							$field_error = ucfirst($options['error']);
-						}
-						if($rule == "required" && empty($input)){
-							$this->addError("$field_name cannot be empty!");
-						}else{
-							switch($rule){
-								case "email":
-									if(!strpos($input, ".") || !strpos($input, "@")){
-										$this->addError("Invalid email address!");
+						$input = @trim($src[$field]);
+						foreach($options as $rule => $value){
+							if(empty($option["field"])  && empty($option["error"])){
+								$field_name = ucfirst($field);
+								$field_error = "";
+							} else {
+								$field_name = ucfirst($options['field']);
+								$field_error = ucfirst($options['error']);
+							}
+							if ($rule != 'null') {
+								if($rule == "required" && empty($input)){
+									$this->addError("$field_name cannot be empty!");
+								}else{
+									switch($rule){
+										case "email":
+											if(!strpos($input, ".") || !strpos($input, "@")){
+												$this->addError("Invalid email address!");
+											}
+											break;
+										case "match":
+											if($input !== $src[$value]){
+												$this->addError("Password do not match!");
+											}
+											break;
+										case "max":
+											if (!is_numeric($input))
+												if(strlen($input) > $value){
+													$this->addError("Maximum characters exceeded for $field_name field");
+												}
+											else 
+												if ($input > $value) {
+													$this->addError("$field_name is greater than $value");
+												}
+											break;
+										case "min":
+											if(!is_numeric($input)) {
+												if(strlen($input) < $value)
+													$this->addError("$field_name should be at least minimum of $value characters!");
+											} else {
+												if ($input < $value) 
+													$this->addError("$field_name value is less than $value");
+											}
+											break;
+										case "number":
+											if(!is_numeric($input)){
+												$this->addError("$field_name should have a numeric value!");
+											}
+											break;
+										case "unique":
+											$d = Db::instance();
+											$d->table($value);
+											$d->get(["id"])->where([$field, $input])->res(1);
+											if($d->count())
+												$this->addError($field_name . " exists, try another!");
+											break;
+										case "wordcount":
+											$cal = $value - str_word_count($input);
+											if(str_word_count($input) < $value){
+												$this->addError("$field_name should have at least $value words! Remain $cal.");
+											}
+											break;
+										case "multiple":
+											if(!count(array_filter($src[$field]))){
+												$this->addError("{$field_name} is required!");
+											}
 									}
-									break;
-								case "match":
-									if($input !== $src[$value]){
-										$this->addError("Password do not match!");
-									}
-									break;
-								case "max":
-									if (!is_numeric($input))
-										if(strlen($input) > $value){
-											$this->addError("Maximum characters exceeded for $field_name field");
-										}
-									else 
-										if ($input > $value) {
-											$this->addError("$field_name is greater than $value");
-										}
-									break;
-								case "min":
-									if(!is_numeric($input)) {
-										if(strlen($input) < $value)
-											$this->addError("$field_name should be at least minimum of $value characters!");
-									} else {
-										if ($input < $value) 
-											$this->addError("$field_name value is less than $value");
-									}
-									break;
-								case "number":
-									if(!is_numeric($input)){
-										$this->addError("$field_name should have a numeric value!");
-									}
-									break;
-								case "unique":
-									$d = Db::instance();
-									$d->table($value);
-									$d->get(["id"])->where([$field, $input])->res(1);
-									if($d->count())
-										$this->addError($field_name . " exists, try another!");
-									break;
-								case "wordcount":
-									$cal = $value - str_word_count($input);
-									if(str_word_count($input) < $value){
-										$this->addError("$field_name should have at least $value words! Remain $cal.");
-									}
-									break;
-								case "multiple":
-									if(!count(array_filter($src[$field]))){
-										$this->addError("{$field_name} is required!");
-									}
+								}
 							}
 						}
-					}
-				}			
+					}			
 				}
 			}
 		}
@@ -317,8 +319,9 @@ class Validate {
 	// bug is here 
 	public static function csrf() {
 		// if there aint an active csrf
-		if (!Session::get("csrf_token")) {
-			$ses = Session::set("csrf_token", substr(self::_hash(Utils::gen()), 0, 32));
+		if (!Session::check("csrf_token")) {
+			$ses = substr(self::_hash(Utils::gen()), 0, 32);
+			Session::set("csrf_token", $ses);
 			Session::set("expires", time() + 60 * 60);
 		} else {
 			// if there is
