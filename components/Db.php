@@ -4,11 +4,105 @@ class Db {
 	protected $_pdo, $_error = false, $_instance, $_table, $_sql, $_query_value = [], $_con, $_misc,  $_sort, $_count, $_lastid, $_result = null;
 
 	public $paging = false, $next = 0, $prev;
+	
+	public function where (...$id) {
+		if (!$this->_error) {
+			if (end($id) === true) {
+				$args = $id[0];
+			} else {
+				$args = $id;
+			}
+			
+			print_r($args);
+
+			/*if(!$this->_misc) {
+				// the this is normal query 
+				/*if (count($args) > 1 && !$this->_con) {
+					$this->_con = ['and'];
+				}*
+				$gen = $this->gen($this->form($args), $this->_con);
+
+				if (!empty($this->_query_value)) {
+					$this->_query_value = array_merge($this->_query_value, $gen[1]);
+				} else {
+					$this->_query_value = $gen[1];
+				}
+
+				//  this is meant for joins
+				if ($this->_misc !== true) {
+					$this->_lastid = $gen[0];
+					if (!is_array($this->_sql))
+						$this->_sql .= ' ' . $this->_lastid;
+
+				} else {
+					$this->_sql = substr($this->_sql, 0, -1);
+					$this->_sql .= ' ' . $gen[0] . ')';
+
+				}
+			} else {
+				$this->_sql = explode('union', $this->_sql);
+				$this->_query_value = [];
+				$q = '';
+				foreach ($args as $key => $value) {
+
+					if($key > 0) {
+						$q .= ' union ';
+					}
+
+					// this condition checks if the where concat is called or not
+
+					if (!$this->_con) {
+						$con = ['and'];
+					} else {
+						$con = $this->_con;
+					}
+
+					// this checks if the query needs a where clause attached or not
+
+					if (count($value)) {
+						$gen = $this->gen($this->form($value), $con);
+						if (!empty($this->_query_value)) {
+							$this->_query_value = array_merge($this->_query_value, $gen[1]);
+						} else {
+							$this->_query_value = $gen[1];
+						}
+						$where = $gen[0];
+					} else {
+						$where = '';
+					}
+					$q .= $this->_sql[$key] . ' ' . $where . ' ';
+
+				}
+				$this->_sql = $q;
+			}*/
+		}
+		return $this;
+	}
+	
+	public function orWhere (...$id) {
+		
+	}
+	
+	
+	// checking the where type
+	
+	/*protected function isInt () {
+		
+	}
+	
+	protected function isArray () {
+		
+	}
+	
+	protected function isClosure () {
+		
+	}*/
 
 	public function __construct () {
 		if ($this->_error) return $this->_error();
+		$c = new Config();
 		try{
-			$this->_pdo = new PDO("mysql:host=". config::get("db/host") .";dbname=" . config::get("db/database"), Config::get("db/usr"), Config::get("db/pwd"));
+			$this->_pdo = $this->_instance = new PDO('mysql:host='. $c->get('db/host') .';dbname=' . $c->get('db/database'), Config::get('db/usr'), Config::get('db/pwd'));
 		} catch (Exception $e) {
 			$this->_error = $e->getMessage();
 		}
@@ -53,32 +147,32 @@ class Db {
 			$this->_sql = $sql;
 			$this->_query_value = $ops;
 		} else {
-			$this->_error = "This method expect an array for second parameter";
+			$this->_error = 'This method expect an array for second parameter';
 		}
 		return $this;
 	}
 
 	public function add ($col, $val) {
 		if (!$this->_error) {
-			$p = array_fill(0, count($val), "?");
+			$p = array_fill(0, count($val), '?');
 
-			$this->_sql = "insert into {$this->_table}(" . implode(",", $col). ") values(" . implode(",", $p) . ")";
+			$this->_sql = "insert into {$this->_table}(" . implode(',', $col). ') values(' . implode(',', $p) . ')';
 			$this->_query_value = $val;
 		}
 		return $this;
 	}
 
-	public function get ($cols = ["*"]) {
+	public function get ($cols = ['*']) {
 		if (!$this->_error) {
 			if (!is_array($this->_table)) {
-				$this->_sql = "select " . implode(', ', $cols) . " from ";
+				$this->_sql = 'select ' . implode(', ', $cols) . ' from ';
 				$this->_sql .= $this->_table;
 			} else {
 				// this little code is use for union   
 
 				if (count($this->_table) == 1) {
 					// error message
-					$this->_error = "**Error: Number of tables given does not match the given columns!";
+					$this->_error = '**Error: Number of tables given does not match the given columns!';
 				} else {
 					$q = [];
 
@@ -103,13 +197,13 @@ class Db {
 	
 	public function set ($cols = [], $vals) {
 		if (!$this->_error) {
-			$col = $value = ""; $i = 1;
+			$col = $value = ''; $i = 1;
 
 			foreach($cols as $keys => $values){
 				$col .= "{$values} = ?";
 				
 				if($i < count($cols)){
-					$col .= ", ";
+					$col .= ', ';
 				}
 				$i++;
 			}
@@ -132,13 +226,13 @@ class Db {
 		if (!$this->_error) {
 			if (!empty($where)) {
 				$form = $this->gen($this->form($where, true), $this->_con);
-				$w = str_replace("=", "like", $form[0]);
+				$w = str_replace('=', 'like', $form[0]);
 
 				function ff ($a) {
 					return "%{$a}%";
 				}
 
-				$this->_query_value = array_map("ff", $form[1]);
+				$this->_query_value = array_map('ff', $form[1]);
 
 				$this->_sql .= " $w";
 			}
@@ -154,7 +248,7 @@ class Db {
 		return $this;
 	}
 
-	public function where (...$id) {
+	/*public function where (...$id) {
 		if (!$this->_error) {
 			if (end($id) === true) {
 				$args = $id[0];
@@ -165,7 +259,7 @@ class Db {
 			if(!$this->_misc) {
 				// the this is normal query 
 				if (count($args) > 1 && !$this->_con) {
-					$this->_con = ["and"];
+					$this->_con = ['and'];
 				}
 				$gen = $this->gen($this->form($args), $this->_con);
 
@@ -179,27 +273,27 @@ class Db {
 				if ($this->_misc !== true) {
 					$this->_lastid = $gen[0];
 					if (!is_array($this->_sql))
-						$this->_sql .= " " . $this->_lastid;
+						$this->_sql .= ' ' . $this->_lastid;
 
 				} else {
 					$this->_sql = substr($this->_sql, 0, -1);
-					$this->_sql .= " " . $gen[0] . ")";
+					$this->_sql .= ' ' . $gen[0] . ')';
 
 				}
 			} else {
-				$this->_sql = explode("union", $this->_sql);
+				$this->_sql = explode('union', $this->_sql);
 				$this->_query_value = [];
-				$q = "";
+				$q = '';
 				foreach ($args as $key => $value) {
 
 					if($key > 0) {
-						$q .= " union ";
+						$q .= ' union ';
 					}
 
 					// this condition checks if the where concat is called or not
 
 					if (!$this->_con) {
-						$con = ["and"];
+						$con = ['and'];
 					} else {
 						$con = $this->_con;
 					}
@@ -215,18 +309,18 @@ class Db {
 						}
 						$where = $gen[0];
 					} else {
-						$where = "";
+						$where = '';
 					}
-					$q .= $this->_sql[$key] . " " . $where . " ";
+					$q .= $this->_sql[$key] . ' ' . $where . ' ';
 
 				}
 				$this->_sql = $q;
 			}
 		}
 		return $this;
-	}
+	}*/
 
-	public function pages ($ppage = 5, $url = "") {
+	public function pages ($ppage = 5, $url = '') {
 		if (!$this->_error) {
 			$this->query($this->_sql, $this->_query_value);
 			$last = ceil($this->count() / $ppage);
@@ -263,14 +357,14 @@ class Db {
 				$this->prev = $prev;
 			}
 
-			$this->_sql .= " limit " . ($each - 1) * $ppage . ", $ppage";
+			$this->_sql .= ' limit ' . ($each - 1) * $ppage . ', $ppage';
 		}
 		return $this;
 	}
 
 	public function autopage($ppage = 5){
 		$this->query($this->_sql, $this->_query_value);
-		$this->get(["id"])->where();
+		$this->get(['id'])->where();
 		$total = $this->count();
 		$last = ceil($total / $ppage);
 		$t = $total - $ppage;
@@ -279,24 +373,24 @@ class Db {
 			$t = 0;
 		}
 
-		return $t . ", " . $ppage;
+		return $t . ', ' . $ppage;
 	}
 	
-	public function sort ($col = "id", $order = "desc") {
+	public function sort ($col = 'id', $order = 'desc') {
 		if (!$this->_error) {
 			$this->_sql .= " order by {$col} {$order}";
 		}
 		return $this;
 	}
 
-	public function sub ($t, $col = ["*"]) {
+	public function sub ($t, $col = ['*']) {
 		if (!$this->_error) {
 			$this->_query_value = [];
-			$s = " (select " . implode(", ", $col) . " from $t)";
-			if (stristr($this->_sql, "= ?")) {
-				$this->_sql = str_ireplace("= ?", "in", $this->_sql);
+			$s = ' (select ' . implode(', ', $col) . " from $t)";
+			if (stristr($this->_sql, '= ?')) {
+				$this->_sql = str_ireplace('= ?', 'in', $this->_sql);
 			} else {
-				$this->_sql = str_ireplace("?", "", $this->_sql);
+				$this->_sql = str_ireplace('?', '', $this->_sql);
 			}
 			$this->_sql .= $s;
 			$this->_misc = true;
@@ -315,7 +409,7 @@ class Db {
 			$this->query($this->_sql, $this->_query_value);
 			$this->_query_value = null;
 
-			if (stristr($this->_sql, "insert")) {
+			if (stristr($this->_sql, 'insert')) {
 				return $this->_lastid;
 			} else {
 				if ($f == false || !$this->count())
@@ -339,7 +433,11 @@ class Db {
 	}
 
 	public function exp () {
-		$this->query("explain " . $this->_sql, $this->_query_value);
+		$this->query('explain ' . $this->_sql, $this->_query_value);
+	}
+	
+	public function __tostring() {
+		return $this->out();
 	}
 
 	// protected methods
@@ -351,13 +449,13 @@ class Db {
 			$arg = $args[0];
 
 			if (!is_array($arg) && is_numeric($arg)) {
-				$where = [["id", "=", $arg]];
+				$where = [['id', '=', $arg]];
 			} elseif (is_array($arg)) {
 				if(count($arg) == 2) {
-					$where = [[$arg[0], "=", $arg[1]]];
+					$where = [[$arg[0], '=', $arg[1]]];
 				} else {
 					$where = $arg;
-					$where[1] = str_ireplace(["&lt;", "&gt;"], ["<", ">"], $where[1]);
+					$where[1] = str_ireplace(['&lt;', '&gt;'], ['<', '>'], $where[1]);
 					$where = [$where];
 				}
 			} else {
@@ -370,18 +468,18 @@ class Db {
 				$arr = $args[$i];
 				if(!empty($arr)) {
 					if (is_numeric($arr)) {
-						$w = ["id", "=", $arr];
+						$w = ['id', '=', $arr];
 						array_push($where, $w);
 					} elseif(count($arr) == 2) {
-						$w = [$arr[0], "=", $arr[1]];
+						$w = [$arr[0], '=', $arr[1]];
 
 						array_push($where, $w);
 					} elseif (count($arr) > 2) {
 						$w = $arr;
-						$w[1] = str_ireplace(["&lt;", "&gt;"], ["<", ">"], $w[1]);
+						$w[1] = str_ireplace(['&lt;', '&gt;'], ['<', '>'], $w[1]);
 						array_push($where, $w);
 					} else {
-						$this->_error("**Error: This method expecs numeric character as args!");
+						$this->_error('**Error: This method expecs numeric character as args!');
 						return false;
 					}
 				}
@@ -390,9 +488,9 @@ class Db {
 		return $where;
 	}
 
-	protected function gen ($where = [], $concat = "and") {
+	protected function gen ($where = [], $concat = 'and') {
 		if (is_array($where[0])){
-			$op = $value = "";
+			$op = $value = '';
 			$where = @array_filter($where);
 			for ($i = 0, $j = 1;$i < @count($where); $i++, $j++) {
 				$v1 = $where[$i][0];
@@ -404,7 +502,7 @@ class Db {
 						$v2_con = $v2[0];
 						$v2_sign = $v2[1];
 					} else {
-						$v2_con = "or";
+						$v2_con = 'or';
 						$v2_sign = $v2;
 					}
 					$op .= "({$v1[0]} {$v2_sign} ?  {$v2_con} $v1[1] {$v2_sign} ?)";
@@ -415,7 +513,7 @@ class Db {
 				}
 				
 				if($j < count($where)){
-					$value .= ", ";
+					$value .= ', ';
 					if(is_array($concat)) {
 						$cc = @$concat[$i];
 					} else {
@@ -426,11 +524,11 @@ class Db {
 				}
 			}
 	
-			$value = explode(", ", $value);
+			$value = explode(', ', $value);
 			$op = "where {$op}";
 			return [$op, $value];
 		} else {
-			$this->_error = "**Arg Error: This method expects a multi-dimentional array as parameter 1 -> @gen";
+			$this->_error = '**Arg Error: This method expects a multi-dimentional array as parameter 1 -> @gen';
 			return false;
 		}
 	}

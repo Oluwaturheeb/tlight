@@ -9,16 +9,15 @@ class Session{
 		}
 	}
 	
-	public static function set($name, $value, $exp = 0, $c = false){
+	public static function set($name, $value){
 		
 		$_SESSION[$name] = $value;
-
-		if ($exp) {
-			session_set_cookie_params($exp);
+		
+		$exp = Config::get('session/expires');
+		if ($exp) { 
+			/*session_set_cookie_params(time() + $exp);
+			ini_set('session.cookie_httponly', true);*/
 		}
-
-		if ($c)
-			session_commit();
 	}
 	
 	public static function get($name = ""){

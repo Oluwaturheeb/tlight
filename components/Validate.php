@@ -316,7 +316,7 @@ class Validate {
 		return @htmlentities(trim((@ucfirst($str))), ENT_QUOTES, "utf-8", false);
 	}
 	
-	// bug is here 
+	
 	public static function csrf() {
 		// if there aint an active csrf
 		if (!Session::check("csrf_token")) {

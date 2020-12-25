@@ -6,6 +6,17 @@ require_once "inc/header.php"; ?>
 
 	<div class="container">
 	<?php
+	/*$d = Db::instance();
+	$d->table('tab1')
+	->get(['col, col2, col3'])
+	->where(['id', '>', 2])
+	->out();
+	
+	echo $d;
+	
+	
+	
+	die();*/
 	?>
 		<header>
 			<h1>Tlight</h1>
@@ -23,7 +34,7 @@ require_once "inc/header.php"; ?>
 		h1 {
 			font-family: candara;
 			font-size: 4rem;
-			color: var(--text);
+			color: var(--pry);
 		}
 
 		header div {
@@ -33,10 +44,10 @@ require_once "inc/header.php"; ?>
 		}
 		
 		code {
-			border: 1px inset var(--text);
-			margin: 1rem 0;
+			border: 1px solid var(--text);
+			margin: 1rem 10px;
 			padding: 10px;
-			color: red;
+			color: var(--pry);
 		}
 	</style>
 

@@ -15,3 +15,9 @@ function authId () {
 function auth ($data = null) {
 	return Auth::auth($data);
 }
+
+function authCheck ($loc = '/') {
+	if (auth()) {
+		return Redirect::to($loc);
+	}
+}

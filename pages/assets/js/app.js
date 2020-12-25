@@ -79,3 +79,16 @@ $(document).ready(function () {
 	
 	/* ends here */
 });
+
+// calling the pwa 
+if ('serviceWorker' in navigator) {
+	navigator.serviceWorker.register('pwaWorker.js')
+	.then(e => {
+		console.log('Registered')
+	})
+	.catch(e => {
+		alert(e)
+	});
+} else {
+	console.log('you suck')
+}

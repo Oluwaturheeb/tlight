@@ -2,7 +2,7 @@
 
 class Redirect {
 	public static function to($loc = "/", $msg = null) {
-		if (Http::is_ajax())
+		if (@Http::is_ajax())
 			Http::res($msg, $loc);
 			else
 			if (is_numeric($loc)) {

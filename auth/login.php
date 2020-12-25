@@ -1,4 +1,3 @@
-
 <div class="auth">
 	<header class="auth-links">
 		<div class="login active">Login</div>
@@ -96,10 +95,7 @@
 	/*when starting a project this can be included in your css files*/
 	
 	.auth {
-/* 		display: grid;
-		justify-content: center;
-		grid-gap: 10px; */
-		
+		width: 100%;
 	}
 
 	.auth-links {
@@ -180,9 +176,10 @@
 	}
 
 	.auth .button, .button-block {
-		padding: 1rem;
+		padding: 10px;
 		background: var(--pry);
-		font-weight: bold;
+		font: inherit !important;
+		font-weight: bold !important;
 		color: var(--sec);
 		border: none;
 		border-radius: 5px;

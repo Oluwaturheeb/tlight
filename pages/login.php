@@ -1,5 +1,7 @@
 <?php 
 require_once "Autoload.php";
+// enter wherr to redirect to if there is an active login
+authCheck('/');
 
 $title = "Welcome";
 require_once "inc/header.php";
