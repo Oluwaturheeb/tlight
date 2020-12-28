@@ -14,29 +14,29 @@ require_once "inc/header.php";
 						<li>Login (single and multiple login system).</li>
 						<li>Registration (simple)</li>
 						<li>Lost password</li>
-						<li>Added 7 headers for quick development</li>
+						<li>Added 10 headers for quick development</li>
 						<li>The Validate javascript class for front-end validation</li>
-						<li>File upload with compressionion</li>
+						<li>File upload with compression</li>
 						<li>CLI Import/Export of database(mysql)</li>
 						<li>Rich php components and utilities</li>
 					</ul>
 					<p>
-						<b>Login</b> &raquo; The login system was built with security and proper validation in mind. The login aspect features both single and multiple login system. With additional security if enabled in the config file, tlight checks for login attempts and return with a captcha request every the limit exceeded and also on the other hand tlight checks for the last time a user changed his/her password according to the configuration file.
+						<b>Login</b> &raquo; The login system was built with security and proper validation in mind. The login aspect features both single and multiple login system. With additional security if enabled in the config file, tlight checks for login attempts and return with a captcha request every time the limit exceeded and also on the other hand tlight checks for the last time a user changed his/her password according to the configuration file and return with a password change page.
 					</p>
 					<p>
 						<b>Registration</b> and <b>Lost password</b> &raquo; And of cause the registration and lost pasword is really a simple form with email and password but this can be extended to suit your needs.
 					</p>
 					<p>
-						<b>Headers</b> &raquo; 7 different type of headers are included to hasten development and leave you to face the logic of the project at hand.<br>
+						<b>Headers</b> &raquo; 10 different type of headers are included to hasten development and leave you to face the logic of the application<br>
 					</p>
 					<p>
-						<b>Validate class</b> &raquo; The javascript validate class id dependent on jQuery lib. It also helps save time from handling form validation. And if you are a big fan of ajax like me there is also a jquery ajax method to help you after successful validation to help send request in form of REST API.
+						<b>Validate class</b> &raquo; The javascript validate class is dependent on jQuery lib. It also helps save time from handling form validation. And if you are a big fan of ajax like me there is also a jquery ajax method to help you after successful validation to help send request in form of REST API.
 					</p>
 					<p>
 						<b>File upload</b> &raquo; Tlight also help in handling file upload in a very simple and fast way with file validation and image compression level of 70% reduction in file size and the image not loosing its quality.
 					</p>
 					<p>
-						<b>Import and Export</b> &raquo; Tlight also uses the cli to make it easier for import and export of the database given for the project, this only support MYSQL database for now.
+						<b>Import and Export</b> &raquo; Tlight also uses the cli to make it easier for import and export of the database given for the application, this only support MYSQL database for now.
 					</p>
 					<p>
 						<b>Components and Utilities</b> &raquo; 

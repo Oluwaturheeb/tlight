@@ -1,10 +1,10 @@
 <?php
 
 class Validate {
-	protected $_pass = false, $_file = "", $_errors = [];
+	protected $_pass = false, $_file = '', $_errors = [];
 	
 	public function validator($src, $fields = []){
-		if ($_SERVER["SERVER_NAME"] != Config::get("session/domain")) {
+		if ($_SERVER['SERVER_NAME'] != Config::get('session/domain')) {
 			$this->addError(['msg' => 'Error understanding this URI', 'status' => 404]);
 		} elseif (!$this->req('__csrf')) {
 			if ($_SERVER['REQUEST_METHOD'] !== 'GET' && !$_SERVER['QUERY_STRING'])
@@ -20,68 +20,68 @@ class Validate {
 					foreach($fields as $field => $options){
 						$input = @trim($src[$field]);
 						foreach($options as $rule => $value){
-							if(empty($option["field"])  && empty($option["error"])){
+							if(empty($option['field'])  && empty($option['error'])){
 								$field_name = ucfirst($field);
-								$field_error = "";
+								$field_error = '';
 							} else {
 								$field_name = ucfirst($options['field']);
 								$field_error = ucfirst($options['error']);
 							}
 							if ($rule != 'null') {
-								if($rule == "required" && empty($input)){
-									$this->addError("$field_name cannot be empty!");
+								if($rule == 'required' && empty($input)){
+									$this->addError($field_name. ' cannot be empty!');
 								}else{
 									switch($rule){
-										case "email":
-											if(!strpos($input, ".") || !strpos($input, "@")){
-												$this->addError("Invalid email address!");
+										case 'email':
+											if(!strpos($input, '.') || !strpos($input, '@')){
+												$this->addError('Invalid email address!');
 											}
 											break;
-										case "match":
+										case 'match':
 											if($input !== $src[$value]){
-												$this->addError("Password do not match!");
+												$this->addError('Password do not match!');
 											}
 											break;
-										case "max":
+										case 'max':
 											if (!is_numeric($input))
 												if(strlen($input) > $value){
-													$this->addError("Maximum characters exceeded for $field_name field");
+													$this->addError('Maximum characters exceeded for ' .$field_name. ' field!');
 												}
 											else 
 												if ($input > $value) {
-													$this->addError("$field_name is greater than $value");
+													$this->addError($field_name.' is greater than '.$value);
 												}
 											break;
-										case "min":
+										case 'min':
 											if(!is_numeric($input)) {
 												if(strlen($input) < $value)
-													$this->addError("$field_name should be at least minimum of $value characters!");
+													$this->addError($field_name.' should be at least minimum of $value characters!');
 											} else {
 												if ($input < $value) 
-													$this->addError("$field_name value is less than $value");
+													$this->addError($field_name.' value is less than '.$value);
 											}
 											break;
-										case "number":
+										case 'number':
 											if(!is_numeric($input)){
-												$this->addError("$field_name should have a numeric value!");
+												$this->addError($field_name.' should have a numeric value!');
 											}
 											break;
-										case "unique":
+										case 'unique':
 											$d = Db::instance();
 											$d->table($value);
-											$d->get(["id"])->where([$field, $input])->res(1);
+											$d->get(['id'])->where([$field, $input])->res(1);
 											if($d->count())
-												$this->addError($field_name . " exists, try another!");
+												$this->addError($field_name . ' exists, try another!');
 											break;
-										case "wordcount":
+										case 'wordcount':
 											$cal = $value - str_word_count($input);
 											if(str_word_count($input) < $value){
-												$this->addError("$field_name should have at least $value words! Remain $cal.");
+												$this->addError($field_name.' should have at least $value words! Remain '.$cal);
 											}
 											break;
-										case "multiple":
+										case 'multiple':
 											if(!count(array_filter($src[$field]))){
-												$this->addError("{$field_name} is required!");
+												$this->addError($field_name.' is required!');
 											}
 									}
 								}
@@ -111,9 +111,9 @@ class Validate {
 			foreach ($this->req() as $key => $value) {
 				$rule = null;
 				if ($key != '__csrf') {
-					$rule = ["required" => true];
+					$rule = ['required' => true];
 					if (is_array($value))
-						$rule = ["multiple" => true];
+						$rule = ['multiple' => true];
 						
 					if (!empty($rules)) {
 						if (@$rules[$i])
@@ -126,7 +126,7 @@ class Validate {
 						break;
 					
 					// removing csrf key
-					if($key != "__csrf") {
+					if($key != '__csrf') {
 						array_push($keys, $key);
 						array_push($val, $value);
 					}
@@ -149,7 +149,7 @@ class Validate {
 
 	/* http request handler */
 	
-	public static function req ($r = "") {
+	public static function req ($r = '') {
 		if (!empty($_POST)) {
 			$req = $_POST;
 		} elseif (!empty($_GET)) {
@@ -170,15 +170,15 @@ class Validate {
 	}
 
 	private function img_comp ($file, $dest) {
-		$mm = getimagesize($file)["mime"];
+		$mm = getimagesize($file)['mime'];
 
-		if ($mm == "image/jpeg") {
+		if ($mm == 'image/jpeg') {
 			$img = imagecreatefromjpeg($file);
-		} elseif ($mm == "image/bmp") {
+		} elseif ($mm == 'image/bmp') {
 			$img = imagecreatefromwbmp($file);
-		} elseif ($mm == "image/gif") {
+		} elseif ($mm == 'image/gif') {
 			$img = imagecreatefromgif($file);
-		} elseif ($mm == "image/png") {
+		} elseif ($mm == 'image/png') {
 			$img = imagecreatefrompng($file);
 		}
 
@@ -190,7 +190,7 @@ class Validate {
 	
 	public function uploader($data){
 		$src = $_FILES;
-		$folder = "assets/tmp/";
+		$folder = 'assets/tmp/';
 		if (!is_dir($folder)) 
 			mkdir($folder);
 
@@ -202,29 +202,29 @@ class Validate {
 		$count = count($name);
 		
 		if (empty($name[0])) {
-			$this->addError("Kindly select a file!");
+			$this->addError('Kindly select a file!');
 		} else {
-			if ($count > config::get("file-upload/max-file-upload")) {
-				$count = config::get("file-upload/max-file-upload");
+			if ($count > config::get('file-upload/max-file-upload')) {
+				$count = config::get('file-upload/max-file-upload');
 			}
 			for ($i = 0; $i < $count; $i++) {
 				if (!empty($name[$i])) {
 					if (!Utils::get_type($tmp[$i])){
-						$this->addError("$name[$i] type not supported!");
+						$this->addError($name[$i].' type not supported!');
 					} else {
-						if (config::get("file-upload/rename-file")) {
-							$name = config::get("project/name") . "_" . Utils::gen() . "_" . time();
+						if (config::get('file-upload/rename-file')) {
+							$name = config::get('project/name') . '_' . Utils::gen() . '_' . time();
 						} else {
 							$name = $name[$i];
 						}
-						if (Utils::get_type($tmp[$i]) == "image") {
+						if (Utils::get_type($tmp[$i]) == 'image') {
 							// image compresson
 							$img = $this->img_comp($tmp[$i], $folder.$name);
-						} elseif (Utils::get_type($tmp[$i]) == "video" || Utils::get_type($tmp[$i]) == "audio") {
+						} elseif (Utils::get_type($tmp[$i]) == 'video' || Utils::get_type($tmp[$i]) == 'audio') {
 							move_uploaded_file($tmp[$i], $folder.$name);
 							$img = $folder.$name;
 						} else {
-							$this->addError("$name[$i] type not supported!");
+							$this->addError($name[$i].' type not supported!');
 						}
 
 						if ($count == 1) {
@@ -243,7 +243,7 @@ class Validate {
 		return $this->_file[0];
 	}
 	
-	public function complete_upload($dest = "assets/img/"){
+	public function complete_upload($dest = 'assets/img/'){
 		if ($this->_errors) {
 			return $this->error();
 		} else {
@@ -275,7 +275,7 @@ class Validate {
 		return hash_hmac('haval160,4', $hash, 'tlight is lit');
 	}
 	
-	public function addError($error = ""){
+	public function addError($error = ''){
 		$this->_errors[] = $error;
 	}
 	
@@ -290,7 +290,7 @@ class Validate {
 	public function fetch($data){
 		if(!empty($_POST)){
 			if(is_array($_POST[$data])){
-				return array_filter(array_map([$this, "filter"], $_POST[$data]));
+				return array_filter(array_map([$this, 'filter'], $_POST[$data]));
 			}else{
 				return $this->filter($_POST[$data]);
 			}
@@ -305,27 +305,27 @@ class Validate {
 	}
 	
 	public function filter_array ($arr) {
-		return array_map([$this, "filter"], $arr);
+		return array_map([$this, 'filter'], $arr);
 	}
 	
 	public static function filter($str){
 		if (is_array($str)) {
-			return array_map([Validate::class, "filter"], $str);
+			return array_map([Validate::class, 'filter'], $str);
 		}
 		
-		return @htmlentities(trim((@ucfirst($str))), ENT_QUOTES, "utf-8", false);
+		return @htmlentities(trim((@ucfirst($str))), ENT_QUOTES, 'utf-8', false);
 	}
 	
 	
 	public static function csrf() {
 		// if there aint an active csrf
-		if (!Session::check("csrf_token")) {
+		if (!Session::check('csrf_token')) {
 			$ses = substr(self::_hash(Utils::gen()), 0, 32);
-			Session::set("csrf_token", $ses);
-			Session::set("expires", time() + 60 * 60);
+			Session::set('csrf_token', $ses);
+			Session::set('expires', time() + 60 * 60);
 		} else {
 			// if there is
-			$ses = Session::get("csrf_token");
+			$ses = Session::get('csrf_token');
 		}
 		
 		$html = <<<__here
@@ -335,15 +335,15 @@ __here;
 	}
 
 	public function validate_csrf ($str) {
-		if (Session::check("csrf_token")) {
+		if (Session::check('csrf_token')) {
 			// check if the csrf token has timed out
-			if (time() > Session::get("expires")) {
+			if (time() > Session::get('expires')) {
 				self::addError(['msg' => 'Form has expired, refresh the page!', 'status' => 419]);
-				Session::del("expires");
+				Session::del('expires');
 				Session::del('csrf_token');
 			} else {
 				// if still active
-				if ($str === Session::get("csrf_token")) {
+				if ($str === Session::get('csrf_token')) {
 					return true;
 				} else {
 					$this->addError(['status' => 419, 'msg' => 'Csrf token error, refresh the page!']);

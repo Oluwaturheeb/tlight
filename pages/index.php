@@ -6,17 +6,15 @@ require_once "inc/header.php"; ?>
 
 	<div class="container">
 	<?php
-	/*$d = Db::instance();
-	$d->table('tab1')
-	->get(['col, col2, col3'])
-	->where(['id', '>', 2])
-	->out();
+	$d = Db::instance();
+	$d->table('blog')
+	->get(['*'])
+	->whereIn('id', [1,2,3,4])
+	->pages(1, 'more')
+	->res();
+	print_r($d);
 	
-	echo $d;
-	
-	
-	
-	die();*/
+	die($d);
 	?>
 		<header>
 			<h1>Tlight</h1>

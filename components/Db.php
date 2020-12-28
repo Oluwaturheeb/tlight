@@ -5,104 +5,11 @@ class Db {
 
 	public $paging = false, $next = 0, $prev;
 	
-	public function where (...$id) {
-		if (!$this->_error) {
-			if (end($id) === true) {
-				$args = $id[0];
-			} else {
-				$args = $id;
-			}
-			
-			print_r($args);
-
-			/*if(!$this->_misc) {
-				// the this is normal query 
-				/*if (count($args) > 1 && !$this->_con) {
-					$this->_con = ['and'];
-				}*
-				$gen = $this->gen($this->form($args), $this->_con);
-
-				if (!empty($this->_query_value)) {
-					$this->_query_value = array_merge($this->_query_value, $gen[1]);
-				} else {
-					$this->_query_value = $gen[1];
-				}
-
-				//  this is meant for joins
-				if ($this->_misc !== true) {
-					$this->_lastid = $gen[0];
-					if (!is_array($this->_sql))
-						$this->_sql .= ' ' . $this->_lastid;
-
-				} else {
-					$this->_sql = substr($this->_sql, 0, -1);
-					$this->_sql .= ' ' . $gen[0] . ')';
-
-				}
-			} else {
-				$this->_sql = explode('union', $this->_sql);
-				$this->_query_value = [];
-				$q = '';
-				foreach ($args as $key => $value) {
-
-					if($key > 0) {
-						$q .= ' union ';
-					}
-
-					// this condition checks if the where concat is called or not
-
-					if (!$this->_con) {
-						$con = ['and'];
-					} else {
-						$con = $this->_con;
-					}
-
-					// this checks if the query needs a where clause attached or not
-
-					if (count($value)) {
-						$gen = $this->gen($this->form($value), $con);
-						if (!empty($this->_query_value)) {
-							$this->_query_value = array_merge($this->_query_value, $gen[1]);
-						} else {
-							$this->_query_value = $gen[1];
-						}
-						$where = $gen[0];
-					} else {
-						$where = '';
-					}
-					$q .= $this->_sql[$key] . ' ' . $where . ' ';
-
-				}
-				$this->_sql = $q;
-			}*/
-		}
-		return $this;
-	}
-	
-	public function orWhere (...$id) {
-		
-	}
-	
-	
-	// checking the where type
-	
-	/*protected function isInt () {
-		
-	}
-	
-	protected function isArray () {
-		
-	}
-	
-	protected function isClosure () {
-		
-	}*/
-
 	public function __construct () {
 		if ($this->_error) return $this->_error();
-		$c = new Config();
 		try{
-			$this->_pdo = $this->_instance = new PDO('mysql:host='. $c->get('db/host') .';dbname=' . $c->get('db/database'), Config::get('db/usr'), Config::get('db/pwd'));
+			$c = new Config();
+			$this->_pdo = $this->_instance = new PDO('mysql:host='. $c->get('db/host') .';dbname=' . $c->get('db/database'), $c->get('db/usr'), $c->get('db/pwd'));
 		} catch (Exception $e) {
 			$this->_error = $e->getMessage();
 		}
@@ -190,7 +97,10 @@ class Db {
 	
 	public function join ($table, $pre, $type = '') {
 		// error 
-		if (is_array($table)) $this->_error = '**Arg Error: String is require Array given. Method called Join!';return $this;
+		if (is_array($table)) {
+			$this->_error = '**Arg Error: String is required Array given. Method called Join!';
+			return $this;
+		} 
 		$this->_sql .= " {$type} join {$table}" . $this->predicate($pre);
 		return $this;
 	}
@@ -240,110 +150,95 @@ class Db {
 
 		return $this;
 	}
-
-	public function concat ($join) {
-		if (!$this->_error) {
-			$this->_con = $join;
-		}
-		return $this;
-	}
-
-	/*public function where (...$id) {
+	
+	public function where (...$id) {
 		if (!$this->_error) {
 			if (end($id) === true) {
 				$args = $id[0];
 			} else {
 				$args = $id;
 			}
+			$gen = $this->gen($this->form($args), 'and');
 
-			if(!$this->_misc) {
-				// the this is normal query 
-				if (count($args) > 1 && !$this->_con) {
-					$this->_con = ['and'];
-				}
-				$gen = $this->gen($this->form($args), $this->_con);
-
-				if (!empty($this->_query_value)) {
-					$this->_query_value = array_merge($this->_query_value, $gen[1]);
-				} else {
-					$this->_query_value = $gen[1];
-				}
-
-				//  this is meant for joins
-				if ($this->_misc !== true) {
-					$this->_lastid = $gen[0];
-					if (!is_array($this->_sql))
-						$this->_sql .= ' ' . $this->_lastid;
-
-				} else {
-					$this->_sql = substr($this->_sql, 0, -1);
-					$this->_sql .= ' ' . $gen[0] . ')';
-
-				}
+			if (!empty($this->_query_value)) {
+				$this->_query_value = array_merge($this->_query_value, $gen[1]);
 			} else {
-				$this->_sql = explode('union', $this->_sql);
-				$this->_query_value = [];
-				$q = '';
-				foreach ($args as $key => $value) {
+				$this->_query_value = $gen[1];
+			}
 
-					if($key > 0) {
-						$q .= ' union ';
-					}
-
-					// this condition checks if the where concat is called or not
-
-					if (!$this->_con) {
-						$con = ['and'];
-					} else {
-						$con = $this->_con;
-					}
-
-					// this checks if the query needs a where clause attached or not
-
-					if (count($value)) {
-						$gen = $this->gen($this->form($value), $con);
-						if (!empty($this->_query_value)) {
-							$this->_query_value = array_merge($this->_query_value, $gen[1]);
-						} else {
-							$this->_query_value = $gen[1];
-						}
-						$where = $gen[0];
-					} else {
-						$where = '';
-					}
-					$q .= $this->_sql[$key] . ' ' . $where . ' ';
-
-				}
-				$this->_sql = $q;
+			if ($this->_misc !== true) {
+				$this->_sql .= $gen[0];
+			} else {
+				$this->_sql = substr($this->_sql, 0, -1);
+				$this->_sql .= ' ' . $gen[0] . ')';
 			}
 		}
 		return $this;
-	}*/
+	}
+	
+	public function orWhere (...$id) {
+		if (!$this->_error) {
+			if (end($id) === true) {
+				$args = $id[0];
+			} else {
+				$args = $id;
+			}
+			$gen = $this->gen($this->form($args), 'or');
+
+			if (!empty($this->_query_value)) {
+				$this->_query_value = array_merge($this->_query_value, $gen[1]);
+			} else {
+				$this->_query_value = $gen[1];
+			}
+
+			if ($this->_misc !== true) {
+				$this->_sql .= $gen[0];
+			} else {
+				$this->_sql = substr($this->_sql, 0, -1);
+				$this->_sql .= ' ' . $gen[0] . ')';
+			}
+		}
+		return $this;
+	}
+	
+	public function whereIn($col, $val = []) {
+		if (empty($val)) {
+			$this->_sql .= " where {$col} in ";
+		} else {
+			$new = implode(', ', array_fill(1, count($val), '?'));
+			$this->_sql .= " where {$col} in ({$new})";
+		}
+		if (!empty($this->_query_value) && !empty($val)) {
+			$this->_query_value = array_merge($this->_query_value, $val);
+		} else {
+			$this->_query_value = $val;
+		}
+		return $this;
+	}
 
 	public function pages ($ppage = 5, $url = '') {
 		if (!$this->_error) {
 			$this->query($this->_sql, $this->_query_value);
 			$last = ceil($this->count() / $ppage);
-
-			if (!empty($_GET[$url])) {
-				$each = $_GET[$url];
+			
+			if (Http::req($url)) {
+				$each = Http::req($url);
 			} elseif (!empty($_GET)) {
-
 				foreach ($_GET as $key) {
 					$each = $key;
 				}
 			} else {
 				$each = 1;
 			}
-
+			
 			if (is_numeric($each)) {
-				if ($each == $last) {
+				if ($each >= $last) {
 					$each = $last;
 				}
 			} else {
 				$each = 1;
 			}
-
+			
 			if ($last > 1) {
 				if ($each < $last) {
 					$next = $each + 1;
@@ -357,7 +252,7 @@ class Db {
 				$this->prev = $prev;
 			}
 
-			$this->_sql .= ' limit ' . ($each - 1) * $ppage . ', $ppage';
+			$this->_sql .= ' limit ' . ($each - 1) * $ppage . ', ' . $ppage;
 		}
 		return $this;
 	}
@@ -379,6 +274,15 @@ class Db {
 	public function sort ($col = 'id', $order = 'desc') {
 		if (!$this->_error) {
 			$this->_sql .= " order by {$col} {$order}";
+		}
+		return $this;
+	}
+	
+	public function union ($tab, array $cols = []) {
+		if ($this->error()) {
+			$this->_sql .= ' union ';
+			$nq = 'select '. implode(', ', $cols) . ' from '. $tab;
+			$this->_sql .= $nq;
 		}
 		return $this;
 	}
@@ -488,7 +392,7 @@ class Db {
 		return $where;
 	}
 
-	protected function gen ($where = [], $concat = 'and') {
+	protected function gen ($where = [], $cc) {
 		if (is_array($where[0])){
 			$op = $value = '';
 			$where = @array_filter($where);
@@ -514,21 +418,15 @@ class Db {
 				
 				if($j < count($where)){
 					$value .= ', ';
-					if(is_array($concat)) {
-						$cc = @$concat[$i];
-					} else {
-						$cc = $concat;
-					}
-	
-				    $op .= " {$cc} ";
+				 $op .= " {$cc} ";
 				}
 			}
 	
 			$value = explode(', ', $value);
-			$op = "where {$op}";
+			$op = " where {$op}";
 			return [$op, $value];
 		} else {
-			$this->_error = '**Arg Error: This method expects a multi-dimentional array as parameter 1 -> @gen';
+			$this->_error = '**Arg Error: This method expects a multi-dimentional array as parameter 1 gen';
 			return false;
 		}
 	}
@@ -537,15 +435,15 @@ class Db {
 
 	protected function predicate ($pre, $concat = 'and') {
 		if (!$pre) {
-			$this->_error = '**Arg Error: No value given. Method called predicate';
+			$this->_error = '**Arg Error: No value given. Method called Predicate';
 		} else {
 			if (!is_array($pre)) return " using({$pre})";
 			
 			$ret = '';
 			foreach ($pre as $p => $v) {
-				if (is_array($p)) {
+				if (is_array($v)) {
 					if ($p > 0) {
-						$ret .= $concat[$p];
+						$ret .= " $concat ";
 					}
 					if (count($v) == 3) {
 						$ret .= $v[0]. ' ' . $v[1]. ' ' .$v[2];
