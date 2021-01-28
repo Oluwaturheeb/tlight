@@ -69,7 +69,7 @@ if (count($argv) > 1)
 							$res = '**Success: Setup completed!';
 						break;
 					case 'v':
-						$res = 'Tlight v1.8.0';
+						$res = 'Tlight v2.0.0';
 						break;
 					case 'h':
 						$res = $cmd_icon . $def;

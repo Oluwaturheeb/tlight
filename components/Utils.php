@@ -216,6 +216,20 @@ class Utils{
 		  
 		return false;
 	}
+	
+	public static function collection ($arr, $str) {
+		if ($str && count($arr)) {
+			$col = [];
+			foreach($arr as $key => $val) {
+				$key = array_keys((array)$val);
+				if (in_array($str, $key)) {
+					$col[] = $val->$str;
+				}
+			}
+			return $col;
+		}
+	}
+	
 
 	/*public static function content_html($text, $file){
 		$check = stristr($text, 'upload_');
