@@ -5,32 +5,23 @@
  */
 class Http extends Validate {
 	
-	public static function req ($r = "") {
-		if (self::server()) {
-			if (!empty($_POST))
-				$req = $_POST;
-			elseif (!empty($_GET))
-				$req = $_GET;
-			else
-				$req = false;
-
-			if ($r) {
-				if (@$req[$r])
-					$req = $req[$r];
-				else
-					$req = false;
-			}
-
-			if ($req) {
-				$req = self::filter($req);
-			}
-
-			return $req;
-		}
+	public static function req ($r = '') {
+		if (!empty($_POST))
+			$req = $_POST;
+		elseif (!empty($_GET))
+			$req = $_GET;
+		else
+			$req = false;
+			
+		if ($r) 
+			(isset($req[$r])) ? $req = $req[$r] : $req = false;
+		if ($req)
+			$req = self::filter($req);
+		return $req;
 	}
-
-	public static function res ($data = "ok", int $status = 200) {
-		if (is_array($data)) {
+	
+	public static function res ($data = 'ok', int $status = 200) {
+	if (is_array($data)) {
 			if (array_key_exists('status', $data)) {
 				$status = $data['status'];
 			} 
@@ -38,7 +29,7 @@ class Http extends Validate {
 			$data = ['msg' => $status, 'msg' => $data];
 		}
 		
-		switch($status) {
+		switch ($status) {
 			case 200:
 				header('HTTP/1.1 200 OK');
 			break;
@@ -55,20 +46,17 @@ class Http extends Validate {
 				header('HTTP/1.1 422 Validation error');
 			break;
 		}
-		echo Utils::json($data);
-	}
-
-	public static function server () {
-		if (Config::get('session/domain') == $_SERVER['SERVER_NAME'] && isset($_SERVER['HTTP_USER_AGENT'])) {
-			return true;
-		}
-		return false;
+		die(Utils::json($data));
 	}
 
 	public static function is_ajax(){
-		if ($_SERVER['HTTP_X_REQUESTED_WITH']) {
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
 			return true;
 		}
 		return false;
+	}
+	
+	public static function header ($value) {
+		return $this->_SERVER[$value];
 	}
 }

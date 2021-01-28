@@ -1,0 +1,107 @@
+
+	22 January 2021 10:24pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/APIRequest.php on 15 
+ curl_setopt() expects parameter 1 to be resource, null given
+____________________________________
+	22 January 2021 10:28pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/APIRequest.php on 15 
+ curl_setopt() expects parameter 1 to be resource, null given
+____________________________________
+	22 January 2021 10:29pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/APIRequest.php on 15 
+ curl_setopt() expects parameter 1 to be resource, null given
+____________________________________
+	22 January 2021 10:30pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/APIRequest.php on 45 
+ A non-numeric value encountered
+____________________________________
+	22 January 2021 10:31pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/APIRequest.php on 45 
+ A non-numeric value encountered
+____________________________________
+	22 January 2021 10:32pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/APIRequest.php on 70 
+ curl_setopt_array() expects exactly 2 parameters, 3 given
+____________________________________
+	22 January 2021 10:36pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/APIRequest.php on 70 
+ curl_setopt_array() expects parameter 1 to be resource, string given
+____________________________________
+	22 January 2021 10:38pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/APIRequest.php on 69 
+ curl_setopt_array() expects parameter 1 to be resource, string given
+____________________________________
+	22 January 2021 10:40pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/APIRequest.php on 69 
+ Undefined property: APIRequest::$ini
+____________________________________
+	22 January 2021 10:41pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/APIRequest.php on 70 
+ curl_setopt_array() expects parameter 1 to be resource, string given
+____________________________________
+	22 January 2021 10:42pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/APIRequest.php on 70 
+ curl_setopt_array() expects parameter 1 to be resource, string given
+____________________________________
+	22 January 2021 10:44pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/APIRequest.php on 74 
+ Undefined property: APIRequest::$ini
+____________________________________
+	22 January 2021 10:45pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 10:45pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 10:46pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 10:47pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 10:48pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 10:50pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 10:52pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 10:53pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 10:53pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 10:54pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 10:55pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 10:56pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 10:59pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 11:33pm	127.0.0.1	PUT	/	[]
+____________________________________
+	22 January 2021 11:35pm	127.0.0.1	PUT	/	[]
+____________________________________
+	22 January 2021 11:36pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 11:36pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 11:37pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 11:38pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 11:39pm	127.0.0.1	PUT	/	[]
+____________________________________
+	22 January 2021 11:39pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 11:42pm	127.0.0.1	GET	/	
+____________________________________
+	22 January 2021 11:43pm	127.0.0.1	GET	/	
+____________________________________

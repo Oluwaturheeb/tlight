@@ -17,7 +17,11 @@
 			</div>
 			<div class="dp-link">
 				<a href="/docs">Docs</a>
+				<?php if (!authId()): ?>
 				<a href="/login">Login</a>
+				<?php else: ?>
+				<a href="/logout">Logout</a>
+				<?php endif; ?>
 			</div>
 		</div>
 	</nav>
@@ -40,7 +44,7 @@
 		}
 
 		nav .logo {
-			font-size: 1.8rem;
+			font-size: 1.6rem;
 		}
 
 		nav .logo a {

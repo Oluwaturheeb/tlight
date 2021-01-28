@@ -16,4 +16,4 @@
 	<script src="<?php echo JS, "Validate.js" ?>"></script>
 </head>
 <body>
-	<?php require_once "defaultHeader.php"; ?>
+	<?php require_once 'defaultHeader.php';

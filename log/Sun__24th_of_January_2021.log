@@ -1,0 +1,573 @@
+
+	24 January 2021 12:00am	127.0.0.1	POST	/	[]
+____________________________________
+	24 January 2021 12:01am	127.0.0.1	POST	/	[]
+____________________________________
+	24 January 2021 12:02am	127.0.0.1	POST	/	[]
+____________________________________
+	24 January 2021 12:03am	127.0.0.1	POST	/	[]
+____________________________________
+	24 January 2021 12:04am	127.0.0.1	POST	/	[]
+____________________________________
+	24 January 2021 12:05am	127.0.0.1	POST	/	[]
+____________________________________
+	24 January 2021 12:05am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 12:05am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 12:06am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 08:55am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 08:56am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:02am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:03am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:04am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:07am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:11am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:11am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:14am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:18am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:25am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:25am	127.0.0.1	POST	/api/create	{"fullname":"toyeeb","email":"tee@mail.com","password":"auuuuu"}
+____________________________________
+	24 January 2021 09:26am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:26am	127.0.0.1	POST	/api/create	{"fullname":"toyeeb","email":"tee@mail.com","password":"auuuuu"}
+____________________________________
+	24 January 2021 09:27am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:27am	127.0.0.1	POST	/api/create/15/fold	{"fullname":"toyeeb","email":"tee@mail.com","password":"auuuuu"}
+____________________________________
+	24 January 2021 09:28am	127.0.0.1	GET	/api/create/12/test	
+____________________________________
+	24 January 2021 09:28am	127.0.0.1	GET	/api/create/12/test	
+____________________________________
+	24 January 2021 09:29am	127.0.0.1	GET	/api/create/12/test	
+____________________________________
+	24 January 2021 09:31am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:31am	127.0.0.1	POST	/api/create/15/fold	{"fullname":"toyeeb","email":"tee@mail.com","password":"auuuuu"}
+____________________________________
+	24 January 2021 09:31am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:31am	127.0.0.1	POST	/api/create/15/fold	{"fullname":"toyeeb","email":"tee@mail.com","password":"auuuuu"}
+____________________________________
+	24 January 2021 09:31am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:31am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 09:32am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:32am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 09:32am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:32am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 09:33am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:33am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 09:33am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:33am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 09:33am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:33am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 09:33am	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 09:33am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 09:34am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 10:43am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 10:43am	127.0.0.1	POST	/api/create/15/fold	[]
+____________________________________
+	24 January 2021 10:44am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 10:44am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 10:48am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 10:49am	127.0.0.1	DELETE	/api/create/15/fold	[]
+____________________________________
+	24 January 2021 10:49am	127.0.0.1	DELETE	/api/create/15/fold	[]
+____________________________________
+	24 January 2021 10:50am	127.0.0.1	DELETE	/api/create/15/fold	[]
+____________________________________
+	24 January 2021 10:50am	127.0.0.1	GET	/api/create/15/fold	
+____________________________________
+	24 January 2021 10:51am	127.0.0.1	POST	/api/create	[]
+____________________________________
+	24 January 2021 10:51am	127.0.0.1	POST	/api/create	[]
+____________________________________
+	24 January 2021 10:51am	127.0.0.1	POST	/api/create	[]
+____________________________________
+	24 January 2021 10:52am	127.0.0.1	PUT	/api/create	[]
+____________________________________
+	24 January 2021 10:52am	127.0.0.1	POST	/api/create	{"hello":"world"}
+____________________________________
+	24 January 2021 10:52am	127.0.0.1	POST	/api/create	{"hello":"world"}
+____________________________________
+	24 January 2021 10:53am	127.0.0.1	POST	/api/create	[]
+____________________________________
+	24 January 2021 10:53am	127.0.0.1	POST	/api/create	[]
+____________________________________
+	24 January 2021 10:54am	127.0.0.1	POST	/api/create	[]
+____________________________________
+	24 January 2021 10:55am	127.0.0.1	POST	/api/create	[]
+____________________________________
+	24 January 2021 10:55am	127.0.0.1	POST	/api/create	[]
+____________________________________
+	24 January 2021 10:55am	127.0.0.1	POST	/api/create	[]
+____________________________________
+	24 January 2021 10:57am	127.0.0.1	POST	/api/create	{"hello":"world"}
+____________________________________
+	24 January 2021 11:21am	127.0.0.1	POST	/	{"{\"key\":\"teee\"}":""}
+____________________________________
+	24 January 2021 11:21am	127.0.0.1	POST	/api/create	{"{\"key\":\"teee\"}":""}
+____________________________________
+	24 January 2021 11:22am	127.0.0.1	POST	/api/create	[]
+____________________________________
+	24 January 2021 12:36pm	127.0.0.1	POST	/api/create	{"hello":"world"}
+____________________________________
+	24 January 2021 12:38pm	127.0.0.1	POST	/api/create	{"hello":"world"}
+____________________________________
+	24 January 2021 12:39pm	127.0.0.1	POST	/api/create	{"hello":"world"}
+____________________________________
+	24 January 2021 12:39pm	127.0.0.1	POST	/api/create	{"hello":"world"}
+____________________________________
+	24 January 2021 12:40pm	127.0.0.1	POST	/api/create	{"hello":"world"}
+____________________________________
+	24 January 2021 12:40pm	127.0.0.1	POST	/api/create	{"hello":"world"}
+____________________________________
+	24 January 2021 12:41pm	127.0.0.1	PUT	/api/create	[]
+____________________________________
+	24 January 2021 12:41pm	127.0.0.1	PUT	/api/create	[]
+____________________________________
+	24 January 2021 12:43pm	127.0.0.1	PUT	/api/create	[]
+____________________________________
+	24 January 2021 12:43pm	127.0.0.1	PUT	/api/create	[]
+____________________________________
+	24 January 2021 12:44pm	127.0.0.1	PUT	/api/create	[]
+____________________________________
+	24 January 2021 12:44pm	127.0.0.1	PUT	/api/create	[]
+____________________________________
+	24 January 2021 12:44pm	127.0.0.1	PUT	/api/create	[]
+____________________________________
+	24 January 2021 12:45pm	127.0.0.1	PUT	/api/create/	[]
+____________________________________
+	24 January 2021 12:46pm	127.0.0.1	PUT	/api/create/	[]
+____________________________________
+	24 January 2021 12:51pm	127.0.0.1	PUT	/api/create/	[]
+____________________________________
+	24 January 2021 12:51pm	127.0.0.1	PUT	/api/create/	[]
+____________________________________
+	24 January 2021 12:52pm	127.0.0.1	PUT	/api/create/	[]
+____________________________________
+	24 January 2021 12:55pm	127.0.0.1	PUT	/api/create/	[]
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/API.php on 66 
+ parse_str(): Calling parse_str() without the result argument is deprecated
+____________________________________
+	24 January 2021 12:57pm	127.0.0.1	PUT	/api/create/	[]
+____________________________________
+	24 January 2021 12:58pm	127.0.0.1	PUT	/api/create/	[]
+____________________________________
+	24 January 2021 01:00pm	127.0.0.1	PUT	/api/create/	[]
+____________________________________
+	24 January 2021 01:03pm	127.0.0.1	PUT	/api/create/	[]
+____________________________________
+	24 January 2021 01:04pm	127.0.0.1	GET	/api/go	
+____________________________________
+	24 January 2021 01:04pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 01:10pm	127.0.0.1	POST	/request	{"password":"Password","email":"test@gmail.com"}
+____________________________________
+	24 January 2021 01:11pm	127.0.0.1	POST	/request	{"password":"Password","email":"test@gmail.com"}
+____________________________________
+	24 January 2021 01:13pm	127.0.0.1	POST	/request	{"password":"Print_r($_SERVER);","email":"Hekko@mail.com"}
+____________________________________
+	24 January 2021 01:15pm	127.0.0.1	PUT	/request	[]
+____________________________________
+	24 January 2021 01:17pm	127.0.0.1	PUT	/request	[]
+____________________________________
+	24 January 2021 01:17pm	127.0.0.1	PUT	/request	[]
+____________________________________
+	24 January 2021 01:19pm	127.0.0.1	PUT	/request	[]
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Validate.php on 111 
+ Invalid argument supplied for foreach()
+____________________________________
+	24 January 2021 01:22pm	127.0.0.1	PUT	/request	[]
+____________________________________
+	24 January 2021 01:23pm	127.0.0.1	PUT	/request	[]
+____________________________________
+	24 January 2021 01:47pm	127.0.0.1	POST	/request	{"password":"Print_r($_SERVER);","email":"Hekko@mail.com"}
+____________________________________
+	24 January 2021 01:48pm	127.0.0.1	POST	/request	{"password":"Print_r($_SERVER);","email":"Hekko@mail.com"}
+____________________________________
+	24 January 2021 01:49pm	127.0.0.1	POST	/request	{"password":"Print_r($_SERVER);","email":"Hekko@mail.com"}
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Validate.php on 111 
+ Invalid argument supplied for foreach()
+____________________________________
+	24 January 2021 02:10pm	127.0.0.1	POST	/request	{"password":"Print_r($_SERVER);","email":"Hekko@mail.com"}
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/app.php on 5 
+ require_once(Ridirect.php): failed to open stream: No such file or directory
+____________________________________
+	24 January 2021 02:10pm	127.0.0.1	POST	/request	{"password":"Print_r($_SERVER);","email":"Hekko@mail.com"}
+____________________________________
+	24 January 2021 02:11pm	127.0.0.1	POST	/request	{"password":"Print_r($_SERVER);","email":"Hekko@mail.com"}
+____________________________________
+	24 January 2021 02:12pm	127.0.0.1	POST	/request	{"password":"Print_r($_SERVER);","email":"Hekko@mail.com"}
+____________________________________
+	24 January 2021 02:14pm	127.0.0.1	POST	/request	{"password":"","email":""}
+____________________________________
+	24 January 2021 02:16pm	127.0.0.1	POST	/request	{"password":"Password","email":"emalld@gmaildjdjd.cid"}
+____________________________________
+	24 January 2021 02:17pm	127.0.0.1	POST	/request	{"password":"Xjwjdh","email":"Nxndiejd@cndidnd"}
+____________________________________
+	24 January 2021 02:19pm	127.0.0.1	POST	/request	{"password":"Password","email":"Xjs@gmail.com"}
+____________________________________
+	24 January 2021 02:20pm	127.0.0.1	GET	/request	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Validate.php on 110 
+ Invalid argument supplied for foreach()
+____________________________________
+	24 January 2021 02:22pm	127.0.0.1	GET	/request	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Validate.php on 110 
+ Invalid argument supplied for foreach()
+____________________________________
+	24 January 2021 02:23pm	127.0.0.1	GET	/request	
+____________________________________
+	24 January 2021 02:23pm	127.0.0.1	GET	/request	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Validate.php on 110 
+ Invalid argument supplied for foreach()
+____________________________________
+	24 January 2021 02:26pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:26pm	127.0.0.1	GET	/login	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/login.php on 10 
+ require_once(auth/login.php): failed to open stream: No such file or directory
+____________________________________
+	24 January 2021 02:27pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:27pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:27pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:27pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"Dpassword","__csrf":"b4af1f6ceed2c10f08e337f350074e9a","type":"login"}
+____________________________________
+	24 January 2021 02:29pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"Dpassword","__csrf":"b4af1f6ceed2c10f08e337f350074e9a","type":"login"}
+____________________________________
+	24 January 2021 02:32pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"Dpassword","__csrf":"b4af1f6ceed2c10f08e337f350074e9a","type":"login"}
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	POST	/login	{"email":"aaaa@gmail.com","password":"password","__csrf":"b4af1f6ceed2c10f08e337f350074e9a","type":"login"}
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:33pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:34pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:35pm	127.0.0.1	GET	/logout	
+____________________________________
+	24 January 2021 02:35pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 02:35pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:35pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"Xxjsjsjpassword","__csrf":"a41d2fd4e982b6fa6f96e900dd9ea2a6","type":"login"}
+____________________________________
+	24 January 2021 02:35pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"Xxjsjsjpassword","__csrf":"a41d2fd4e982b6fa6f96e900dd9ea2a6","type":"login"}
+____________________________________
+	24 January 2021 02:36pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"Xxjsjsjpassword","__csrf":"a41d2fd4e982b6fa6f96e900dd9ea2a6","type":"login"}
+____________________________________
+	24 January 2021 02:38pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"Xxjsjsjpassword","__csrf":"a41d2fd4e982b6fa6f96e900dd9ea2a6","type":"login"}
+____________________________________
+	24 January 2021 02:39pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"Xxjsjsjpassword","__csrf":"a41d2fd4e982b6fa6f96e900dd9ea2a6","type":"login"}
+____________________________________
+	24 January 2021 02:40pm	127.0.0.1	POST	/request	{"password":"Djsjdn","email":""}
+____________________________________
+	24 January 2021 02:40pm	127.0.0.1	POST	/request	{"password":"Djsjdn","email":""}
+____________________________________
+	24 January 2021 02:41pm	127.0.0.1	POST	/request	{"password":"Djsjdn","email":""}
+____________________________________
+	24 January 2021 02:41pm	127.0.0.1	POST	/request	{"password":"Djsjdn","email":""}
+____________________________________
+	24 January 2021 02:41pm	127.0.0.1	POST	/request	{"password":"Djjsjsj","email":"Snsj@fjdje.djd"}
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/settings.php on 54 
+ ini_set(): Headers already sent. You cannot change the session module's ini settings at this time
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/settings.php on 54 
+ ini_set(): Headers already sent. You cannot change the session module's ini settings at this time
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/settings.php on 54 
+ ini_set(): Headers already sent. You cannot change the session module's ini settings at this time
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/settings.php on 54 
+ ini_set(): Headers already sent. You cannot change the session module's ini settings at this time
+____________________________________
+	24 January 2021 02:49pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 02:49pm	127.0.0.1	POST	/request	{"password":"Djjsjsj","email":"Snsj@fjdje.djd"}
+____________________________________
+	24 January 2021 04:23pm	127.0.0.1	POST	/request	{"password":"Hello","email":"Mdjj@cnfkd.dnfjd"}
+____________________________________
+	24 January 2021 04:23pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 04:44pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 04:46pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 04:48pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:49pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:49pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:50pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:50pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:50pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:50pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:50pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"register"}
+____________________________________
+	24 January 2021 04:50pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:50pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:51pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"passpass","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:53pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"passpass","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:53pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 04:53pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"passpass","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:53pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/settings.php on 55 
+ ini_set(): Headers already sent. You cannot change the session module's ini settings at this time
+____________________________________
+	24 January 2021 04:55pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 04:55pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:55pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 04:55pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:55pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 04:56pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:56pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 04:57pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:57pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 04:57pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:57pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 04:57pm	127.0.0.1	GET	/login	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/settings.php on 86 
+ session_start(): Cannot start session when headers already sent
+____________________________________
+	24 January 2021 04:57pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 04:58pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:58pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 04:58pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 04:58pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 04:58pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:58pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 04:58pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:58pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 04:58pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:58pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 04:59pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:59pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 04:59pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 04:59pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 05:00pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 05:00pm	127.0.0.1	GET	/	
+____________________________________
+	24 January 2021 05:09pm	127.0.0.1	POST	/request	{"password":"Dhej","email":"eueijd@dmsks.djsi"}
+____________________________________
+	24 January 2021 05:09pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 05:09pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 05:09pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 05:09pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 05:10pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"lpwd"}
+____________________________________
+	24 January 2021 05:10pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"lpwd"}
+____________________________________
+	24 January 2021 05:10pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"lpwd"}
+____________________________________
+	24 January 2021 05:10pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"lpwd"}
+____________________________________
+	24 January 2021 05:10pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"register"}
+____________________________________
+	24 January 2021 05:10pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"password","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"register"}
+____________________________________
+	24 January 2021 05:10pm	127.0.0.1	POST	/request	{"email":"aaaa@gmail.com","password":"password","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 05:11pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"password","remember":"on","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"login"}
+____________________________________
+	24 January 2021 05:11pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"password","__csrf":"eb5ec24c239f8b3749d743b396610993","type":"register"}
+____________________________________
+	24 January 2021 05:12pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 05:12pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"password","remember":"on","__csrf":"ea91307112ea35d9d0b01fda9022fc82","type":"login"}
+____________________________________
+	24 January 2021 05:12pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"password","__csrf":"ea91307112ea35d9d0b01fda9022fc82","type":"register"}
+____________________________________
+	24 January 2021 05:12pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"password","__csrf":"ea91307112ea35d9d0b01fda9022fc82","type":"register"}
+____________________________________
+	24 January 2021 05:12pm	127.0.0.1	POST	/request	{"email":"aaaaaa@gmail.com","password":"password","remember":"on","__csrf":"ea91307112ea35d9d0b01fda9022fc82","type":"login"}
+____________________________________
+	24 January 2021 05:13pm	127.0.0.1	POST	/request	{"email":"aaaaaa@gmail.com","password":"password","remember":"on","__csrf":"ea91307112ea35d9d0b01fda9022fc82","type":"login"}
+____________________________________
+	24 January 2021 05:13pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"ayoonline","__csrf":"ea91307112ea35d9d0b01fda9022fc82","type":"register"}
+____________________________________
+	24 January 2021 05:13pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"ayoonline","__csrf":"ea91307112ea35d9d0b01fda9022fc82","type":"register"}
+____________________________________
+	24 January 2021 05:13pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"ayoonline","__csrf":"ea91307112ea35d9d0b01fda9022fc82","type":"register"}
+____________________________________
+	24 January 2021 05:16pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"ayoonline","__csrf":"ea91307112ea35d9d0b01fda9022fc82","type":"register"}
+____________________________________
+	24 January 2021 05:19pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"ayoonline","__csrf":"ea91307112ea35d9d0b01fda9022fc82","type":"register"}
+____________________________________
+	24 January 2021 05:19pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"password","__csrf":"ea91307112ea35d9d0b01fda9022fc82","type":"register"}
+____________________________________
+	24 January 2021 05:22pm	127.0.0.1	POST	/request	{"email":"crazy@gmail.com","password":"password","__csrf":"ea91307112ea35d9d0b01fda9022fc82","type":"register"}
+____________________________________
+	24 January 2021 06:44pm	127.0.0.1	GET	/login	
+____________________________________
+	24 January 2021 10:44pm	127.0.0.1	GET	/docs	
+____________________________________
+	24 January 2021 10:44pm	127.0.0.1	GET	/docs	
+____________________________________
+	24 January 2021 10:44pm	127.0.0.1	GET	/docs	
+____________________________________

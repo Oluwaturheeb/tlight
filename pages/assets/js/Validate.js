@@ -302,7 +302,7 @@ class Validate {
 	}
 
 	captcha () {
-		var inp = "<div class='id'><label style='display: none !important'>captcha</label><input type='text' name='captcha' placeholder='Enter captcha' class='input-line'></div>";
+		var inp = "<div class='id'><label style='display: none !important'>captcha</label><input type='text' name='captcha' placeholder='Enter captcha' class='input-line' style='user-select: none'></div>";
 		return inp;
 	}
 

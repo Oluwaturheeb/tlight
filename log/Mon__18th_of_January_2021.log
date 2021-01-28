@@ -1,0 +1,49 @@
+
+	18 January 2021 12:02am	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	18 January 2021 12:02am	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	18 January 2021 12:03am	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Validate.php on 122 
+ in_array() expects parameter 2 to be array, string given
+____________________________________
+	18 January 2021 12:03am	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	18 January 2021 12:04am	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	18 January 2021 12:07am	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	18 January 2021 12:07am	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	18 January 2021 12:08am	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	18 January 2021 12:10am	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	18 January 2021 12:10am	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	18 January 2021 12:10am	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	18 January 2021 12:11am	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	18 January 2021 12:13am	127.0.0.1	GET	/	
+____________________________________
+	18 January 2021 12:13am	127.0.0.1	POST	/request	{"rwkskdokej":"shshx","__csrf":"027fe7bbbd0bf7ecdfa74f53f6acdd73"}
+____________________________________
+	18 January 2021 12:14am	127.0.0.1	POST	/request	{"rwkskdokej":"shshx","__csrf":"027fe7bbbd0bf7ecdfa74f53f6acdd73"}
+____________________________________
+	18 January 2021 12:14am	127.0.0.1	POST	/request	{"rwkskdokej":"shshx","__csrf":"027fe7bbbd0bf7ecdfa74f53f6acdd73"}
+____________________________________
+	18 January 2021 12:15am	127.0.0.1	POST	/request	{"rwkskdokej":"shshx","__csrf":"027fe7bbbd0bf7ecdfa74f53f6acdd73"}
+____________________________________
+	18 January 2021 12:16am	127.0.0.1	POST	/request	{"rwkskdokej":"shshx","__csrf":"027fe7bbbd0bf7ecdfa74f53f6acdd73"}
+____________________________________
+	18 January 2021 12:17am	127.0.0.1	POST	/request	{"rwkskdokej":"shshx","__csrf":"027fe7bbbd0bf7ecdfa74f53f6acdd73"}
+____________________________________
+	18 January 2021 12:23am	127.0.0.1	POST	/request	{"rwkskdokej":"shshx","__csrf":"027fe7bbbd0bf7ecdfa74f53f6acdd73"}
+____________________________________
+	18 January 2021 01:11pm	127.0.0.1	GET	/request	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Validate.php on 111 
+ Invalid argument supplied for foreach()
+____________________________________

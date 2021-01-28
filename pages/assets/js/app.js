@@ -84,11 +84,11 @@ $(document).ready(function () {
 if ('serviceWorker' in navigator) {
 	navigator.serviceWorker.register('pwaWorker.js')
 	.then(e => {
-		console.log('Registered')
+		alert('Registered')
 	})
 	.catch(e => {
 		alert(e)
 	});
 } else {
-	console.log('you suck')
+	//alert('you suck')
 }

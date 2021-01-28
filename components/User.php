@@ -1,40 +1,42 @@
 <?php
 
 class User extends Db {
+	public $table = 'profile', $auth = 'a_id', $img = 'picture';
 	
-	public function profile ($col = ["*"], $user = 'user') {
+	// c is telling this method not use session but rather to use the supplied id to get user data
+	
+	public function profile ($id = '', $c = false) {
+		if ($c) goto fetch;
 		if (Session::get('profile')) {
 			$pro = Session::get('profile');
 		} else {
-			$pro = $this->get($col)->where(['a_id', Session::get($user)])->res(true);
+			if (!$id) $id = authId();
+			fetch:
+			$pro = $this->table($this->table)->get()->
+			where([$this->auth, $id])
+			->res(true);
+			if (!$c)
+				Session::set('profile', $pro);
 		}
 		return $pro;
 	}
 
-	public static function img () {
-		if ($p = Session::get('profile')) {
-			if (Session::get('level') == 1) {
-				if ($p->img) {
-					return [$p->img, $p->company];
-				} else {
-					return [$p->company[0], $p->company];
-				}
-			} else {
-				if ($p->img) {
-					return [$p->img, $p->fullname];
-				} else {
-					return [$p->fullname[0], $p->fullname];
-				}
-			}
-		}
-		return false;
+	public function imgdata () {
+		$def = $this->img;
+		$p = $this->profile();
+		if ($p->$def)
+			return $p->$def;
+		else
+			return $p->fullname[0];
 	}
 	
-	public static function imgdata ($data) {
-		if (!empty($data->img)) {
-			return '<img src="'. $data->img .'" alt="'. $data->company .'">';
+	public function picture ($pic = '', $f = '') {
+		if (!$f) $pic = $this->imgdata();
+		if (strlen($pic) > 1) {
+			return '<img src="'. $pic .'" alt="'. self::profile()->fullname .'"style="color: var(--sec); border-radius: 100%; width: 5rem; height: 5rem;">';
 		} else {
-			return '<div class="def-img">'. $data->company[0] .'</div>';
+			if (!$pic) $pic = $f[0];
+			return '<div style="background: var(--pry); color: #fff; border-radius: 100%; width: 5rem; height: 5rem;text-align: center; font-size: 3rem; text-align-last: center;text-transform: capitalize">'. $pic .'</div>';
 		}
 	}
 }

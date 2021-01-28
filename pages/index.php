@@ -1,34 +1,22 @@
 <?php 
-require_once "Autoload.php";
-
-$title = "Welcome";
-require_once "inc/header.php"; ?>
+require_once 'Autoload.php';
+callfile('inc/header', 'Welcome');
+?>
 
 	<div class="container">
-	<?php
-	$d = Db::instance();
-	$d->table('blog')
-	->get(['*'])
-	->whereIn('id', [1,2,3,4])
-	->pages(1, 'more')
-	->res();
-	print_r($d);
-	
-	die($d);
-	?>
 		<header>
-			<h1>Tlight</h1>
+			<h1>Tlyt</h1>
 			<div><small>Already made and Swift</small></div>
 		</header>
-		<p>Setup your application using the <i>config.php</i> file at the root of this project and run:
+		<p>Setup your application using the <i>config</i> file at the root of this project and run:
 		</p>
-		<code>$ php tlight -i</code>
+		<code>$ php tlyt -i</code>
 	</div>
 	<style type="text/css">
 		.container {
 			text-align: center;
 		}
-	
+		
 		h1 {
 			font-family: candara;
 			font-size: 4rem;
@@ -49,6 +37,6 @@ require_once "inc/header.php"; ?>
 		}
 	</style>
 
-<?php 
+<?php
 // this include the app js files
-require_once "inc/footer.php";
+callfile('inc/footer');

@@ -1,0 +1,292 @@
+
+	28 January 2021 06:23am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:23am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 06:23am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:23am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 06:23am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:24am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 06:24am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:24am	127.0.0.1	GET	/logout	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Session.php on 56 
+ Cannot modify header information - headers already sent by (output started at /mnt/shell/emulated/0/www/tlight/components/settings.php:86)
+____________________________________
+	28 January 2021 06:25am	127.0.0.1	GET	/logout	
+____________________________________
+	28 January 2021 06:25am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:25am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 06:25am	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","__csrf":"78a1f239ec3315e2194cb547d93cb84a","type":"login"}
+____________________________________
+	28 January 2021 06:25am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:25am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:25am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:25am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:26am	127.0.0.1	GET	/contact	
+____________________________________
+	28 January 2021 06:26am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:26am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:26am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:26am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 06:27am	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","__csrf":"3ccc9a0efa5953dd8edc40d3ac39455f","type":"login"}
+____________________________________
+	28 January 2021 06:27am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:27am	127.0.0.1	GET	/docs	
+____________________________________
+	28 January 2021 06:27am	127.0.0.1	GET	/docs	
+____________________________________
+	28 January 2021 06:27am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:28am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:28am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:28am	127.0.0.1	GET	/logout	
+____________________________________
+	28 January 2021 06:28am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:28am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 06:28am	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","__csrf":"0ad7f79d1d9233758fc8a8e077b6c837","type":"login"}
+____________________________________
+	28 January 2021 06:28am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:28am	127.0.0.1	GET	/about	
+____________________________________
+	28 January 2021 06:29am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:30am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:30am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:30am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:30am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 06:30am	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","remember":"on","__csrf":"298dc83fd2c19249a34339d06ae345db","type":"login"}
+____________________________________
+	28 January 2021 06:30am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:30am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:30am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:30am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:32am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:32am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:33am	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/settings.php on 85 
+ session_start(): Cannot start session when headers already sent
+____________________________________
+	28 January 2021 06:35am	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/settings.php on 85 
+ session_start(): Cannot start session when headers already sent
+____________________________________
+	28 January 2021 06:35am	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/settings.php on 85 
+ session_start(): Cannot start session when headers already sent
+____________________________________
+	28 January 2021 06:39am	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/settings.php on 86 
+ session_start(): Cannot start session when headers already sent
+____________________________________
+	28 January 2021 06:40am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:40am	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/settings.php on 86 
+ session_start(): Cannot start session when headers already sent
+____________________________________
+	28 January 2021 06:45am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:46am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:46am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:46am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:47am	127.0.0.1	GET	/about	
+____________________________________
+	28 January 2021 06:47am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 06:51am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 07:05am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 07:05am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 10:58am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 10:59am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 10:59am	127.0.0.1	GET	/logout	
+____________________________________
+	28 January 2021 10:59am	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Session.php on 29 
+ Undefined variable: _SESSION
+____________________________________
+	28 January 2021 10:59am	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Session.php on 29 
+ Undefined variable: _SESSION
+____________________________________
+	28 January 2021 10:59am	127.0.0.1	GET	/about	
+____________________________________
+	28 January 2021 10:59am	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Session.php on 29 
+ Undefined variable: _SESSION
+____________________________________
+	28 January 2021 10:59am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","__csrf":"e293f77d8825b59a5b4b255624ba5e8d","type":"login"}
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	GET	/logout	
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","__csrf":"8a11bc275b0ae17406fc9867c63becf2","type":"login"}
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","remember":"on","__csrf":"223b69ecfba7cf48c81843a223b35a7f","type":"login"}
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	GET	/logout	
+____________________________________
+	28 January 2021 11:00am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 11:01am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 11:01am	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","__csrf":"2e0c928fe40c517c9910348805b288e1","type":"login"}
+____________________________________
+	28 January 2021 11:01am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 11:01am	127.0.0.1	GET	/logout	
+____________________________________
+	28 January 2021 11:01am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 11:01am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 11:01am	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","remember":"on","__csrf":"baa353be5bf7e90c09d0676e6ae24a76","type":"login"}
+____________________________________
+	28 January 2021 11:01am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 11:01am	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 11:01am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 11:01am	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:19pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:19pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:19pm	127.0.0.1	GET	/logout	
+____________________________________
+	28 January 2021 12:19pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Session.php on 29 
+ Undefined variable: _SESSION
+____________________________________
+	28 January 2021 12:20pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Session.php on 29 
+ Undefined variable: _SESSION
+____________________________________
+	28 January 2021 12:20pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:20pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:20pm	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 12:20pm	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","remember":"on","__csrf":"b5033141a52d279fff183954a05d500d","type":"login"}
+____________________________________
+	28 January 2021 12:21pm	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","remember":"on","__csrf":"b5033141a52d279fff183954a05d500d","type":"login"}
+____________________________________
+	28 January 2021 12:21pm	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","__csrf":"b5033141a52d279fff183954a05d500d","type":"register"}
+____________________________________
+	28 January 2021 12:21pm	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","remember":"on","__csrf":"b5033141a52d279fff183954a05d500d","type":"login"}
+____________________________________
+	28 January 2021 12:21pm	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","__csrf":"b5033141a52d279fff183954a05d500d","type":"lpwd"}
+____________________________________
+	28 January 2021 12:21pm	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 12:21pm	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","__csrf":"05e094e456c5d6d90d3d0d5ee1ada6e9","type":"login"}
+____________________________________
+	28 January 2021 12:21pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:22pm	127.0.0.1	GET	/about	
+____________________________________
+	28 January 2021 12:22pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:22pm	127.0.0.1	GET	/docs	
+____________________________________
+	28 January 2021 12:22pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:22pm	127.0.0.1	GET	/docs	
+____________________________________
+	28 January 2021 12:22pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:44pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:44pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:44pm	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 12:44pm	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","__csrf":"7799cea15f90392e918e19d38b074ab1","type":"login"}
+____________________________________
+	28 January 2021 12:44pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:45pm	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 12:45pm	127.0.0.1	POST	/request	{"email":"Gogo@gmail.com","password":"password","remember":"on","__csrf":"fe4380f2e6e649d3c331a0e4fb992ed9","type":"login"}
+____________________________________
+	28 January 2021 12:45pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:45pm	127.0.0.1	GET	/login	
+____________________________________
+	28 January 2021 12:45pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:45pm	127.0.0.1	GET	/	
+____________________________________
+	28 January 2021 12:50pm	127.0.0.1	GET	/	
+____________________________________

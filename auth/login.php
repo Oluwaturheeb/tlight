@@ -15,7 +15,11 @@
 					<label>Password</label>
 					<input type="password" name="password" placeholder="Password" class="input-line">
 				</div>
-				<?php echo csrf(); ?>
+				<div>
+					<p for="rem">Remember me?</p>
+					<input type="checkbox" name="remember" id="rem" class="ignore">
+				</div>
+				<?php csrf(); ?>
 				<div id="captcha"></div>
 				<input type="hidden" name="type" value="login">
 				<div>
@@ -38,7 +42,7 @@
 					<input type="password" name="password" placeholder="Password" class="input-line">
 				</div>
 				<div id="captcha"></div>
-				<?php echo csrf(); ?>
+				<?php csrf(); ?>
 				<input type="hidden" name="type" value="register">
 				<div>
 					<div class="info"></div>
@@ -55,7 +59,7 @@
 					<input type="email" name="email" placeholder="Email" class="input-line">
 				</div>
 				<div id="captcha"></div>
-				<?php echo csrf(); ?>
+				<?php csrf(); ?>
 				<input type="hidden" name="type" value="lpwd">
 				<div>
 					<div class="info"></div>
@@ -77,7 +81,7 @@
 					<input type="password" name="verify" placeholder="Verify password" class="input-line">
 				</div>
 				<div id="captcha"></div>
-				<?php echo csrf(); ?>
+				<?php csrf() ?>
 				<input type="hidden" name="type" value="chpwd">
 				<div>
 					<div class="info"></div>

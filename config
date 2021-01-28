@@ -1,0 +1,35 @@
+[project]
+name = Tlyt
+lang = en
+region = Africa/Lagos
+
+[db]
+host = localhost
+database = tlight_app
+usr = root
+pwd = 
+
+[session]
+name = Tlight_sessions
+domain = tlight.com
+
+[auth]
+single = true
+login_attempts = 0
+last_pc = 30
+
+[state]
+development = true
+
+[cache]
+cache = false
+cacheexp = 3600
+dbcache = true
+
+[file-upload]
+max-file-upload = 5
+rename-file = 
+mime = []
+
+[log]
+log_request = true

@@ -1,0 +1,187 @@
+
+	17 January 2021 10:46pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 10:46pm	127.0.0.1	POST	/request	{"text":"<script>alert()<\/script> -- drop table auth --"}
+____________________________________
+	17 January 2021 10:46pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 10:46pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 10:46pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 10:47pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 10:48pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 10:48pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 10:55pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 10:56pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 10:56pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 10:57pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 10:57pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:09pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:10pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:12pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/index.php on 50 
+ Undefined variable: hi
+____________________________________
+	17 January 2021 11:12pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/index.php on 50 
+ Undefined variable: hi
+____________________________________
+	17 January 2021 11:12pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/index.php on 50 
+ Undefined variable: hi
+____________________________________
+	17 January 2021 11:13pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/index.php on 50 
+ Undefined variable: hi
+____________________________________
+	17 January 2021 11:14pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:14pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:14pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:15pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/index.php on 50 
+ Undefined variable: hi
+____________________________________
+	17 January 2021 11:15pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/index.php on 50 
+ Undefined variable: hi
+____________________________________
+	17 January 2021 11:15pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:19pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/index.php on 50 
+ Undefined variable: hi
+____________________________________
+	17 January 2021 11:20pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/index.php on 50 
+ Undefined variable: hi
+____________________________________
+	17 January 2021 11:20pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/index.php on 50 
+ Undefined variable: hi
+____________________________________
+	17 January 2021 11:21pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/index.php on 50 
+ Undefined variable: hi
+____________________________________
+	17 January 2021 11:21pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/index.php on 50 
+ Undefined variable: hi
+____________________________________
+	17 January 2021 11:21pm	127.0.0.1	GET	/	
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/index.php on 50 
+ Undefined variable: hi
+____________________________________
+	17 January 2021 11:22pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:22pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:23pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:24pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:36pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:36pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:36pm	127.0.0.1	POST	/	{"rwkskdokej":""}
+____________________________________
+	17 January 2021 11:36pm	127.0.0.1	POST	/	{"rwkskdokej":""}
+____________________________________
+	17 January 2021 11:36pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:36pm	127.0.0.1	POST	/request	{"rwkskdokej":""}
+____________________________________
+	17 January 2021 11:37pm	127.0.0.1	POST	/request	{"rwkskdokej":""}
+____________________________________
+	17 January 2021 11:37pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:38pm	127.0.0.1	POST	/request	{"rwkskdokej":"hi folk"}
+____________________________________
+	17 January 2021 11:38pm	127.0.0.1	POST	/request	{"rwkskdokej":"hi folk"}
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/pages/request.php on 5 
+ Undefined variable: ret
+____________________________________
+	17 January 2021 11:39pm	127.0.0.1	POST	/request	{"rwkskdokej":"hi folk"}
+____________________________________
+	17 January 2021 11:39pm	127.0.0.1	POST	/request	{"rwkskdokej":"hi folk"}
+____________________________________
+	17 January 2021 11:39pm	127.0.0.1	POST	/request	{"rwkskdokej":"hi folk"}
+____________________________________
+	17 January 2021 11:40pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:40pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:40pm	127.0.0.1	POST	/request	{"rwkskdokej":"","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:40pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:40pm	127.0.0.1	POST	/request	{"rwkskdokej":"hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:40pm	127.0.0.1	POST	/request	{"rwkskdokej":"hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:41pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:41pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:43pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+Error encountered in /mnt/shell/emulated/0/www/tlight/components/Validate.php on 316 
+ array_map(): Expected parameter 2 to be an array, string given
+____________________________________
+	17 January 2021 11:46pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:47pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:48pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:49pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:49pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:51pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:53pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:54pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:54pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:55pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:55pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:56pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:57pm	127.0.0.1	GET	/	
+____________________________________
+	17 January 2021 11:57pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________
+	17 January 2021 11:58pm	127.0.0.1	POST	/request	{"rwkskdokej":"\/* drop table user *\/ hello folk","__csrf":"0f6d0a9b1f5d6ff65fee86db3c42e223"}
+____________________________________

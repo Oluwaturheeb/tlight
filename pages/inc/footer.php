@@ -4,3 +4,5 @@
 	</footer>
 	<script type="text/javascript" src="<?php echo JS, "app.js" ?>"></script>
 </html>
+<?php
+Caching::createCacheFile();

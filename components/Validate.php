@@ -2,105 +2,143 @@
 
 class Validate {
 	protected $_pass = false, $_file = '', $_errors = [];
+	public $validated;
 	
-	public function validator($src, $fields = []){
-		if ($_SERVER['SERVER_NAME'] != Config::get('session/domain')) {
-			$this->addError(['msg' => 'Error understanding this URI', 'status' => 404]);
-		} elseif (!$this->req('__csrf')) {
+	public function validator($src, $fields = [], bool $stack = false){
+		if (!req('__csrf')) {
 			if ($_SERVER['REQUEST_METHOD'] !== 'GET' && !$_SERVER['QUERY_STRING'])
 				$this->addError(['msg' => 'Csrf not found in form!', 'status' => 419]);
 		} else {
 			if (empty($this->error())) {
 				$csrf = $this->validate_csrf($this->req('__csrf'));
 				if ($csrf === false) {
-					//$this->addError(['status' => 422, 'msg' => 'Csrf token mismatch, refresh the page!']);
 					return;
 				} else {
 					// other validations may now follow!
-					foreach($fields as $field => $options){
+					// ini errors
+					$dError = [];
+					foreach ($fields as $field => $options) {
 						$input = @trim($src[$field]);
 						foreach($options as $rule => $value){
-							if(empty($option['field'])  && empty($option['error'])){
-								$field_name = ucfirst($field);
-								$field_error = '';
+							// check error report type
+							if (!$stack)
+								if ($dError)
+									break;
+							
+							// checking custom error
+							if(empty($options['error'])){
+								$error = '';
 							} else {
-								$field_name = ucfirst($options['field']);
-								$field_error = ucfirst($options['error']);
+								$error = ucfirst($options['error']);
 							}
-							if ($rule != 'null') {
+							// if the field is optional
+							
+							if (!isset($options['null'])) {
+								// check for field name
+								if (isset($options['name'])) {
+									$field_name = $options['name'];
+								} else {
+									$field_name = $field;
+								}
+								
+								//execute other rules
 								if($rule == 'required' && empty($input)){
-									$this->addError($field_name. ' cannot be empty!');
+									if (!$error)
+										$def .= $field_name. ' cannot be empty!';
 								}else{
+									// default error 
+									$def ='';
 									switch($rule){
 										case 'email':
 											if(!strpos($input, '.') || !strpos($input, '@')){
-												$this->addError('Invalid email address!');
+												$def .= 'Invalid email address!';
 											}
 											break;
 										case 'match':
 											if($input !== $src[$value]){
-												$this->addError('Password do not match!');
+												$def .= 'Password do not match!';
 											}
 											break;
 										case 'max':
 											if (!is_numeric($input))
 												if(strlen($input) > $value){
-													$this->addError('Maximum characters exceeded for ' .$field_name. ' field!');
+													$def .= 'Maximum characters exceeded for ' .$field_name. ' field!';
 												}
 											else 
 												if ($input > $value) {
-													$this->addError($field_name.' is greater than '.$value);
+													$def .= $field_name.' is greater than '.$value;
 												}
 											break;
 										case 'min':
 											if(!is_numeric($input)) {
 												if(strlen($input) < $value)
-													$this->addError($field_name.' should be at least minimum of $value characters!');
+													$def .= $field_name.' should be at least minimum of '. $value .' characters!';
 											} else {
 												if ($input < $value) 
-													$this->addError($field_name.' value is less than '.$value);
+													$def .= $field_name.' value is less than '.$value;
 											}
 											break;
 										case 'number':
 											if(!is_numeric($input)){
-												$this->addError($field_name.' should have a numeric value!');
+												$def .= $field_name.' should have a numeric value!';
 											}
 											break;
 										case 'unique':
-											$d = Db::instance();
-											$d->table($value);
-											$d->get(['id'])->where([$field, $input])->res(1);
-											if($d->count())
-												$this->addError($field_name . ' exists, try another!');
+											$d = (new Crud($value))->unique($field);
+											if($d)
+												$def .= $field_name . ' exists, try another!';
 											break;
 										case 'wordcount':
-											$cal = $value - str_word_count($input);
-											if(str_word_count($input) < $value){
-												$this->addError($field_name.' should have at least $value words! Remain '.$cal);
+											$cal = $value - str_word_count($input, 0, '@._');
+											if(str_word_count($input, 0, '@._') < $value){
+												$def .= $field_name.' should have at least '.$value.' words! Remain '.$cal;
 											}
 											break;
 										case 'multiple':
-											if(!count(array_filter($src[$field]))){
-												$this->addError($field_name.' is required!');
+											if(!count(array_filter($src[$field]))) {
+												$def .= $field_name.' is required!';
 											}
+											break;
+										case 'cap':
+											$input = ucfirst($input);
+										break;
+										case 'capword':
+											$input = ucwords($input);
+										break;
 									}
 								}
 							}
+							//subbing errors
+							if ($def) {
+								if ($error)
+									$dError[] = $error;
+								else
+									$dError[] = $def;
+							}
+							$def = null;
 						}
+						$key[] = $field_name;
+						$val[] = $input;
 					}			
 				}
 			}
 		}
-		
-		if(!empty($this->_errors)){
+		// formatting error output
+		if($dError) {
 			$this->_pass = true;
+			if (!$stack)
+				$this->addError($dError[0]);
+			else
+				$this->addError($dError);
+		} else {
+			$this->validated = (object) array_combine($this->filter($key), $this->filter($val));
 		}
 	}
 		
 	/* auto validating http request */
 
 	public function autoValidate (...$rules) {
-			$keys = $val = [];
+			$keys = $name = $val = [];
 			$i = 0;
 			
 			if (end($rules) === true) {
@@ -108,16 +146,19 @@ class Validate {
 				$rules = $rules[0];
 			}
 			
-			foreach ($this->req() as $key => $value) {
-				$rule = null;
+			foreach (req() as $key => $value) {
+				$rule = $c = null;
 				if ($key != '__csrf') {
 					$rule = ['required' => true];
 					if (is_array($value))
 						$rule = ['multiple' => true];
-						
+					
 					if (!empty($rules)) {
-						if (@$rules[$i])
+						if (isset($rules[$i])) {
 							$rule = $rules[$i];
+							
+						if (isset($rule['name'])) $c = true;
+						}
 					}
 					$this->validator($this->req(), [
 						$key => $rule
@@ -127,25 +168,16 @@ class Validate {
 					
 					// removing csrf key
 					if($key != '__csrf') {
+						if ($c) $key = $rule['name'];
 						array_push($keys, $key);
 						array_push($val, $value);
 					}
 					$i++;
 				}
 			}
-			$this->filter_array($keys);
-			$this->filter_array($val);
-			$forked = [$keys, $val];
-			return $forked;
+			$this->validated = null;
+			return [$this->filter($keys), $this->filter($val)];
 	}
-	
-	public function filter_str ($str) {
-		preg_match_all('/^--/i', $str, $match, PREG_OFFSET_CAPTURE);
-		
-		print_r($match);
-	}
-	
-	
 
 	/* http request handler */
 	
@@ -159,11 +191,7 @@ class Validate {
 		}
 
 		if ($r) {
-			if (@$req[$r]) {
-				$req = $req[$r];
-			} else {
-				$req = false;
-			}
+			(isset($req[$r])) ? $req = $req[$r] : $req = false;
 		}
 
 		return $req;
@@ -271,8 +299,13 @@ class Validate {
 		return password_hash($hash, PASSWORD_BCRYPT);
 	}
 	
-	public static function _hash ($hash) {
-		return hash_hmac('haval160,4', $hash, 'tlight is lit');
+	public static function _hash ($hash, $len = 0) {
+		$hash = hash_hmac('haval160,4', $hash, 'tlight is lit');
+		
+		if ($len)
+			return substr($hash, 0, $len);
+			
+		return $hash;
 	}
 	
 	public function addError($error = ''){
@@ -304,32 +337,34 @@ class Validate {
 		return false;
 	}
 	
-	public function filter_array ($arr) {
-		return array_map([$this, 'filter'], $arr);
-	}
-	
 	public static function filter($str){
-		if (is_array($str)) {
-			return array_map([Validate::class, 'filter'], $str);
-		}
+		if (!$str) return;
 		
-		return @htmlentities(trim((@ucfirst($str))), ENT_QUOTES, 'utf-8', false);
+		if (is_array($str))
+			return array_map([Validate::class, 'filter'], $str);
+		
+		return htmlentities(trim(self::filter_str($str)), ENT_QUOTES, 'utf-8', false);
 	}
 	
+	private static function filter_str ($str) {
+		$si = ['/*' => '', '*/' => '', '==' => '', 'select * from' => '', 'drop table' => '', 'drop database' => '', 'delete from' => '', 'display:none' => '', 'display: none' => '', '--' => '- -', ' --' => '', '-- '=> ''];
+		$str = strtr($str, $si);
+		return $str;
+	}
 	
 	public static function csrf() {
 		// if there aint an active csrf
 		if (!Session::check('csrf_token')) {
 			$ses = substr(self::_hash(Utils::gen()), 0, 32);
 			Session::set('csrf_token', $ses);
-			Session::set('expires', time() + 60 * 60);
+			Session::set('expires', time() + 60 * 30);
 		} else {
 			// if there is
 			$ses = Session::get('csrf_token');
 		}
 		
 		$html = <<<__here
-		<div><label>csrf</label><input type="hidden" name="__csrf" value="$ses" id="__csrf"/></div>
+		<div><label style="display: none">csrf</label><input type="hidden" name="__csrf" value="$ses" id="__csrf"/></div>
 __here;
 		return $html;
 	}
@@ -352,6 +387,14 @@ __here;
 		} else {
 			$this->addError(['status' => 419, 'msg' => 'Csrf token error, refresh the page!']);
 		}
+		return false;
+	}
+	
+	public static function sameSite () {
+		if (isset($_SERVER['HTTP_ORIGIN']))
+			if ($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'] !== $_SERVER['HTTP_ORIGIN'])
+			if (!strstr($_SERVER['REQUEST_URI'], '/api/'))
+				return true;
 		return false;
 	}
 }

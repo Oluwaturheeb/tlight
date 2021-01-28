@@ -3,7 +3,12 @@
 class Config {
 	public static function get($path){
 		$path = explode('/', $path);
-		$data = $GLOBALS['config'];
+		//load config file
+		if ($_SERVER['SCRIPT_FILENAME'] == 'tlyt') 
+			$con = 'config';
+		else
+			$con = '../config';
+		$data = parse_ini_file($con, 1, INI_SCANNER_TYPED);
 		foreach ($path as $val) {
 			if(isset($data[$val])){
 				$data = $data[$val];

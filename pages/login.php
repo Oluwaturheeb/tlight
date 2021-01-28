@@ -1,15 +1,13 @@
 <?php 
-require_once "Autoload.php";
-// enter wherr to redirect to if there is an active login
-authCheck('/');
+require_once 'Autoload.php';
 
-$title = "Welcome";
-require_once "inc/header.php";
+$title = 'Welcome';
+require_once 'inc/header.php';
 
 ?>
 
 	<div class="container">
-		<?php require_once "auth/login.php"; ?>
+		<?php require_once "../auth/login.php"; ?>
 	</div>
 <?php
-require_once "inc/footer.php";
+require_once 'inc/footer.php';

@@ -1,18 +1,19 @@
 try {
 	// activate event
 	self.addEventListener('activate', e => {
-		//alert('activate')
+		console.log('activate')
 	})
 	
 	// fetch event
 	self.addEventListener('fetch', e => {
-		//alert('fetch')
+		console.log('fetch')
 	})
 	
 	// install event
 	self.addEventListener('install', e => {
+		console.log('install');
 		var sender = ( event.ports && event.ports[0] ) || event.source;
-			//window.addEventListener('beforeinstallprompt', e => {
+		self.addEventListener('beforeinstallprompt', e => {
 			e.prompt();
 		})
 	})

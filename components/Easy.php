@@ -1,12 +1,13 @@
 <?php
 #namespace Easy;
 
-class Easy extends Db {
+class Crud extends Db {
 	protected $_method, $_col = [], $_inp = [], $_v, $_val, $_pages, $_op;
 	
-	public function __construct () {
+	public function __construct ($tab = null) {
 		parent::__construct();
 		$this->_v = new Validate();
+		$this->table($tab);
 	}
 
 	/*
@@ -19,7 +20,7 @@ class Easy extends Db {
 
 	*/
 
-	public function unique ($col) {
+	/*public function unique ($col) {
 		$this->_error = null;
 		if (is_array($col)) {
 			$this->get(["id"])->where([$col[0], Http::req($col[0])], [$col[1], Http::req($col[1])])->res();
@@ -31,7 +32,7 @@ class Easy extends Db {
 			return true;
 		
 		return false;
-	}
+	}*/
 
 	public function create () {
 		$v = $this->_v;
@@ -73,7 +74,7 @@ class Easy extends Db {
 
 	*/
 
-	public function fetch ($cols = ["*"], ...$where) {
+	public function read ($cols = ["*"], ...$where) {
 		$val = $this->_v;
 
 		if (Http::req()) {
@@ -83,7 +84,7 @@ class Easy extends Db {
 				$this->_error = $val->error();
 			}
 		}
-
+		
 		if (!$this->_error) {
 			$this->get($cols);
 			//checking to remove more as its reserved for pagination, so that it wont use it for where clause;
@@ -151,7 +152,7 @@ class Easy extends Db {
 		}
 	}
 
-	public function del ($con = [], $ops = []) {
+	public function delete ($con = [], $ops = []) {
 		$v = $this->_v;
 		if (Http::req()) {
 			list($this->_col, $this->_inp) = $v->autoValidate();
@@ -279,7 +280,6 @@ class Easy extends Db {
 
 	public function with_supp ($col, $val, $op = "") {
 		$f = [];
-
 		foreach ($col as $k => $v) {
 			if ($op) {
 				if (@$op[$k]) {

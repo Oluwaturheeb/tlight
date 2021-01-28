@@ -1,7 +1,7 @@
 <?php
 
 class Db {
-	protected $_pdo, $_error = false, $_instance, $_table, $_sql, $_query_value = [], $_con, $_misc,  $_sort, $_count, $_lastid, $_result = null;
+	protected $_pdo, $_error = false, $_instance, $_table, $_sql, $_query_value = [], $_misc,  $_sort, $_count, $_lastid, $_result = null;
 
 	public $paging = false, $next = 0, $prev;
 	
@@ -72,8 +72,12 @@ class Db {
 	public function get ($cols = ['*']) {
 		if (!$this->_error) {
 			if (!is_array($this->_table)) {
-				$this->_sql = 'select ' . implode(', ', $cols) . ' from ';
-				$this->_sql .= $this->_table;
+				if (!is_array($cols)) {
+					$this->_error = 'This method expects an array as parameter 1';
+				} else {
+					$this->_sql = 'select ' . implode(', ', $cols) . ' from ';
+					$this->_sql .= $this->_table;
+				}
 			} else {
 				// this little code is use for union   
 
@@ -135,7 +139,7 @@ class Db {
 	public function find (...$where) {
 		if (!$this->_error) {
 			if (!empty($where)) {
-				$form = $this->gen($this->form($where, true), $this->_con);
+				$form = $this->gen($this->form($where, true), 'or');
 				$w = str_replace('=', 'like', $form[0]);
 
 				function ff ($a) {
@@ -159,12 +163,8 @@ class Db {
 				$args = $id;
 			}
 			$gen = $this->gen($this->form($args), 'and');
-
-			if (!empty($this->_query_value)) {
-				$this->_query_value = array_merge($this->_query_value, $gen[1]);
-			} else {
-				$this->_query_value = $gen[1];
-			}
+			
+			$this->queryValue($gen[1]);
 
 			if ($this->_misc !== true) {
 				$this->_sql .= $gen[0];
@@ -183,13 +183,10 @@ class Db {
 			} else {
 				$args = $id;
 			}
+			
 			$gen = $this->gen($this->form($args), 'or');
-
-			if (!empty($this->_query_value)) {
-				$this->_query_value = array_merge($this->_query_value, $gen[1]);
-			} else {
-				$this->_query_value = $gen[1];
-			}
+			
+			$this->queryValue($gen[1]);
 
 			if ($this->_misc !== true) {
 				$this->_sql .= $gen[0];
@@ -208,51 +205,101 @@ class Db {
 			$new = implode(', ', array_fill(1, count($val), '?'));
 			$this->_sql .= " where {$col} in ({$new})";
 		}
-		if (!empty($this->_query_value) && !empty($val)) {
-			$this->_query_value = array_merge($this->_query_value, $val);
-		} else {
-			$this->_query_value = $val;
+		
+		$this->queryValue($val);
+		return $this;
+	}
+	
+	// where a single value matches different columns
+	public function whereManyToOne ($val, $col, $sign = []) {
+		if (!$this->_error) {
+			$q = '';
+			foreach ($col as $n => $a) {
+				if (empty($sign) || !is_array($sign)) {
+					$sign = '=';
+				} else {
+					$sign = $sign[$n];
+				}
+				if ($n > 0) {
+					$q .= ' and ';
+				}
+				
+				$q .= $a. ' ' . $sign . ' ?';
+			}
+			
+			$this->queryValue(array_fill(0, count($col), $val));
+			$this->_sql .= ' where ' .$q;
 		}
 		return $this;
 	}
+	
+	public function orWhereManyToOne ($val, $col, $sign = []) {
+		if (!$this->_error) {
+			$q = '';
+			foreach ($col as $n => $a) {
+				if (empty($sign) || !is_array($sign)) {
+					$sign = '=';
+				} else {
+					$sign = $sign[$n];
+				}
+				if ($n > 0) {
+					$q .= ' or ';
+				}
+				
+				$q .= $a. ' ' . $sign . ' ?';
+			}
+			
+			$this->queryValue(array_fill(0, count($col), $val));
+			$this->_sql .= ' where ' .$q;
+		}
+		return $this;
+	}
+	
 
 	public function pages ($ppage = 5, $url = '') {
 		if (!$this->_error) {
 			$this->query($this->_sql, $this->_query_value);
 			$last = ceil($this->count() / $ppage);
 			
-			if (Http::req($url)) {
-				$each = Http::req($url);
-			} elseif (!empty($_GET)) {
-				foreach ($_GET as $key) {
-					$each = $key;
-				}
-			} else {
-				$each = 1;
-			}
+			$v = new Validate();
+			$v->autoValidate(['number' => true]);
 			
-			if (is_numeric($each)) {
-				if ($each >= $last) {
-					$each = $last;
-				}
+			if ($v->error()) {
+				$this->_error = $v->error();
 			} else {
-				$each = 1;
-			}
-			
-			if ($last > 1) {
-				if ($each < $last) {
-					$next = $each + 1;
-					$prev = $each - 1;
-				} else if ($each >= $last) {
-					$next = $last;
-					$prev = $last - 1;
+				if (req($url)) {
+					$each = req($url);
+				} elseif (!empty($_GET)) {
+					foreach ($_GET as $key) {
+						$each = $key;
+					}
+				} else {
+					$each = 1;
 				}
-				$this->paging = true;
-				$this->next = $next;
-				$this->prev = $prev;
+				
+				if (is_numeric($each)) {
+					if ($each >= $last) {
+						$each = $last;
+					}
+				} else {
+					$each = 1;
+				}
+				
+				if ($last > 1) {
+					if ($each < $last) {
+						$next = $each + 1;
+						$prev = $each - 1;
+					} else if ($each >= $last) {
+						$next = $last;
+						$prev = $last - 1;
+					}
+					$this->paging = true;
+					$this->next = $next;
+					$this->prev = $prev;
+				}
+	
+				$this->_sql .= ' limit ' . ($each - 1) * $ppage . ', ' . $ppage;
 			}
-
-			$this->_sql .= ' limit ' . ($each - 1) * $ppage . ', ' . $ppage;
 		}
 		return $this;
 	}
@@ -307,7 +354,6 @@ class Db {
 			return $this->_error;
 		} else {
 			$this->_sort = null;
-			$this->_con = null;
 			$this->_misc = null;
 
 			$this->query($this->_sql, $this->_query_value);
@@ -341,7 +387,7 @@ class Db {
 	}
 	
 	public function __tostring() {
-		return $this->out();
+		return $this->out() . '<br>' . @implode(',', $this->_query_value);
 	}
 
 	// protected methods
@@ -390,6 +436,15 @@ class Db {
 			}
 		}
 		return $where;
+	}
+	
+	private function queryValue ($item) {
+		if (!empty($this->_query_value)) {
+			$this->_query_value = array_merge($this->_query_value, $item);
+		} else {
+			$this->_query_value = $item;
+		}
+		return $this;
 	}
 
 	protected function gen ($where = [], $cc) {
